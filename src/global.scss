@@ -9,3 +9,19 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+
+ion-content{
+    font-family: "Montserrat";
+    --ion-background-color: "#E6E6FA";
+    background-image: url("/assets/background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    color:white;
+}
+ion-title{
+    font-family:"monseratt"
+}
+ion-toolbar{
+    border-bottom:1px solid dodgerblue;
+}

@@ -1,1 +1,39 @@
+ion-header{
+    --ion-background-color: #E0FFFF;
+}
+ion-card{
+    font-family: "Monserrat";
+}
+ion-card-subtitle{
+    color:white;
+    text-shadow: 1px 1px grey;
+}
 
+#tit{
+    color:rgb(4, 4, 119);
+    text-shadow: 1px 1px yellow;
+}
+#tit2{
+    color:white;
+    text-shadow: rgba(4, 7, 7, 0.938);
+    background-color: rgba(0,0,0,0.1);
+}
+#image1{
+    border-radius:4em;
+   
+}
+.welcome-card{
+    background:  rgba(255, 255, 255, 0.3);
+    border: 1px solid dodgerblue;
+    box-shadow: 2px solid dodgerblue;
+}
+ion-toolbar{
+    border-bottom:1px solid dodgerblue;
+}
+#btnLog{
+    border:1px solid yellow;
+    border-radius:4em;
+    width:85%;
+    margin-left:30px;
+    font-family: "montserrat";
+}

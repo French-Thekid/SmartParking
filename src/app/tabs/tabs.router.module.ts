@@ -35,15 +35,33 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab4',
+        children: [
+          {
+            path: '',
+            loadChildren: '../tab4/tab4.module#Tab4PageModule'
+          }
+        ]
+      },
+      {
+      path: 'tab5',
+        children: [
+          {
+            path: '',
+            loadChildren: '../tab5/tab5.module#Tab5PageModule'
+          }
+        ]
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/tab2',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/tab2',
     pathMatch: 'full'
   }
 ];

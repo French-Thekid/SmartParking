@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'app-tab5',
+  templateUrl: 'tab5.page.html',
+  styleUrls: ['tab5.page.scss']
 })
-export class Tab3Page {
+export class Tab5Page {
 
   constructor(public alertController: AlertController) {}
 
