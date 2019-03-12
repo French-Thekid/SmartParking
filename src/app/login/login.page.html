@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button (click)="returnHome()" routerLink="/" routerDirection="back" color="Dark" id="back"> <ion-icon id="back" size="large" name="arrow-back"></ion-icon> </ion-button>
     <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <div id="log">
+    <ion-card id="log">
         <ion-img id="image2" src="/assets/log.png"></ion-img><br>
         <ion-label id="UL">User Login</ion-label>
         <ion-card>
@@ -23,10 +24,10 @@
               <p style="font-family:Monserrat; color:#DCDCDC">Not a member? <a style="text-decoration: none;color:blue" href="#">Register now</a></p>
             </ion-list>
             <br><br>
-            <ion-button color="Clear" >Clear</ion-button>
-            <ion-button color="Clear" >Login</ion-button>
+            <ion-button id="btn2" href="#" color="Clear" >Clear</ion-button>
+            <ion-button id="btn2" (click)="OpenPortal()" color="Clear" >Login</ion-button>
           </ion-card-content>
         </ion-card>
-    </div>
+      </ion-card>
 
 </ion-content>

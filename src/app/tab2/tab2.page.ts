@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -10,7 +11,7 @@ import {Router } from '@angular/router';
 })
 export class Tab2Page {
 
-  constructor(public router: Router){
+  constructor(public router: Router, public alertController: AlertController){
 
   }
 
@@ -18,4 +19,14 @@ export class Tab2Page {
      this.router.navigate(['login']);
   }
 
+  async openProfile() {
+    const alert = await this.alertController.create({
+      header: 'French Pop-up',
+      subHeader: 'Under Construction',
+      message: 'This section will be up soon fam.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }

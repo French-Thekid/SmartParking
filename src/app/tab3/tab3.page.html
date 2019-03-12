@@ -1,13 +1,29 @@
 <ion-header>
-  <ion-toolbar>
-   
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+        <ion-title>
+           Making a Reservation
+          </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
 
-<ion-content>
-  <ion-button ionFocus href="#" size="small"  shape="round" expand="block" color="dark">
-      Make Reservation
-  </ion-button>
-
-
-</ion-content>
+  <ion-content>
+      <ion-card class="welcome-card">
+          <ion-img id="image3" src="/assets/reserve.jpg"></ion-img>
+        <ion-card-content id="top">
+            <ion-card-subtitle>Reserve your Parking space in 3 single clicks</ion-card-subtitle>
+            <ion-icon name="arrow-dropright-circle"></ion-icon>
+            <ion-label>   Select your Desired Parking Spot.</ion-label><br>
+            <ion-icon name="arrow-dropright-circle"></ion-icon>
+            <ion-label>   Select Estimated Time to Arrival (ETA).</ion-label><br>
+            <ion-icon name="arrow-dropright-circle"></ion-icon>
+            <ion-label>   Click Reserve and thats it! </ion-label>
+        </ion-card-content>
+        <ion-card-content>
+            <ion-button class="Try" ionFocus href="#" color="dark"><ion-icon name="compass"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My Desired Spot</ion-button>
+            <ion-button ionFocus href="#" color="dark"><ion-icon name="time"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My ETA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+            <ion-button ionFocus href="#" color="dark"><ion-icon name="checkmark-circle"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Reserve My Spot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+        </ion-card-content>
+      </ion-card>
+  </ion-content>
+  
