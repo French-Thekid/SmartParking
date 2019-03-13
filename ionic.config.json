@@ -1,5 +1,7 @@
 {
   "name": "SmartParking",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

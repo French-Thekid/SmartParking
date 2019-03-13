@@ -16,4 +16,11 @@ export class AdminPortalPage implements OnInit {
   ngOnInit() {
   }
 
+  EntranceV(){
+    this.router.navigate(['allocate-vehicle']);
+  }
+  exitV(){
+    this.router.navigate(['deallocate-vehicle']);
+  }
+
 }

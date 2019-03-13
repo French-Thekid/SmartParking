@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>AdminPortal</ion-title>
-    <ion-button (click)="logOut()" routerLink="/" routerDirection="back" color="Dark" id="back"> <ion-icon id="back" size="large" name="log-out"></ion-icon> </ion-button>
+    <ion-title>Administrator's Portal</ion-title>
+    <ion-button float-right (click)="logOut()" routerLink="/" routerDirection="back" color="Dark" id="back"> <ion-icon id="back" size="large" name="log-out"></ion-icon> </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -11,32 +11,37 @@
         <ion-card id="top">
             <ion-img id="image" src="/assets/bmw.jpg"></ion-img>
             <ion-list-header>
-              <ion-label style="margin-left:15%;text-shadow: 1px 1px grey" id="lbl1">Activity Selection</ion-label>
+            <ion-label style="margin-left:15%;text-shadow: 1px 1px grey" id="lbl1">Activity Selection</ion-label>
             </ion-list-header>
             <ion-label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select an Activity from the options &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;below to proceed</ion-label>
         </ion-card>
-          <ion-item href="#">
+          <ion-item router-direction="forward" (click)="EntranceV()">
             <ion-icon  slot="start" name="car"></ion-icon> 
             <ion-icon slot="start" name="arrow-round-forward"></ion-icon>
             <ion-label id="lbl">Vehicles Entering</ion-label>
+            <ion-icon id="arrow" size="small" name="arrow-forward"></ion-icon>
           </ion-item>
-          <ion-item href="#">
-              <ion-icon slot="start" name="car"></ion-icon> 
-              <ion-icon slot="start"  name="arrow-round-back"></ion-icon>
-            <ion-label id="lbl">Vehicles Leaving</ion-label>
+          <ion-item router-direction="forward" (click)="exitV()">
+            <ion-icon slot="start" name="car"></ion-icon> 
+            <ion-icon slot="start"  name="arrow-round-back"></ion-icon>
+            <ion-label id="lbl">Vehicles Exiting</ion-label>
+            <ion-icon id="arrow" size="small" name="arrow-forward"></ion-icon>
           </ion-item>
-          <ion-item href="#">
-              <ion-icon slot="start" name="car"></ion-icon> 
-              <ion-icon slot="start" name="eye"></ion-icon>
+          <ion-item router-direction="forward" (click)="vehicleV()">
+            <ion-icon slot="start" name="car"></ion-icon> 
+            <ion-icon slot="start" name="eye"></ion-icon>
             <ion-label id="lbl">View Vehicles Parked</ion-label>
+            <ion-icon id="arrow" size="small" name="arrow-forward"></ion-icon>
           </ion-item>
-          <ion-item href="#">
-              <ion-icon slot="start" name="journal"></ion-icon>
-              <ion-label id="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check Reports</ion-label>
+          <ion-item router-direction="forward" (click)="reportV()">
+            <ion-icon slot="start" name="journal"></ion-icon>
+            <ion-label id="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check Reports</ion-label>
+            <ion-icon id="arrow" size="small" name="arrow-forward"></ion-icon>
             </ion-item>
-          <ion-item href="#">
-              <ion-icon slot="start" name="settings"></ion-icon>
-              <ion-label id="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage System</ion-label>
+          <ion-item router-direction="forward" (click)="manageSys()">
+            <ion-icon slot="start" name="settings"></ion-icon>
+            <ion-label id="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage System</ion-label>
+            <ion-icon id="arrow" size="small" name="arrow-forward"></ion-icon>
             </ion-item>
         </ion-list>
   </ion-card>
