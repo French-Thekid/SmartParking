@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button
+      (click)="back()"
+      routerLink="/"
+      routerDirection="back"
+      color="Dark"
+      id="back"
+    >
+      <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title>Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card id="log">
+    <ion-img id="image2" src="/assets/reg.png"></ion-img><br />
+    <ion-label id="UL">User Registration</ion-label>
+    <ion-card>
+      <ion-card-content>
+        <ion-list no-line>
+          <ion-item>
+            <ion-icon name="person"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="   Full Name"
+              [(ngModel)]="username"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="card"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="   ID Number"
+              [(ngModel)]="id"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="lock"></ion-icon>
+            <ion-input
+              type="Password"
+              placeholder="   Password"
+              [(ngModel)]="password"
+            ></ion-input>
+          </ion-item>
+          <br />
+        </ion-list>
+        <br /><br />
+        <ion-button id="btn2" href="#" color="Clear">Clear</ion-button>
+        <ion-button id="btn2" (click)="register()" color="Clear"
+          >Register</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
+  </ion-card>
+</ion-content>
