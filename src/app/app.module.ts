@@ -14,19 +14,29 @@ import { AllocateVehiclePageModule } from './allocate-vehicle/allocate-vehicle.m
 import { Camera } from '@ionic-native/camera/ngx';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import firebaseConfig from './firebase';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
-  declarations: [AppComponent,],
+  declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, NgxQRCodeModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+    NgxQRCodeModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
+  ],
   providers: [
     StatusBar,
     Camera,
-    SplashScreen, BarcodeScanner,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SplashScreen,
+    BarcodeScanner,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  
-}
+export class AppModule {}

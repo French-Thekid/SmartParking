@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-button
-      (click)="returnHome()"
+      (click)="back()"
       routerLink="/"
       routerDirection="back"
       color="Dark"
@@ -9,14 +9,14 @@
     >
       <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-title>login</ion-title>
+    <ion-title>Registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card id="log">
-    <ion-img id="image2" src="/assets/log.png"></ion-img><br />
-    <ion-label id="UL">User Login</ion-label>
+    <ion-img id="image2" src="/assets/reg.png"></ion-img><br />
+    <ion-label id="UL">User Registration</ion-label>
     <ion-card>
       <ion-card-content>
         <ion-list no-line>
@@ -24,8 +24,16 @@
             <ion-icon name="person"></ion-icon>
             <ion-input
               type="text"
-              placeholder="   Username"
+              placeholder="   Full Name"
               [(ngModel)]="username"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="card"></ion-icon>
+            <ion-input
+              type="text"
+              placeholder="   ID Number"
+              [(ngModel)]="id"
             ></ion-input>
           </ion-item>
           <ion-item>
@@ -37,17 +45,11 @@
             ></ion-input>
           </ion-item>
           <br />
-          <p style="font-family:Monserrat; color:#DCDCDC">
-            Not a member?
-            <a style="text-decoration: none;color:blue" href="register"
-              >Register now</a
-            >
-          </p>
         </ion-list>
         <br /><br />
         <ion-button id="btn2" href="#" color="Clear">Clear</ion-button>
-        <ion-button id="btn2" (click)="OpenPortal()" color="Clear"
-          >Login</ion-button
+        <ion-button id="btn2" (click)="register()" color="Clear"
+          >Register</ion-button
         >
       </ion-card-content>
     </ion-card>
