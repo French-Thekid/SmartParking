@@ -7,7 +7,14 @@ ion-title{
   font-family: "Montserrat";
 }
 #Layout{
-  height:700px;
+  height:900px;
   width:100%;
   background: rgba(0,0,0,0.1);
+}
+.alertDanger{
+  background-color: black;
+  color: red;
+  button{
+      color: red;
+  }
 }
