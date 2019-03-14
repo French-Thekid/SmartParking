@@ -2,23 +2,18 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-
-
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
-  
 })
 export class Tab2Page {
-  buttonColor = "#000"
-  constructor(public router: Router, public alertController: AlertController){
+  buttonColor = '#000';
+  constructor(public router: Router, public alertController: AlertController) {}
 
-  }
-
-  OpenLogin(){
-     this.buttonColor = "#000080";
-     this.router.navigate(['login']);
+  OpenLogin() {
+    this.buttonColor = '#000080';
+    this.router.navigate(['login']);
   }
 
   async openProfile() {
