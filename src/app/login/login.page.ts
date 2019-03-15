@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +10,26 @@ import { auth } from 'firebase/app';
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
-  username: string = '';
+  userid: string = '';
   password: string = '';
 
-  constructor(public router: Router, public afAuth: AngularFireAuth) {}
+  constructor(
+    public router: Router,
+    public afAuth: AngularFireAuth,
+    public user: UserService
+  ) {}
 
   async OpenPortal() {
-    const { username, password } = this;
+    const { userid, password } = this;
     try {
       const res = await this.afAuth.auth.signInWithEmailAndPassword(
-        username + '@smartpark.com',
+        userid + '@smartpark.com',
         password
       );
       this.router.navigate(['admin-portal']);
     } catch (err) {
       console.dir(err);
+      //
       if (err.code === 'auth/user-not-found') {
         console.log('User not Found');
       }
