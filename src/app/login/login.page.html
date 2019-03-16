@@ -36,19 +36,17 @@
               [(ngModel)]="password"
             ></ion-input>
           </ion-item>
-          <br />
-          <p style="font-family:Monserrat; color:#DCDCDC">
-            Not a member?
-            <a style="text-decoration: none;color:blue" href="register"
-              >Register now</a
-            >
-          </p>
+          <br/>
         </ion-list>
+        <p style="font-family:Monserrat; color:#DCDCDC">
+          <ion-item no-line style="text-decoration: none;color:blue;font-family: monserrat;font-size:15px" (click)="registerP()">
+             <p style="font-family:Monserrat; color:#DCDCDC">
+              Not a member ?</p>&nbsp;&nbsp;Register now
+          </ion-item>
+        </p>
         <br /><br />
-        <ion-button id="btn2" href="#" color="Clear">Clear</ion-button>
-        <ion-button id="btn2" (click)="OpenPortal()" color="Clear"
-          >Login</ion-button
-        >
+        <ion-button id="btn2" [ngStyle]="{'background-color':regS}" (click)="clear()" color="Clear"  >Clear</ion-button>
+        <ion-button id="btn2" [ngStyle]="{'background-color':logS}" (click)="OpenPortal()" color="Clear">Login</ion-button>
       </ion-card-content>
     </ion-card>
   </ion-card>

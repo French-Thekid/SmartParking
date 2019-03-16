@@ -8,7 +8,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./allocate-vehicle.page.scss'],
 })
 export class AllocateVehiclePage implements OnInit {
-
+ 
   constructor(private router: Router,public platform: Platform) { }
 
   ngOnInit() {

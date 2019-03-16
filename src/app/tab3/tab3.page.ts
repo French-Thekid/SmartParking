@@ -37,7 +37,6 @@ export class Tab3Page {
   }
 
   async selectTime() {
-    this.check=true
     const alert = await this.alertController.create({
       header: 'Time Selection',
       inputs: [
@@ -80,6 +79,7 @@ export class Tab3Page {
           text: 'Ok',
           handler: (data:string) => {
             console.log(data); 
+            this.check=true;
             this.time=parseInt(data);
         }
         }
