@@ -37,12 +37,13 @@ export class RegisterPage implements OnInit {
         password
       );
 
-      /*this.afstore.doc(`users/${res.user.uid}`).set({ userid })
+      this.afstore.doc(`users/${res.user.uid}`).set({ username, userid });
 
       this.user.setUser({
-        userid, 
+        username,
+        userid,
         uid: res.user.uid
-      })*/
+      });
 
       this.router.navigate(['admin-portal']);
     } catch (error) {

@@ -3,6 +3,14 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from '@angular/fire/firestore';
+
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +34,10 @@ export class LoginPage implements OnInit {
         userid + '@smartpark.com',
         password
       );
+      //return this.OpenPortal().updateUserData(res.user);
       this.router.navigate(['admin-portal']);
     } catch (err) {
       console.dir(err);
-      //
       if (err.code === 'auth/user-not-found') {
         console.log('User not Found');
       }

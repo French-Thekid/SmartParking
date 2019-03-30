@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserService } from './user.service';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

@@ -16,6 +16,14 @@ export class UserService {
     this.user = user;
   }
 
+  getUsername() {
+    return this.user.username;
+  }
+
+  /*getAccountType() {
+    return this.user.accountType;
+  }*/
+
   getUID() {
     return this.user.uid;
   }
