@@ -1,33 +1,62 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Deallocate Parking Spot</ion-title>
-      <ion-button (click)="back()" routerLink="/" routerDirection="back" color="Dark" id="back"> <ion-icon id="back" size="large" name="arrow-back"></ion-icon> </ion-button>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <ion-card class="Container">
-        <ion-list lines="none">
-          <ion-card id="top">
-              <ion-img width="max" id="image" src="/assets/qrc.jpg"></ion-img>
-              <ion-list-header>
-                <ion-label style="margin-left:10%;text-shadow: 1px 1px grey" id="lbl1">Vehicle Deallocation</ion-label>
-              </ion-list-header>
-              <ion-label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please manually enter the Vehicle's &nbsp;&nbsp;&nbsp;&nbsp;information or Scan QRC to Continue</ion-label>
-          </ion-card>
-          <ion-card-content id="c1">
-              <ion-button id="proceed" [ngStyle]="{'background-color':buttonColor}" (click)="scanBarcode()" >Scan QRC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ion-icon float-left name="qr-scanner"></ion-icon></ion-button>
-          </ion-card-content>
-          <ion-card-content id="c2">
-              <ion-input placeholder="Enter the Vehicle's License Plate number"> </ion-input>
-              <ion-button id="proceed" [ngStyle]="{'background-color':buttonColor}" href="#" (click)="Allocate" >Deallocate Vehicle</ion-button>
-          </ion-card-content>
-          <div *ngIf="scannedCode">
-              <p>Scanned Code Text : <b>{{scannedData['text']}}</b></p>
-              <p>Scanned Code Format : <b>{{scannedData['format']}}</b></p>
-            </div>
-          </ion-list>
-    </ion-card>
-  
-  </ion-content>
-  
+  <ion-toolbar>
+    <ion-title>Deallocate Parking Spot</ion-title>
+    <ion-button
+      (click)="back()"
+      routerLink="/"
+      routerDirection="back"
+      color="Dark"
+      id="back"
+    >
+      <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card class="Container">
+    <ion-list lines="none">
+      <ion-card id="top">
+        <ion-img width="max" id="image" src="/assets/qrc.jpg"></ion-img>
+        <ion-list-header>
+          <ion-label style="margin-left:10%;text-shadow: 1px 1px grey" id="lbl1"
+            >Vehicle Deallocation</ion-label
+          >
+        </ion-list-header>
+        <ion-label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please manually enter the
+          Vehicle's &nbsp;&nbsp;&nbsp;&nbsp;information or Scan QRC to
+          Continue</ion-label
+        >
+      </ion-card>
+      <ion-card-content id="c1">
+        <ion-button
+          id="proceed"
+          [ngStyle]="{ 'background-color': buttonColor }"
+          (click)="scanBarcode()"
+          >Scan QRC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <ion-icon float-left name="qr-scanner"></ion-icon
+        ></ion-button>
+      </ion-card-content>
+      <ion-card-content id="c2">
+        <ion-input placeholder="Enter the Vehicle's License Plate number">
+        </ion-input>
+        <ion-button
+          id="proceed"
+          [ngStyle]="{ 'background-color': buttonColor }"
+          href="#"
+          (click)="deallocate()"
+          >Deallocate Vehicle</ion-button
+        >
+      </ion-card-content>
+      <div *ngIf="scannedCode">
+        <p>
+          Scanned Code Text : <b>{{ scannedData['text'] }}</b>
+        </p>
+        <p>
+          Scanned Code Format : <b>{{ scannedData['format'] }}</b>
+        </p>
+      </div>
+    </ion-list>
+  </ion-card>
+</ion-content>
