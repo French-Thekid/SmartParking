@@ -55,7 +55,7 @@ export class DeallocateVehiclePage implements OnInit {
         console.log('Error', err);
       });
   }
-
+  //
   deallocate() {
     this.vibration.vibrate(0.1);
     this.popUp(this.License);
