@@ -5,8 +5,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { OccupiedUserService } from '../occupied_users.service';
+
 import { AngularFirestore } from 'angularfire2/firestore';
+import {
+  o_userI,
+  OccupiedUserService
+} from '../services/occupied-user.service';
 
 @Component({
   selector: 'app-deallocate-vehicle',
@@ -17,6 +21,7 @@ export class DeallocateVehiclePage implements OnInit {
   currentImage: any;
   scannedCode: string;
   License: string;
+  o_users: o_userI[];
 
   constructor(
     private qrScanner: QRScanner,
@@ -26,9 +31,13 @@ export class DeallocateVehiclePage implements OnInit {
     private camera: Camera,
     private vibration: Vibration,
     public afstore: AngularFirestore,
-    public o_users: OccupiedUserService
+    private o_userService: OccupiedUserService
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.o_userService.getO_Users().subscribe(res => {
+      console.log('Occupied', res);
+    });
+  }
   back() {
     this.router.navigate(['admin-portal']);
   }
@@ -40,7 +49,7 @@ export class DeallocateVehiclePage implements OnInit {
         this.scannedCode = barcodeData.text;
         this.vibration.vibrate(0.1);
         this.popUp(this.scannedCode);
-        //Place remove from db here with license plate # in variable this.scannedCode
+        this.o_userService.removeO_Users(this.scannedCode);
       })
       .catch(err => {
         console.log('Error', err);
@@ -48,10 +57,9 @@ export class DeallocateVehiclePage implements OnInit {
   }
 
   deallocate() {
-    //this.o_users.removeO_Users(this.License);
-
     this.vibration.vibrate(0.1);
     this.popUp(this.License);
+    this.o_userService.removeO_Users(this.License);
   }
 
   async popUp(License) {

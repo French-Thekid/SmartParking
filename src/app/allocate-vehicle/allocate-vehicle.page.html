@@ -33,19 +33,19 @@
       <ion-card-content id="c1">
         <ion-input
           placeholder="Enter the Vehicle's License Plate number"
-          [(ngModel)]="userLicNbr"
+          [(ngModel)]="userLicense"
         >
         </ion-input>
         <ion-input
           placeholder="Enter the Driver's ID number (Optional)"
-          [(ngModel)]="userid"
+          [(ngModel)]="userallocateid"
         >
         </ion-input
         ><br />
         <ion-button
           id="proceed"
           [ngStyle]="{ 'background-color': buttonColor }"
-          (click)="(Allocate)"
+          (click)="allocateVehicle()"
           >Allocate Vehicle</ion-button
         >
       </ion-card-content>

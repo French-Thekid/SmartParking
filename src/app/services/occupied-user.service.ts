@@ -6,14 +6,16 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OccupiedUserService {
-  o_usersCollection: AngularFirestoreCollection<o_users>;
+  private o_usersCollection: AngularFirestoreCollection<o_userI>;
 
-  private o_users: Observable<o_users[]>;
+  private o_users: Observable<o_userI[]>;
 
   constructor(db: AngularFirestore) {
-    this.o_usersCollection = db.collection<o_users>('o_users');
+    this.o_usersCollection = db.collection<o_userI>('o_users');
 
     this.o_users = this.o_usersCollection.snapshotChanges().pipe(
       map(actions => {
@@ -30,24 +32,24 @@ export class OccupiedUserService {
     return this.o_users;
   }
 
-  getO_User(userLicNbr) {
-    return this.o_usersCollection.doc<o_users>(userLicNbr).valueChanges();
+  getO_User(id: string) {
+    return this.o_usersCollection.doc<o_userI>(id).valueChanges();
   }
 
-  updateO_Users(qrc: o_users, userLicNbr: string) {
+  updateO_Users(o_users: o_userI, userLicNbr: string) {
     return this.o_usersCollection.doc(userLicNbr).update(this.o_users);
   }
 
-  addO_Users(o_users: o_users) {
+  addO_Users(o_users: o_userI) {
     return this.o_usersCollection.add(o_users);
   }
 
-  removeO_Users(userLicNbr) {
-    return this.o_usersCollection.doc(userLicNbr).delete();
+  removeO_Users(id) {
+    return this.o_usersCollection.doc(id).delete();
   }
 }
 
-export interface o_users {
+export interface o_userI {
   userid: string;
   userLicNbr?: string;
   parkID: string;

@@ -39,12 +39,14 @@
         ></ion-button>
       </ion-card-content>
       <ion-card-content id="c2">
-        <ion-input placeholder="Enter the Vehicle's License Plate number">
+        <ion-input
+          [(ngModel)]="License"
+          placeholder="Enter the Vehicle's License Plate number"
+        >
         </ion-input>
         <ion-button
           id="proceed"
           [ngStyle]="{ 'background-color': buttonColor }"
-          href="#"
           (click)="deallocate()"
           >Deallocate Vehicle</ion-button
         >

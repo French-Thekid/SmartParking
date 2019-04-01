@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { QRCService } from '../qrc.service';
+import { QRCService, qrcI } from '../services/qrcservice.service';
+import { OccupiedUserService } from '../services/occupied-user.service';
 
 @Component({
   selector: 'app-allocate-vehicle',
@@ -11,46 +12,40 @@ import { QRCService } from '../qrc.service';
   styleUrls: ['./allocate-vehicle.page.scss']
 })
 export class AllocateVehiclePage implements OnInit {
-  userLicNbr = '';
-  userid = '';
-  qrcid = '';
+  userLicense = '';
+  userallocateid = '';
+  qrcObj: qrcI;
 
   constructor(
     private router: Router,
     public platform: Platform,
     public afstore: AngularFirestore,
-    public qrc: QRCService
+    private qrcService: QRCService,
+    private o_userService: OccupiedUserService
   ) {}
 
-  ngOnInit() {}
-
-  allocateVehicle() {
-    const { userLicNbr, userid } = this;
-    this.afstore.doc<any>('qrc/trialrun').set({ userLicNbr, userid });
+  ngOnInit() {
+    this.qrcService.getQRCS().subscribe(res => {
+      console.log('QRC', res);
+    });
   }
 
-  /*const { userLicNbr, userid } = this;
-    /*if(password !== cpassword) {
-      return console.err("Passwords don't match")
-    }
-    try {
-      const res = await this.afAuth.auth.createUserWithEmailAndPassword(
-        userid + '@smartpark.com',
-        password
-      );
+  async allocateVehicle() {
+    const { userallocateid, userLicense } = this;
+    this.qrcObj = {
+      userLicNbr: userLicense,
+      userid: userallocateid
+    };
+    this.qrcService.addQRC(this.qrcObj);
 
-      this.afstore.doc(`users/${res.user.uid}`).set({ username, userid });
-
-      /*this.user.setUser({
-        username,
-        userid,
-        uid: res.user.uid
-      });
-
-      this.router.navigate(['admin-portal']);
-    } catch (error) {
-      console.dir(error);
-    }*/
+    /* this.afstore
+      .collection('qrc')
+      .doc('4154EM').doc('')
+      .set({
+        userLicNbr: userLicense,
+        userid: userallocateid
+      });*/
+  }
 
   back() {
     this.router.navigate(['admin-portal']);

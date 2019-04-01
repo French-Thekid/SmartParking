@@ -5,15 +5,18 @@ import {
 } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { defineBase } from '@angular/core/src/render3';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QRCService {
-  qrcCollection: AngularFirestoreCollection<qrc>;
+  private qrcCollection: AngularFirestoreCollection<qrcI>;
 
-  private qrc: Observable<qrc[]>;
+  private qrc: Observable<qrcI[]>;
 
   constructor(db: AngularFirestore) {
-    this.qrcCollection = db.collection<qrc>('qrc');
+    this.qrcCollection = db.collection<qrcI>('qrc');
 
     this.qrc = this.qrcCollection.snapshotChanges().pipe(
       map(actions => {
@@ -26,19 +29,19 @@ export class QRCService {
     );
   }
 
-  getQRC() {
+  getQRCS() {
     return this.qrc;
   }
 
-  getQRCS(id) {
-    return this.qrcCollection.doc<qrc>(id).valueChanges();
+  getQRC(id: string) {
+    return this.qrcCollection.doc<qrcI>(id).valueChanges();
   }
 
-  updateQRC(qrc: qrc, id: string) {
-    return this.qrcCollection.doc(id).update(qrc);
+  updateQRC(qrc: qrcI, id: string) {
+    return this.qrcCollection.doc(id).update(this.qrc);
   }
 
-  addQRC(qrc: qrc) {
+  addQRC(qrc: qrcI) {
     return this.qrcCollection.add(qrc);
   }
 
@@ -47,9 +50,8 @@ export class QRCService {
   }
 }
 
-export interface qrc {
-  createdAt?: any;
-  userid: string;
-  userLicNbr?: string;
-  parkID: string;
+export interface qrcI {
+  userLicNbr: string;
+  parkID?: string;
+  userid?: string;
 }
