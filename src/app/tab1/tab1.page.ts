@@ -8,19 +8,19 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  filterR: any= null;
+  filterR: any = null;
   iconColor: any = '#00FF00';
-  constructor(public router: Router, public alertController: AlertController){
-
-  }
+  constructor(public router: Router, public alertController: AlertController) {}
   //Check DB Here
-  temp=false;
-  checkDB(){
-    if(this.temp==false){
-      this.iconColor= 'red';
+  temp = false;
+  checkDB() {
+    if (this.temp == false) {
+      this.iconColor = 'red';
     }
   }
- 
+  slideOpts = {
+    effect: 'flip'
+  };
   async filter() {
     const alert = await this.alertController.create({
       header: 'Filter View',
@@ -54,21 +54,17 @@ export class Tab1Page {
           handler: () => {
             console.log('Confirm Cancel');
           }
-        }, 
+        },
         {
           text: 'Ok',
           cssClass: 'alertDanger',
-          handler: (data:string) => {
-            console.log(data); 
-            this.filterR=parseInt(data);
-        }
+          handler: (data: string) => {
+            console.log(data);
+            this.filterR = parseInt(data);
+          }
         }
       ]
     });
     await alert.present();
   }
-  
-
-
-
 }

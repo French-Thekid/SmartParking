@@ -1,43 +1,40 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-
-  constructor(public alertController: AlertController) {
-    
-  }
-  time= 5;
-  check=false;
+  constructor(public alertController: AlertController, public router: Router) {}
+  time = 5;
+  check = false;
   async reserveSpot() {
-    if(this.check==true)
-    {
+    if (this.check == true) {
       const alert = await this.alertController.create({
         header: 'Reservation',
         subHeader: 'Your spot has been successfully Reserved.',
-        message: 'Fail to arrive in '+this.time+' mins and you might loose it.',
+        message:
+          'Fail to arrive in ' + this.time + ' mins and you might lose it.',
         buttons: ['OK']
       });
       await alert.present();
-      this.check=false;
-    }
-    else{
+      this.check = false;
+    } else {
       const alert = await this.alertController.create({
         header: 'Reservation',
         subHeader: 'Please Select Time and Spot.',
         buttons: ['OK']
       });
-  
+
       await alert.present();
     }
-    
   }
-
+  selectSpot() {
+    this.router.navigate(['sspot']);
+  }
   async selectTime() {
-    this.check=true
     const alert = await this.alertController.create({
       header: 'Time Selection',
       inputs: [
@@ -75,19 +72,18 @@ export class Tab3Page {
           handler: () => {
             console.log('Confirm Cancel');
           }
-        }, 
+        },
         {
           text: 'Ok',
-          handler: (data:string) => {
-            console.log(data); 
-            this.time=parseInt(data);
-        }
+          handler: (data: string) => {
+            console.log(data);
+            this.check = true;
+            this.time = parseInt(data);
+          }
         }
       ]
     });
 
     await alert.present();
   }
-
-
 }

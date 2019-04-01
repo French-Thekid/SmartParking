@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-button
+  (click)="return()"
+  routerLink="/"
+  routerDirection="back"
+  color="Dark"
+  id="back"
+  >
+  <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+  </ion-button>
+  <ion-title>
+  Parking Space Selection
+  </ion-title>
+  </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  <ion-slides pager="true" [options]="slideOpts">
+  <ion-slide>
+  <table width="100%" id="table">
+  <tr colspan="2" style="color:white;width:100%;background-color: rgba(0,0,0,0.2);border-bottom:1px solid silver"><th colspan="2"><h1>Staff Parking Space</h1></th></tr>
+  <br>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">1.&nbsp;&nbsp;<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('01')"><ion-icon [ngStyle]="{'color':iconColor1}" id="one" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">2.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('02')"><ion-icon [ngStyle]="{'color':iconColor2}" float-right id="two" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">3.&nbsp;&nbsp;<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('03')"><ion-icon [ngStyle]="{'color':iconColor3}" id="three" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">4.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('04')"><ion-icon float-right [ngStyle]="{'color':iconColor4}" id="four" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">5.&nbsp;&nbsp;<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('05')"><ion-icon [ngStyle]="{'color':iconColor5}" id="five" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">6.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('06')"><ion-icon [ngStyle]="{'color':iconColor6}" float-right id="six" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">7.&nbsp;&nbsp;<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('07')"><ion-icon [ngStyle]="{'color':iconColor7}" id="seven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">8.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('08')"><ion-icon [ngStyle]="{'color':iconColor8}" float-right id="eight" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">9.&nbsp;&nbsp;<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('09')"><ion-icon [ngStyle]="{'color':iconColor9}" id="nine" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">10.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('10')"><ion-icon [ngStyle]="{'color':iconColor10}" float-right id="ten" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">11.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('11')"><ion-icon [ngStyle]="{'color':iconColor11}" id="eleven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">12. <ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('12')"><ion-icon [ngStyle]="{'color':iconColor12}" float-right id="twelve" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">13.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('13')"><ion-icon [ngStyle]="{'color':iconColor13}" id="thirteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">14.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('14')"><ion-icon [ngStyle]="{'color':iconColor14}" float-right id="fourteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">15.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('15')"><ion-icon [ngStyle]="{'color':iconColor15}" id="fifteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">16.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('16')"><ion-icon [ngStyle]="{'color':iconColor16}" float-right id="sixteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">17.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('17')"><ion-icon [ngStyle]="{'color':iconColor17}" id="seventeen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">18.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('18')"><ion-icon [ngStyle]="{'color':iconColor18}" float-right id="eighteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">19.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('19')"><ion-icon [ngStyle]="{'color':iconColor19}" id="nineteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">20.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('20')"><ion-icon [ngStyle]="{'color':iconColor20}" float-right id="twenty" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  </table>
+  </ion-slide>
+  <ion-slide>
+  <table width="100%" id="table">
+  <tr colspan="2" style="color:white;width:100%;background-color: rgba(0,0,0,0.2);border-bottom:1px solid silver"><th colspan="2"><h1>Visitors and Student's Parking</h1></th></tr>
+  <br>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">21.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('21')"><ion-icon [ngStyle]="{'color':iconColor21}" id="one" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">22.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('22')"><ion-icon [ngStyle]="{'color':iconColor22}" float-right id="two" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">23.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('23')"><ion-icon [ngStyle]="{'color':iconColor23}" id="three" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">24.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('24')"><ion-icon float-right [ngStyle]="{'color':iconColor24}" id="four" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">25.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('25')"><ion-icon [ngStyle]="{'color':iconColor25}" id="five" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">26.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('26')"><ion-icon [ngStyle]="{'color':iconColor26}" float-right id="six" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">27.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('27')"><ion-icon [ngStyle]="{'color':iconColor27}" id="seven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">28.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('28')"><ion-icon [ngStyle]="{'color':iconColor28}" float-right id="eight" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">29.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('29')"><ion-icon [ngStyle]="{'color':iconColor29}" id="nine" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">30.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('30')"><ion-icon [ngStyle]="{'color':iconColor30}" float-right id="ten" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">31.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('31')"><ion-icon [ngStyle]="{'color':iconColor31}" id="eleven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">32. <ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('32')"><ion-icon [ngStyle]="{'color':iconColor32}" float-right id="twelve" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">33.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('33')"><ion-icon [ngStyle]="{'color':iconColor33}" id="thirteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">34.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('34')"><ion-icon [ngStyle]="{'color':iconColor34}" float-right id="fourteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">35.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('35')"><ion-icon [ngStyle]="{'color':iconColor35}" id="fifteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">36.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('36')"><ion-icon [ngStyle]="{'color':iconColor36}" float-right id="sixteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">37.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('37')"><ion-icon [ngStyle]="{'color':iconColor37}" id="seventeen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">38.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('38')"><ion-icon [ngStyle]="{'color':iconColor38}" float-right id="eighteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">39.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('39')"><ion-icon [ngStyle]="{'color':iconColor39}" id="nineteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">40.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('40')"><ion-icon [ngStyle]="{'color':iconColor40}" float-right id="twenty" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  </table>
+  </ion-slide>
+  <ion-slide>
+  <table width="100%" id="table">
+  <tr colspan="2" style="color:white;width:100%;background-color: rgba(0,0,0,0.2);border-bottom:1px solid silver"><th colspan="2"><h1>Visitors and Student's Parking</h1></th></tr>
+  <br>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">41.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('41')"><ion-icon [ngStyle]="{'color':iconColor41}" id="one" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">42.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('42')"><ion-icon [ngStyle]="{'color':iconColor42}" float-right id="two" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">43.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('43')"><ion-icon [ngStyle]="{'color':iconColor43}" id="three" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">44.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('44')"><ion-icon float-right [ngStyle]="{'color':iconColor44}" id="four" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">45.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('45')"><ion-icon [ngStyle]="{'color':iconColor45}" id="five" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">46.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('46')"><ion-icon [ngStyle]="{'color':iconColor46}" float-right id="six" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">47.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('47')"><ion-icon [ngStyle]="{'color':iconColor47}" id="seven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">48.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('48')"><ion-icon [ngStyle]="{'color':iconColor48}" float-right id="eight" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">49.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('49')"><ion-icon [ngStyle]="{'color':iconColor49}" id="nine" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">50.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('50')"><ion-icon [ngStyle]="{'color':iconColor50}" float-right id="ten" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">51.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('51')"><ion-icon [ngStyle]="{'color':iconColor51}" id="eleven" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">52. <ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('52')"><ion-icon [ngStyle]="{'color':iconColor52}" float-right id="twelve" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">53.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('53')"><ion-icon [ngStyle]="{'color':iconColor53}" id="thirteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">54.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('54')"><ion-icon [ngStyle]="{'color':iconColor54}" float-right id="fourteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">55.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('55')"><ion-icon [ngStyle]="{'color':iconColor55}" id="fifteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">56.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('56')"><ion-icon [ngStyle]="{'color':iconColor56}" float-right id="sixteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">57.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('57')"><ion-icon [ngStyle]="{'color':iconColor57}" id="seventeen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">58.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('58')"><ion-icon [ngStyle]="{'color':iconColor58}" float-right id="eighteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  <tr>
+  <td float-left style="font-size: 31px;color:white">59.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('59')"><ion-icon [ngStyle]="{'color':iconColor59}" id="nineteen" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  <td style="text-align:end;font-size: 31px;color:white">60.<ion-button color="Dark" [ngStyle]="{'background-color':SbuttonColor}" (click)="returnSpot('60')"><ion-icon [ngStyle]="{'color':iconColor60}" float-right id="twenty" style="font-size: 41px" slot="start" name="car"></ion-icon></ion-button></td>
+  </tr>
+  </table>
+  </ion-slide>
+  </ion-slides>
+  
+  
+  
+  </ion-content>
+  
