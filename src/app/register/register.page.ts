@@ -11,23 +11,23 @@ import { UserService } from '../services/user.service';
 })
 export class RegisterPage implements OnInit {
   constructor(
-    private router: Router,
-    public afAuth: AngularFireAuth,
-    public afstore: AngularFirestore,
-    private user: UserService
-  ) {}
-
+    private router: Router //private afstore: AngularFirestore,
+  ) //private afAuth: AngularFireAuth
+  //private user: UserService
+  {}
+  /*username: string = '';
+  userid: string = '';
+  password: string = '';
+*/
   ngOnInit() {}
 
   back() {
     this.router.navigate(['login']);
   }
 
-  async register() {
-    const { username, userid, password /*cpassword*/ } = this;
-    /*if(password !== cpassword) {
-      return console.err("Passwords don't match")
-    }*/
+  /*async register() {
+    const { username, userid, password } = this;
+    
     try {
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(
         userid + '@smartpark.com',
@@ -46,5 +46,5 @@ export class RegisterPage implements OnInit {
     } catch (error) {
       console.dir(error);
     }
-  }
+  }*/
 }
