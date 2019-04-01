@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private router: Router,
     public afAuth: AngularFireAuth,
-    public afstore: AngularFirestore
+    public afstore: AngularFirestore,
+    private user: UserService
   ) {}
 
   ngOnInit() {}
