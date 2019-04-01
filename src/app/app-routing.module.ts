@@ -21,7 +21,9 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
-  }
+  },
+  { path: 'sspot', 
+    loadChildren: './sspot/sspot.module#SspotPageModule' }
 ];
 @NgModule({
   imports: [

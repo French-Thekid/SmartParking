@@ -35,6 +35,8 @@ ion-item{
     border-top: 1px solid dodgerblue;
     background-color: rgba(0,0,0,0.3);
     color: white;
+    font-family: "monserrat";
+    font-size: 20px;
 }
 ion-input{
     border-bottom:  1px solid#C0C0C0;
@@ -51,4 +53,13 @@ ion-input{
     font-family:"monserrat";
     font-size:25px;
     background-color: dodgerblue;
+}
+#Fault{
+    background-color: rgba(255,255,255,0.5);
+    border-radius:2em;
+    height:34px;
+    width:210px;
+    color: white;
+    font-size:15px;
+    text-shadow: 1px 1px black;
 }

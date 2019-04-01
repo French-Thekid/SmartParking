@@ -20,7 +20,9 @@ export class Tab1Page {
       this.iconColor= 'red';
     }
   }
- 
+  slideOpts = {
+    effect: 'flip'
+  };
   async filter() {
     const alert = await this.alertController.create({
       header: 'Filter View',

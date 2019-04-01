@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -7,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab3Page {
 
-  constructor(public alertController: AlertController) {
+  constructor(public alertController: AlertController, public router: Router) {
     
   }
   time= 5;
@@ -18,7 +19,7 @@ export class Tab3Page {
       const alert = await this.alertController.create({
         header: 'Reservation',
         subHeader: 'Your spot has been successfully Reserved.',
-        message: 'Fail to arrive in '+this.time+' mins and you might loose it.',
+        message: 'Fail to arrive in '+this.time+' mins and you might lose it.',
         buttons: ['OK']
       });
       await alert.present();
@@ -35,7 +36,9 @@ export class Tab3Page {
     }
     
   }
-
+  selectSpot(){
+    this.router.navigate(['sspot']);
+  }
   async selectTime() {
     const alert = await this.alertController.create({
       header: 'Time Selection',
