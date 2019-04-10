@@ -20,6 +20,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserService } from './user.service';
+import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/functions';
+
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { UserService } from './user.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule, 
+    AngularFireFunctionsModule
   ],
   providers: [
     StatusBar,
