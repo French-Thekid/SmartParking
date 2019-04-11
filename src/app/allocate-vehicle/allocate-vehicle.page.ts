@@ -20,6 +20,8 @@ export class AllocateVehiclePage implements OnInit {
   encodedData:string="";
   FPrinter: boolean=false;
   spacesRef: any;
+  tempid: any;
+
 
   constructor(
     private router: Router,
@@ -84,19 +86,59 @@ export class AllocateVehiclePage implements OnInit {
              
           //var amt = spacesRef.;
           
-          this.spacesRef = this.afstore.collection('parkingSpace', res => res.where('status', '==', 'true').limit(1)).get();
+          // this.spacesRef = this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1)).get();
+          // console.log(this.spacesRef);
+          // dataObj: any): Promise<any> {
+            
+        //  }
+        
+
+        
+       var id=this.afstore.collection('parkingSpace',res => res.where("status", "==", true).limit(1)).get().subscribe
+        (function(querySnapshot) {
+         // var dataID: string
+          querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+              
+            //dataID = doc.id;  
+            console.log(doc.id, " => ", doc.data());
+        });
+        //return dataID;
+      } );
+         
+      // console.log("ID: "+id)
+       
+        
+        
           
-          this.spacesRef.
+
+
+
+
+        // this.spacesRef = this.afstore.collection('parkingSpace',ref => ref.where('status','==','true').limit(1)).get();
+        // //const personRef: firebase.database.Reference = firebase.database().ref(`/parkingSpace/`);
+
+        // var washingtonRef = this.afstore.collection("parkingSpace").doc('GP01');
+
+        // // Set the "capital" field of the city 'DC'
+        // return washingtonRef.update({
+        //     status: false
+        // }).then(function() {
+        //     console.log("Document successfully updated!");
+        // }).catch(function(error) {
+        //     // The document probably doesn't exist.
+        //     console.error("Error updating document: ", error);
+        // });
+        
+        
+
 
           
-          
-          
-          
-          this.afstore.collection('o_users').doc(this.License).set({
-            userLicNbr: this.License,
-            userid: this.userallocateid,
-            parkID: 'it wuk'
-          });
+          // this.afstore.collection('o_users').doc(this.License).set({
+          //   userLicNbr: this.License,
+          //   userid: this.userallocateid,
+          //   parkID: 'it wuk'
+          // });
 
           //var o_userRef = this.afstore.collection('o_users');
           //var query = o_userRef.where('userLicNbr', '==', '7907EM');
