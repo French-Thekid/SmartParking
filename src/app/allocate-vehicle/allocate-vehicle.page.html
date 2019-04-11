@@ -23,6 +23,7 @@
             >Vehicle Allocation</ion-label
           >
         </ion-list-header>
+        
         <ion-label
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the Vehicle's
           information
@@ -31,6 +32,7 @@
         >
       </ion-card>
       <ion-card-content id="c1">
+          <ion-card-subtitle id="Fault"><ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer</ion-card-subtitle>
         <ion-input
           placeholder="Enter the Vehicle's License Plate number"
           [(ngModel)]="License"
