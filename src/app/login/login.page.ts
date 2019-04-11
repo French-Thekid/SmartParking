@@ -35,6 +35,15 @@ export class LoginPage implements OnInit {
         password
       );
       //return this.OpenPortal().updateUserData(res.user);
+      if(userid.length==3){
+        //admin portal link
+      }
+      else if(userid.length==5){
+        //staff/home portal link
+      }
+      else if(userid.length==7){
+         //student/home portal link
+      }
       this.router.navigate(['admin-portal']);
     } catch (err) {
       console.dir(err);
@@ -42,15 +51,21 @@ export class LoginPage implements OnInit {
         console.log('User not Found');
       }
     }
+    this.userid="";
+    this.password="";
   }
 
   returnHome() {
     this.router.navigate(['tabs']);
+    this.userid="";
+    this.password="";
   }
   register() {
     this.router.navigate(['register']);
+    this.userid="";
+    this.password="";
   }
   ngOnInit() {
-    //s
+    //
   }
 }
