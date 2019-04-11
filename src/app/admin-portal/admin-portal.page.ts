@@ -22,5 +22,8 @@ export class AdminPortalPage implements OnInit {
   exitV(){
     this.router.navigate(['deallocate-vehicle']);
   }
+  vehicleV(){
+    this.router.navigate(['vparked']);
+  }
 
 }
