@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
           userid + '@smartpark.com',
           password
         );
-        //return this.OpenPortal().updateUserData(res.user);
+          //return this.OpenPortal().updateUserData(res.user);
         if(userid.length==3){
           //admin portal link
         }
@@ -59,7 +59,7 @@ export class LoginPage implements OnInit {
            //student/home portal link
         }
         this.router.navigate(['admin-portal']);
-        
+
         this.userid="";
         this.password="";
       } catch (err) {
