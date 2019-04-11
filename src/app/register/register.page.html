@@ -38,16 +38,15 @@
           </ion-item>
           <ion-item>
             <ion-icon name="lock"></ion-icon>
-            <ion-input
-              type="Password"
-              placeholder="   Password"
-              [(ngModel)]="password"
-            ></ion-input>
+            <ion-input type="Password"  placeholder="   Password"  [(ngModel)]="password"></ion-input>
           </ion-item>
-          <br />
+          <ion-item>
+              <ion-icon name="lock"></ion-icon>
+              <ion-input type="Password"  placeholder="   Confirm Password"  [(ngModel)]="password1"></ion-input>
+            </ion-item>
         </ion-list>
-        <br /><br />
-        <ion-button id="btn2" href="#" color="Clear">Clear</ion-button>
+        <br/>
+        <ion-button type="reset" id="btn2" color="Clear">Clear</ion-button>
         <ion-button id="btn2" (click)="register()" color="Clear"
           >Register</ion-button
         >

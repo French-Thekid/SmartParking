@@ -11,6 +11,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -24,35 +25,60 @@ export class LoginPage implements OnInit {
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
+    private alertController: AlertController,
     public user: UserService
   ) {}
 
   async OpenPortal() {
     const { userid, password } = this;
-    try {
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(
-        userid + '@smartpark.com',
-        password
-      );
-      //return this.OpenPortal().updateUserData(res.user);
-      if(userid.length==3){
-        //admin portal link
-      }
-      else if(userid.length==5){
-        //staff/home portal link
-      }
-      else if(userid.length==7){
-         //student/home portal link
-      }
-      this.router.navigate(['admin-portal']);
-    } catch (err) {
-      console.dir(err);
-      if (err.code === 'auth/user-not-found') {
-        console.log('User not Found');
-      }
+    if((this.userid=="")||(this.password==""))
+    {
+      const alert = await this.alertController.create({
+        header: 'Warning',
+        subHeader: 'Invalid Credentials',
+        message: "Please enter valid credentials to login",
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
     }
-    this.userid="";
-    this.password="";
+    else{
+      try {
+        const res = await this.afAuth.auth.signInWithEmailAndPassword(
+          userid + '@smartpark.com',
+          password
+        );
+        //return this.OpenPortal().updateUserData(res.user);
+        if(userid.length==3){
+          //admin portal link
+        }
+        else if(userid.length==5){
+          //staff/home portal link
+        }
+        else if(userid.length==7){
+           //student/home portal link
+        }
+        this.router.navigate(['admin-portal']);
+        
+        this.userid="";
+        this.password="";
+      } catch (err) {
+        console.dir(err);
+        if (err.code === 'auth/user-not-found') {
+          console.log('User not Found');
+          const alert = await this.alertController.create({
+            header: 'Warning',
+            subHeader: 'User Not Found',
+            message: "Please Check credentials and try again",
+            translucent: true,
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+      }
+    
+    }
+    
   }
 
   returnHome() {
