@@ -12,7 +12,7 @@ import { OccupiedUserService } from '../services/occupied-user.service';
   styleUrls: ['./allocate-vehicle.page.scss']
 })
 export class AllocateVehiclePage implements OnInit {
-  userLicense = '';
+  License = '';
   userallocateid = '';
   qrcObj: qrcI;
 
@@ -31,13 +31,21 @@ export class AllocateVehiclePage implements OnInit {
   }
 
   async allocateVehicle() {
-    const { userallocateid, userLicense } = this;
-    this.qrcObj = {
-      userLicNbr: userLicense,
-      userid: userallocateid
-    };
-    this.qrcService.addQRC(this.qrcObj);
+    this.afstore
+      .collection('o_users')
+      .doc(this.License)
+      .set({
+        userLicNbr: this.License,
+        userid: this.userallocateid,
+        parkID: 'it wuk'
+      });
 
+    //var o_userRef = this.afstore.collection('o_users');
+    //var query = o_userRef.where('userLicNbr', '==', '7907EM');
+    //this.afstore
+    //.collection('o_users')
+    //.doc(this.License)
+    //.set(query);
     /* this.afstore
       .collection('qrc')
       .doc('4154EM').doc('')

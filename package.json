@@ -53,7 +53,8 @@
     "firebaseui-angular": "^3.4.1",
     "ngx-qrcode2": "0.0.9",
     "phonegap-plugin-barcodescanner": "8.0.1",
-    "rxjs": "~6.3.3",
+    "rxjs": "^6.4.0",
+    "rxjs-compat": "^6.4.0",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {

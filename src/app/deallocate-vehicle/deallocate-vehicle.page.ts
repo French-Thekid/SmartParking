@@ -49,7 +49,7 @@ export class DeallocateVehiclePage implements OnInit {
         this.scannedCode = barcodeData.text;
         this.vibration.vibrate(0.1);
         this.popUp(this.scannedCode);
-        this.o_userService.removeO_Users(this.scannedCode);
+        //this.o_userService.removeO_Users(this.scannedCode);
       })
       .catch(err => {
         console.log('Error', err);
@@ -59,7 +59,12 @@ export class DeallocateVehiclePage implements OnInit {
   deallocate() {
     this.vibration.vibrate(0.1);
     this.popUp(this.License);
-    this.o_userService.removeO_Users(this.License);
+    this.afstore
+      .collection('o_users')
+      .doc(this.License)
+      .delete();
+    //this.o_userService.getO_User(this.License);
+    //this.o_userService.removeO_Users();
   }
 
   async popUp(License) {

@@ -32,8 +32,8 @@ export class OccupiedUserService {
     return this.o_users;
   }
 
-  getO_User(id: string) {
-    return this.o_usersCollection.doc<o_userI>(id).valueChanges();
+  getO_User(userLicNbr: string) {
+    return this.o_usersCollection.doc<o_userI>(userLicNbr).valueChanges();
   }
 
   updateO_Users(o_users: o_userI, userLicNbr: string) {
@@ -44,8 +44,8 @@ export class OccupiedUserService {
     return this.o_usersCollection.add(o_users);
   }
 
-  removeO_Users(id) {
-    return this.o_usersCollection.doc(id).delete();
+  removeO_Users(o_users: o_userI) {
+    return this.o_usersCollection.doc(o_users.userLicNbr).delete();
   }
 }
 
