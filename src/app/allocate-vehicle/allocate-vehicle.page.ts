@@ -5,6 +5,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { QRCService, qrcI } from '../services/qrcservice.service';
 import { OccupiedUserService } from '../services/occupied-user.service';
+import { p_spaceI } from '../services/parking-space.service';
+import { ɵangular_packages_common_common_c } from '@angular/common';
 
 @Component({
   selector: 'app-allocate-vehicle',
@@ -17,6 +19,7 @@ export class AllocateVehiclePage implements OnInit {
   qrcObj: qrcI;
   encodedData:string="";
   FPrinter: boolean=false;
+  spacesRef: any;
 
   constructor(
     private router: Router,
@@ -28,9 +31,11 @@ export class AllocateVehiclePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.qrcService.getQRCS().subscribe(res => {
-      console.log('QRC', res);
-    });
+    //         console.log('Queried', spacesRef);
+            
+    // this.qrcService.getQRCS().subscribe(res => {
+    //   console.log('QRC', res);
+    // });
   }
 
   async updatePrint(){
@@ -68,39 +73,60 @@ export class AllocateVehiclePage implements OnInit {
         await alert.present();
     }
     else{
-        this.afstore.collection('o_users').doc(this.License).set({
+      // if(this.userallocateid==""){
+
+      // }
+      //else{
+          //var spacesRef = this.afstore.collection("parkingSpace")
+          //var query = spacesRef.where()
+          
+            
+             
+          //var amt = spacesRef.;
+          
+          this.spacesRef = this.afstore.collection('parkingSpace', res => res.where('status', '==', 'true').limit(1)).get();
+          
+          this.spacesRef.
+
+          
+          
+          
+          
+          this.afstore.collection('o_users').doc(this.License).set({
             userLicNbr: this.License,
             userid: this.userallocateid,
             parkID: 'it wuk'
           });
 
-        //var o_userRef = this.afstore.collection('o_users');
-        //var query = o_userRef.where('userLicNbr', '==', '7907EM');
-        //this.afstore
-        //.collection('o_users')
-        //.doc(this.License)
-        //.set(query);
-        /* this.afstore
-          .collection('qrc')
-          .doc('4154EM').doc('')
-          .set({
-            userLicNbr: userLicense,
-            userid: userallocateid
-          });*/
-          if(this.FPrinter==true){
-            const alert = await this.alertController.create({
-              header: 'On Screen Ticket',
-              subHeader: 'SCIT Parking Lot',
-              message: "License Plate #:"+this.License+' \n\n\n ',//'+this.encodedData,
-              translucent: true,
-              buttons: ['OK']
-            });
-            await alert.present();
-          }
-          this.License="";
+          //var o_userRef = this.afstore.collection('o_users');
+          //var query = o_userRef.where('userLicNbr', '==', '7907EM');
+          //this.afstore
+          //.collection('o_users')
+          //.doc(this.License)
+          //.set(query);
+          /* this.afstore
+            .collection('qrc')
+            .doc('4154EM').doc('')
+            .set({
+              userLicNbr: userLicense,
+              userid: userallocateid
+            });*/
+            if(this.FPrinter==true){
+              const alert = await this.alertController.create({
+                header: 'On Screen Ticket',
+                subHeader: 'SCIT Parking Lot',
+                message: "License Plate #:"+this.License+' \n\n\n ',//'+this.encodedData,
+                translucent: true,
+                buttons: ['OK']
+              });
+              await alert.present();
+            }
+            this.License="";
+      }
+        
     }
     
-  }
+  //}
 
   back() {
     this.router.navigate(['admin-portal']);

@@ -37,21 +37,22 @@ export class ParkingSpaceService {
     return this.p_spaceCollection.doc<p_spaceI>(id).valueChanges();
   }
 
-  updatep_space(p_space: p_spaceI, id: string) {
-    return this.p_spaceCollection.doc(id).update(this.p_space);
+  updatep_space(p_space: p_spaceI, parkID: string) {
+    return this.p_spaceCollection.doc(parkID).update(this.p_space);
   }
 
   addp_space(p_space: p_spaceI) {
     return this.p_spaceCollection.add(p_space);
   }
 
-  removep_space(id) {
-    return this.p_spaceCollection.doc(id).delete();
+  removep_space(p_space: p_spaceI) {
+    return this.p_spaceCollection.doc(p_space.parkID).delete();
   }
 }
 
 export interface p_spaceI {
-  userLicNbr: string;
+  userLicNbr?: string;
   parkID?: string;
   userid?: string;
+  status?: boolean;
 }
