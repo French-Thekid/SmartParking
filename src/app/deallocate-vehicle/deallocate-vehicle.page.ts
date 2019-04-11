@@ -71,10 +71,7 @@ export class DeallocateVehiclePage implements OnInit {
     const alert = await this.alertController.create({
       header: 'French Pop-up',
       subHeader: 'The Code Read was',
-      message:
-        'Vehicle with License Plate #: ' +
-        License +
-        ' was successfully removed from system',
+      message:'Vehicle with License Plate #: ' +License +' removed',
       buttons: ['OK']
     });
     await alert.present();

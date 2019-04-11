@@ -33,40 +33,73 @@ export class AllocateVehiclePage implements OnInit {
     });
   }
 
-  async allocateVehicle() {
-    this.afstore
-      .collection('o_users')
-      .doc(this.License)
-      .set({
-        userLicNbr: this.License,
-        userid: this.userallocateid,
-        parkID: 'it wuk'
+  async updatePrint(){
+    if(this.FPrinter==true){
+      const alert = await this.alertController.create({
+        header: 'Faulty Printer Notification',
+        subHeader: 'Faulty Printer Enabled',
+        message: "Allocation details will now be displayed onscreen",
+        translucent: true,
+        buttons: ['OK']
       });
-
-    //var o_userRef = this.afstore.collection('o_users');
-    //var query = o_userRef.where('userLicNbr', '==', '7907EM');
-    //this.afstore
-    //.collection('o_users')
-    //.doc(this.License)
-    //.set(query);
-    /* this.afstore
-      .collection('qrc')
-      .doc('4154EM').doc('')
-      .set({
-        userLicNbr: userLicense,
-        userid: userallocateid
-      });*/
-      if(this.FPrinter==true){
+      await alert.present();
+    }
+    else{
+      const alert = await this.alertController.create({
+        header: 'Faulty Printer Notification',
+        subHeader: 'Faulty Printer Disabled',
+        message: "Allocation details will no longer be displayed onscreen",
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    
+  }
+  async allocateVehicle() {
+    if(this.License==""){
         const alert = await this.alertController.create({
-          header: 'On Screen Ticket',
-          subHeader: 'SCIT Parking Lot',
-          message: "License Plate #:"+this.License+' \n\n\n '+this.encodedData,
+          header: 'Warning',
+          subHeader: 'Invalid Input',
+          message: "Please enter license plate number and/or ID to continue",
           translucent: true,
           buttons: ['OK']
         });
         await alert.present();
-      }
+    }
+    else{
+        this.afstore.collection('o_users').doc(this.License).set({
+            userLicNbr: this.License,
+            userid: this.userallocateid,
+            parkID: 'it wuk'
+          });
 
+        //var o_userRef = this.afstore.collection('o_users');
+        //var query = o_userRef.where('userLicNbr', '==', '7907EM');
+        //this.afstore
+        //.collection('o_users')
+        //.doc(this.License)
+        //.set(query);
+        /* this.afstore
+          .collection('qrc')
+          .doc('4154EM').doc('')
+          .set({
+            userLicNbr: userLicense,
+            userid: userallocateid
+          });*/
+          if(this.FPrinter==true){
+            const alert = await this.alertController.create({
+              header: 'On Screen Ticket',
+              subHeader: 'SCIT Parking Lot',
+              message: "License Plate #:"+this.License+' \n\n\n ',//'+this.encodedData,
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
+          }
+          this.License="";
+    }
+    
   }
 
   back() {
