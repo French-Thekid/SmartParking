@@ -5,7 +5,7 @@ import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { QRCService, qrcI } from '../services/qrcservice.service';
 import { OccupiedUserService } from '../services/occupied-user.service';
-import { Observable, BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, Subject, ObjectUnsubscribedError } from 'rxjs';
 import { switchMap, flatMap } from 'rxjs/operators';
 import { query } from '@angular/core/src/render3';
 import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
@@ -115,11 +115,16 @@ export class AllocateVehiclePage implements OnInit {
       // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
       //   status: false
       // })
-      const snapshotResult = await this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-      snapshotResult.subscribe(doc => {
+      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+      var subscripton = snapshotResult.subscribe(doc => {
         this.freeSpace = <p_spaceI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
-        //console.log(this.freeSpace.parkID);
+
+        subscripton.unsubscribe();
+
+
+
+        console.log(this.freeSpace.parkID);
         // this.freeSpace.parkID = this.freeSpaceID;
         // console.log(this.freeSpaceID);
         this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
