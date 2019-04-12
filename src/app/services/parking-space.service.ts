@@ -51,8 +51,8 @@ export class ParkingSpaceService {
 }
 
 export interface p_spaceI {
-  userLicNbr?: string;
-  parkID?: string;
-  userid?: string;
-  status?: boolean;
+  parkingLotName: string;
+  parkID: string;
+  spaceNbr: string;
+  status: boolean;
 }
