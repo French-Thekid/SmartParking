@@ -131,12 +131,14 @@ export class AllocateVehiclePage implements OnInit {
           status: false
         })
 
+        this.afstore.collection('o_users').doc('9065TT').set({
+          userLicNbr: this.License,
+          userid: this.userallocateid,
+          parkID: this.freeSpace.parkID
+        });
+
       });
-      this.afstore.collection('o_users').doc(this.License).set({
-        userLicNbr: this.License,
-        userid: this.userallocateid,
-        parkID: 'it wuk'
-      });
+
 
       //var o_userRef = this.afstore.collection('o_users');
       //var query = o_userRef.where('userLicNbr', '==', '7907EM');
