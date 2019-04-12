@@ -121,9 +121,6 @@ export class AllocateVehiclePage implements OnInit {
         this.docRef = doc.payload.doc.ref;
 
         subscripton.unsubscribe();
-
-
-
         console.log(this.freeSpace.parkID);
         // this.freeSpace.parkID = this.freeSpaceID;
         // console.log(this.freeSpaceID);
@@ -131,12 +128,14 @@ export class AllocateVehiclePage implements OnInit {
           status: false
         })
 
-        this.afstore.collection('o_users').doc('9065TT').set({
-          userLicNbr: this.License,
-          userid: this.userallocateid,
-          parkID: this.freeSpace.parkID
-        });
 
+
+      });
+
+      this.afstore.collection('o_users').doc(this.License).set({
+        userLicNbr: this.License,
+        userid: this.userallocateid,
+        parkID: this.freeSpace.parkID
       });
 
 
