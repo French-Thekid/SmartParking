@@ -25,7 +25,8 @@ export class AllocateVehiclePage implements OnInit {
   docRef: DocumentReference;
   spaces: Observable<any[]>;
   freeSpace: p_spaceI;
-  parkID: string = "";
+  freeSpaceID: string;
+
 
 
   constructor(
@@ -66,6 +67,12 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
   }
+
+
+
+
+
+
   async allocateVehicle() {
     if (this.License == '') {
       const alert = await this.alertController.create({
@@ -103,18 +110,23 @@ export class AllocateVehiclePage implements OnInit {
       //  var parkSpace = this.afstore.collection('parkingSpace');
       //  var query =  parkSpace.where('status', '==', 'true')
 
-      const snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
 
+
+      // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+      //   status: false
+      // })
+      const snapshotResult = await this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
       snapshotResult.subscribe(doc => {
         this.freeSpace = <p_spaceI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
-        console.log(this.freeSpace);
-      });
-      //a the code below this a cause the problem pree wah console a seh
-      this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-        status: false
-      })
+        //console.log(this.freeSpace.parkID);
+        // this.freeSpace.parkID = this.freeSpaceID;
+        // console.log(this.freeSpaceID);
+        this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+          status: false
+        })
 
+      });
       this.afstore.collection('o_users').doc(this.License).set({
         userLicNbr: this.License,
         userid: this.userallocateid,
