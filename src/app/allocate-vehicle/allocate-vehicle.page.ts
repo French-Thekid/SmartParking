@@ -119,7 +119,7 @@ export class AllocateVehiclePage implements OnInit {
       //   userLicNbr: this.License,
       // });
 
-      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
       var subscripton = snapshotResult.subscribe(doc => {
         this.freeSpace = <p_spaceI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
