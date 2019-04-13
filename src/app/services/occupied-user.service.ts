@@ -51,6 +51,6 @@ export class OccupiedUserService {
 
 export interface o_userI {
   userid: string;
-  userLicNbr?: string;
+  userLicNbr: string;
   parkID: string;
 }

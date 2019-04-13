@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
@@ -6,11 +6,14 @@ import { AlertController } from '@ionic/angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
 import {
   o_userI,
   OccupiedUserService
 } from '../services/occupied-user.service';
+import { Observable } from 'rxjs';
+import { p_spaceI } from '../services/parking-space.service';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-deallocate-vehicle',
@@ -22,6 +25,11 @@ export class DeallocateVehiclePage implements OnInit {
   scannedCode: string;
   License: string;
   o_users: o_userI[];
+  query: Query;
+  docRef: DocumentReference;
+  users: Observable<any[]>;
+  ouser: o_userI;
+  ouserID: string;
 
   constructor(
     private qrScanner: QRScanner,
@@ -32,7 +40,7 @@ export class DeallocateVehiclePage implements OnInit {
     private vibration: Vibration,
     public afstore: AngularFirestore,
     private o_userService: OccupiedUserService
-  ) {}
+  ) { }
   ngOnInit() {
     this.o_userService.getO_Users().subscribe(res => {
       console.log('Occupied', res);
@@ -51,8 +59,8 @@ export class DeallocateVehiclePage implements OnInit {
         this.popUp(this.scannedCode);
 
         this.vibration.vibrate(0.1);
-      this.popUp(this.scannedCode);
-      this.afstore.collection('o_users').doc(this.scannedCode).delete();
+        this.popUp(this.scannedCode);
+        this.afstore.collection('o_users').doc(this.scannedCode).delete();
         //this.o_userService.removeO_Users(this.scannedCode);
       })
       .catch(err => {
@@ -63,14 +71,34 @@ export class DeallocateVehiclePage implements OnInit {
   deallocate() {
     this.vibration.vibrate(0.1);
     this.popUp(this.License);
+
+    var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(users => users));
+    var subscripton = snapshotResult.subscribe(doc => {
+      this.ouser = <o_userI>doc.payload.doc.data();
+      this.docRef = doc.payload.doc.ref;
+
+      subscripton.unsubscribe();
+      console.log(this.ouser);
+      // this.freeSpace.parkID = this.freeSpaceID;
+      // console.log(this.freeSpaceID);
+      this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
+        status: true
+      });
+
+
+
+    });
+
+
     this.afstore.collection('o_users').doc(this.License).delete();
+
   }
 
   async popUp(License) {
     const alert = await this.alertController.create({
       header: 'French Pop-up',
       subHeader: 'The Code Read was',
-      message:'Vehicle with License Plate #: ' +License +' removed',
+      message: 'Vehicle with License Plate #: ' + License + ' removed',
       buttons: ['OK']
     });
     await alert.present();
@@ -104,6 +132,6 @@ export class DeallocateVehiclePage implements OnInit {
             }
           })
           .catch((e: any) => console.log('Error is', e));
-         
-        
+
+
         }*/

@@ -1,13 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Allocate Parking Spot</ion-title>
-    <ion-button
-      (click)="back()"
-      routerLink="/"
-      routerDirection="back"
-      color="Dark"
-      id="back"
-    >
+    <ion-button (click)="back()" routerLink="/" routerDirection="back" color="Dark" id="back">
       <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
     </ion-button>
   </ion-toolbar>
@@ -19,37 +13,24 @@
       <ion-card id="top">
         <ion-img id="image" src="/assets/enterV.jpg"></ion-img>
         <ion-list-header>
-          <ion-label style="margin-left:15%;text-shadow: 1px 1px grey" id="lbl1"
-            >Vehicle Allocation</ion-label
-          >
+          <ion-label style="margin-left:15%;text-shadow: 1px 1px grey" id="lbl1">Vehicle Allocation</ion-label>
         </ion-list-header>
-        
-        <ion-label
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the Vehicle's
+
+        <ion-label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the Vehicle's
           information
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;below
-          to Continue</ion-label
-        >
+          to Continue</ion-label>
       </ion-card>
       <ion-card-content id="c1">
-          <ion-card-subtitle id="Fault"><ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer</ion-card-subtitle>
-        <ion-input
-          placeholder="Enter the Vehicle's License Plate number"
-          [(ngModel)]="License"
-        >
+        <ion-card-subtitle id="Fault">
+          <ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer
+        </ion-card-subtitle>
+        <ion-input placeholder="Enter the Vehicle's License Plate number" [(ngModel)]="License">
         </ion-input>
-        <ion-input
-          placeholder="Enter the Driver's ID number (Optional)"
-          [(ngModel)]="userallocateid"
-        >
-        </ion-input
-        >
-        <ion-button
-          id="proceed"
-          [ngStyle]="{ 'background-color': buttonColor }"
-          (click)="allocateVehicle()"
-          >Allocate Vehicle</ion-button
-        >
+        <ion-input placeholder="Enter the Driver's ID number (Optional)" [(ngModel)]="userallocateid">
+        </ion-input>
+        <ion-button id="proceed" [ngStyle]="{ 'background-color': buttonColor }" (click)="allocateVehicle()">Allocate
+          Vehicle</ion-button>
       </ion-card-content>
     </ion-list>
   </ion-card>

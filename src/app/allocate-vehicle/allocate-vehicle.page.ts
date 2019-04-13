@@ -115,6 +115,10 @@ export class AllocateVehiclePage implements OnInit {
       // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
       //   status: false
       // })
+      // this.afstore.collection('temp').doc(this.License).set({
+      //   userLicNbr: this.License,
+      // });
+
       var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
       var subscripton = snapshotResult.subscribe(doc => {
         this.freeSpace = <p_spaceI>doc.payload.doc.data();
@@ -128,15 +132,15 @@ export class AllocateVehiclePage implements OnInit {
           status: false
         })
 
-
+        this.afstore.collection('o_users').doc(this.License).set({
+          userLicNbr: this.License,
+          userid: this.userallocateid,
+          parkID: this.freeSpace.parkID
+        });
 
       });
 
-      this.afstore.collection('o_users').doc(this.License).set({
-        userLicNbr: this.License,
-        userid: this.userallocateid,
-        parkID: this.freeSpace.parkID
-      });
+
 
 
       //var o_userRef = this.afstore.collection('o_users');
@@ -162,7 +166,7 @@ export class AllocateVehiclePage implements OnInit {
         });
         await alert.present();
       }
-      this.License = '';
+      //this.License = '';
     }
   }
 
