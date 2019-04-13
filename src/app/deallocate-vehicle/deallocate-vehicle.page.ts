@@ -55,13 +55,27 @@ export class DeallocateVehiclePage implements OnInit {
       .then(barcodeData => {
         console.log('Barcode data', barcodeData);
         this.scannedCode = barcodeData.text;
-        this.vibration.vibrate(0.1);
-        this.popUp(this.scannedCode);
+        // this.vibration.vibrate(0.1);
+        // this.popUp(this.scannedCode);
 
         this.vibration.vibrate(0.1);
         this.popUp(this.scannedCode);
+
+        var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.scannedCode).limit(1)).snapshotChanges().pipe(flatMap(users => users));
+        var subscripton = snapshotResult.subscribe(doc => {
+          this.ouser = <o_userI>doc.payload.doc.data();
+          this.docRef = doc.payload.doc.ref;
+
+          subscripton.unsubscribe();
+          console.log(this.ouser);
+
+          this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
+            status: true
+          });
+        });
+
         this.afstore.collection('o_users').doc(this.scannedCode).delete();
-        //this.o_userService.removeO_Users(this.scannedCode);
+
       })
       .catch(err => {
         console.log('Error', err);
