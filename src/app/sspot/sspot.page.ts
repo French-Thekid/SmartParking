@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
+import { flatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { o_userI } from '../services/occupied-user.service';
+import { p_spaceI } from '../services/parking-space.service';
 
 @Component({
   selector: 'app-sspot',
@@ -8,6 +13,16 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./sspot.page.scss']
 })
 export class SspotPage implements OnInit {
+  query: Query;
+  docRef: DocumentReference;
+  spaces: Observable<any[]>;
+  s_space: p_spaceI;
+
+  docRef1: DocumentReference;
+  spaces1: Observable<any[]>;
+  s_space1: p_spaceI;
+
+
   selectedSpot: string;
   SbuttonColor = 'clear';
   iconColor1 = 'white';
@@ -73,16 +88,52 @@ export class SspotPage implements OnInit {
 
   constructor(
     private router: Router,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    public afstore: AngularFirestore
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   return() {
     this.router.navigate(['/tabs/tab3']);
   }
 
   async returnSpot(spot: string) {
     this.selectedSpot = spot;
+
+    var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+    var subscripton = snapshotResult.subscribe(doc => {
+      this.s_space = <p_spaceI>doc.payload.doc.data();
+      this.docRef = doc.payload.doc.ref;
+
+      subscripton.unsubscribe();
+      console.log(this.s_space);
+
+      this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
+        reserved: true
+      });
+
+      this.afstore.collection('reservation').doc(this.s_space.parkID).set({
+        parkID: this.s_space.parkID
+      })
+
+    });
+
+    // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+    // var subscripton = snapshotResult.subscribe(doc => {
+    //   this.s_space = <p_spaceI>doc.payload.doc.data();
+    //   this.docRef = doc.payload.doc.ref;
+
+    //   subscripton.unsubscribe();
+    //   console.log(this.s_space);
+
+    //   this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
+    //     reserved: true
+    //   });
+
+    // });
+
+
+
     const alert = await this.alertController.create({
       header: 'French Pop-up',
       subHeader: 'Under Construction',

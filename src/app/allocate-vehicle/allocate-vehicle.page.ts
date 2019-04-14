@@ -85,7 +85,7 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     } 
     else {
-     // if((this.userallocateid!='')&&(this.License!="")){
+      if((this.userallocateid!='')&&(this.License!="")){
        
 
 
@@ -110,8 +110,8 @@ export class AllocateVehiclePage implements OnInit {
         //   });
 
         // });
-      // }
-      // else{
+      }
+      else{
           //var spacesRef = this.afstore.collection("parkingSpace")
           //var query = spacesRef.where()
 
@@ -143,11 +143,11 @@ export class AllocateVehiclePage implements OnInit {
           //   userLicNbr: this.License,
           // });
 
-          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
             this.freeSpace = <p_spaceI>doc.payload.doc.data();
             this.docRef = doc.payload.doc.ref;
-
+    
             subscripton.unsubscribe();
             console.log(this.freeSpace.parkID);
             // this.freeSpace.parkID = this.freeSpaceID;
@@ -155,14 +155,16 @@ export class AllocateVehiclePage implements OnInit {
             this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
               status: false
             })
-
+    
             this.afstore.collection('o_users').doc(this.License).set({
               userLicNbr: this.License,
               userid: this.userallocateid,
               parkID: this.freeSpace.parkID
             });
-
+    
           });
+    
+      
 
           //var o_userRef = this.afstore.collection('o_users');
           //var query = o_userRef.where('userLicNbr', '==', '7907EM');
@@ -185,7 +187,7 @@ export class AllocateVehiclePage implements OnInit {
             await alert.present();
           }
           //this.License = '';
-   // }
+     }
   }
  }
 
