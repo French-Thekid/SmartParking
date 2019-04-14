@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserService } from './user.service';
 import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/functions';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -31,6 +31,7 @@ import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/
     BrowserModule,
     NgxQRCodeModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,

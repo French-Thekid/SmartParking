@@ -83,94 +83,111 @@ export class AllocateVehiclePage implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
-    } else {
-      // if(this.userallocateid==""){
-
-      // }
-      //else{
-      //var spacesRef = this.afstore.collection("parkingSpace")
-      //var query = spacesRef.where()
-
-      //var amt = spacesRef.;
-
-      //this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1));
-
-      // var id = this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1)).get().subscribe(function (querySnapshot) {
-      //   querySnapshot.forEach(function (doc) {
-      //     console.log(doc.id, ' => ', doc.data());
-      //   });
-      // });
+    } 
+    else {
+      if((this.userallocateid!='')&&(this.License!="")){
+       
 
 
+        //stuff
+        // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+        // var subscripton = snapshotResult.subscribe(doc => {
+        //   this.freeSpace = <p_spaceI>doc.payload.doc.data();
+        //   this.docRef = doc.payload.doc.ref;
 
+        //   subscripton.unsubscribe();
+        //   console.log(this.freeSpace.parkID);
+        //   // this.freeSpace.parkID = this.freeSpaceID;
+        //   // console.log(this.freeSpaceID);
+        //   this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+        //     status: false
+        //   })
 
+        //   this.afstore.collection('o_users').doc(this.License).set({
+        //     userLicNbr: this.License,
+        //     userid: this.userallocateid,
+        //     parkID: this.freeSpace.parkID
+        //   });
 
-      // console.log("ID: "+id)
-
-      //  var parkSpace = this.afstore.collection('parkingSpace');
-      //  var query =  parkSpace.where('status', '==', 'true')
-
-
-
-      // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-      //   status: false
-      // })
-      // this.afstore.collection('temp').doc(this.License).set({
-      //   userLicNbr: this.License,
-      // });
-
-      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-      var subscripton = snapshotResult.subscribe(doc => {
-        this.freeSpace = <p_spaceI>doc.payload.doc.data();
-        this.docRef = doc.payload.doc.ref;
-
-        subscripton.unsubscribe();
-        console.log(this.freeSpace.parkID);
-        // this.freeSpace.parkID = this.freeSpaceID;
-        // console.log(this.freeSpaceID);
-        this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-          status: false
-        })
-
-        this.afstore.collection('o_users').doc(this.License).set({
-          userLicNbr: this.License,
-          userid: this.userallocateid,
-          parkID: this.freeSpace.parkID
-        });
-
-      });
-
-
-
-
-      //var o_userRef = this.afstore.collection('o_users');
-      //var query = o_userRef.where('userLicNbr', '==', '7907EM');
-      //this.afstore
-      //.collection('o_users')
-      //.doc(this.License)
-      //.set(query);
-      /* this.afstore
-            .collection('qrc')
-            .doc('4154EM').doc('')
-            .set({
-              userLicNbr: userLicense,
-              userid: userallocateid
-            });*/
-      if (this.FPrinter == true) {
-        const alert = await this.alertController.create({
-          header: 'On Screen Ticket',
-          subHeader: 'SCIT Parking Lot',
-          message: 'License Plate #:' + this.License + ' \n\n\n ', //'+this.encodedData,
-          translucent: true,
-          buttons: ['OK']
-        });
-        await alert.present();
+        // });
       }
-      //this.License = '';
+      else{
+          //var spacesRef = this.afstore.collection("parkingSpace")
+          //var query = spacesRef.where()
+
+          //var amt = spacesRef.;
+
+          //this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1));
+
+          // var id = this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1)).get().subscribe(function (querySnapshot) {
+          //   querySnapshot.forEach(function (doc) {
+          //     console.log(doc.id, ' => ', doc.data());
+          //   });
+          // });
+
+
+
+
+
+          // console.log("ID: "+id)
+
+          //  var parkSpace = this.afstore.collection('parkingSpace');
+          //  var query =  parkSpace.where('status', '==', 'true')
+
+
+
+          // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+          //   status: false
+          // })
+          // this.afstore.collection('temp').doc(this.License).set({
+          //   userLicNbr: this.License,
+          // });
+
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.freeSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
+
+            subscripton.unsubscribe();
+            console.log(this.freeSpace.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+              status: false
+            })
+
+            this.afstore.collection('o_users').doc(this.License).set({
+              userLicNbr: this.License,
+              userid: this.userallocateid,
+              parkID: this.freeSpace.parkID
+            });
+
+          });
+
+          //var o_userRef = this.afstore.collection('o_users');
+          //var query = o_userRef.where('userLicNbr', '==', '7907EM');
+          //this.afstore
+          //.collection('o_users')
+          //.doc(this.License)
+          //.set(query);
+          /* this.afstore.collection('qrc').doc('4154EM').doc('').set({
+                  userLicNbr: userLicense,
+                  userid: userallocateid
+                });*/
+          if (this.FPrinter == true) {
+            const alert = await this.alertController.create({
+              header: 'On Screen Ticket',
+              subHeader: 'SCIT Parking Lot',
+              message: 'License Plate #:' + this.License + ' \n\n\n ', //'+this.encodedData,
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
+          }
+          //this.License = '';
     }
   }
-
-  //}
+ }
 
   back() {
     this.router.navigate(['admin-portal']);

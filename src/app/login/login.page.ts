@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
+import { Storage } from '@ionic/storage';
 import {
   AngularFirestore,
   AngularFirestoreDocument
@@ -20,12 +21,14 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   userid: string = '';
+  var:string = '';
   password: string = '';
 
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
     private alertController: AlertController,
+    private storage: Storage,
     public user: UserService
   ) {}
 
@@ -54,11 +57,24 @@ export class LoginPage implements OnInit {
         }
         else if(userid.length==5){
           //staff/home portal link
+          this.storage.set('userID', this.userid);
         }
         else if(userid.length==7){
            //student/home portal link
+           this.storage.set('userID', this.userid);
         }
-        this.router.navigate(['admin-portal']);
+       // var idR=this.getUID();
+       
+
+        // const alert = await this.alertController.create({
+        //   header: 'Warning',
+        //   subHeader: 'Testing',
+        //   message: "Username: "+idR,
+        //   translucent: true,
+        //   buttons: ['OK']
+        // });
+        // await alert.present();
+        //this.router.navigate(['admin-portal']);
 
         this.userid="";
         this.password="";
@@ -93,5 +109,15 @@ export class LoginPage implements OnInit {
   }
   ngOnInit() {
     //
+  }
+
+  getUID()
+  {
+    var x= this.storage.get('userID');
+    var y=Promise.all([x]).then((arrayOfResults) => {
+      console.log(arrayOfResults[0]);
+      return arrayOfResults[0];
+    });
+    return y;
   }
 }
