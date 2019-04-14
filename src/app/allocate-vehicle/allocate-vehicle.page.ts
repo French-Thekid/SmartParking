@@ -85,7 +85,7 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     } 
     else {
-      if((this.userallocateid!='')&&(this.License!="")){
+     // if((this.userallocateid!='')&&(this.License!="")){
        
 
 
@@ -110,8 +110,8 @@ export class AllocateVehiclePage implements OnInit {
         //   });
 
         // });
-      }
-      else{
+      // }
+      // else{
           //var spacesRef = this.afstore.collection("parkingSpace")
           //var query = spacesRef.where()
 
@@ -185,7 +185,7 @@ export class AllocateVehiclePage implements OnInit {
             await alert.present();
           }
           //this.License = '';
-    }
+   // }
   }
  }
 
