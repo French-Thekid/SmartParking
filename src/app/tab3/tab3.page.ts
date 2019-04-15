@@ -113,15 +113,20 @@ export class Tab3Page {
   async startcountdown(T:any){
        this.intervalVar = setInterval(function(){
         this.sec++;
-        if((this.sec-60)==T){
+        if((this.sec-60)==0){
           this.min++;
           this.sec= this.sec-60;
         }
-        if(this.min==T){
+        if(this.min==1){
           //check Database here
           console.log("times Up bruh")
           //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
-          
+          this.afstore.collection('parkingSpace').doc('GP'+JSON.parse(localStorage.getItem('sspot'))).update({
+            status: true,
+            reserved: false
+          });
+          this.afstore.collection('reservation').doc('GP'+JSON.parse(localStorage.getItem('sspot'))).delete();
+      
           //call this if they lost the spot only
           this.lossSpot();
           this.booked=false;
