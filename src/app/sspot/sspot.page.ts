@@ -25,6 +25,9 @@ export class SspotPage implements OnInit {
 
   selectedSpot: string;
   SbuttonColor = 'clear';
+  iconColorA="white"
+  iconColorNA="red"
+  iconColorRE="#7FFF00"
   iconColor1 = 'white';
   iconColor2 = 'white';
   iconColor3 = 'white';
@@ -99,52 +102,63 @@ export class SspotPage implements OnInit {
 
   async returnSpot(spot: string) {
     this.selectedSpot = spot;
-    localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
-    var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-    var subscripton = snapshotResult.subscribe(doc => {
-      this.s_space = <p_spaceI>doc.payload.doc.data();
-      this.docRef = doc.payload.doc.ref;
-
-      subscripton.unsubscribe();
-      console.log(this.s_space);
-
-      this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
-        reserved: true
+    if((parseInt(this.selectedSpot)<=20)&&(JSON.parse(localStorage.getItem('userID')).length!=5)){
+       const alert = await this.alertController.create({
+          header: 'Warning',
+          subHeader: 'Invalid Spot Selected',
+          message: 'It appears the spot you have selected is reserved for Staff members only, please try selecting another',
+          translucent: true,
+          buttons: ['OK']
+        });
+        await alert.present();
+    }
+    else{
+      localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
+      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+      var subscripton = snapshotResult.subscribe(doc => {
+        this.s_space = <p_spaceI>doc.payload.doc.data();
+        this.docRef = doc.payload.doc.ref;
+  
+        subscripton.unsubscribe();
+        console.log(this.s_space);
+  
+        this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
+          reserved: true
+        });
+  
+        this.afstore.collection('reservation').doc(this.s_space.parkID).set({
+          userid: JSON.parse(localStorage.getItem('userID')),
+          parkID: this.s_space.parkID
+        })
+  
       });
-
-      this.afstore.collection('reservation').doc(this.s_space.parkID).set({
-        userid: JSON.parse(localStorage.getItem('userID')),
-        parkID: this.s_space.parkID
-      })
-
-    });
-
-    // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-    // var subscripton = snapshotResult.subscribe(doc => {
-    //   this.s_space = <p_spaceI>doc.payload.doc.data();
-    //   this.docRef = doc.payload.doc.ref;
-
-    //   subscripton.unsubscribe();
-    //   console.log(this.s_space);
-
-    //   this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
-    //     reserved: true
-    //   });
-
-    // });
-
-
-
-    // const alert = await this.alertController.create({
-    //   header: 'French Pop-up',
-    //   subHeader: 'Under Construction',
-    //   message: 'Parking lot ' + spot + ' selected',
-    //   translucent: true,
-    //   buttons: ['OK']
-    // });
-
-    // await alert.present();
-    this.router.navigate(['/tabs/tab3']);
-
+  
+      // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+      // var subscripton = snapshotResult.subscribe(doc => {
+      //   this.s_space = <p_spaceI>doc.payload.doc.data();
+      //   this.docRef = doc.payload.doc.ref;
+  
+      //   subscripton.unsubscribe();
+      //   console.log(this.s_space);
+  
+      //   this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
+      //     reserved: true
+      //   });
+  
+      // });
+  
+  
+  
+      // const alert = await this.alertController.create({
+      //   header: 'French Pop-up',
+      //   subHeader: 'Under Construction',
+      //   message: 'Parking lot ' + spot + ' selected',
+      //   translucent: true,
+      //   buttons: ['OK']
+      // });
+  
+      // await alert.present();
+      this.router.navigate(['/tabs/tab3']);
+    }
   }
 }

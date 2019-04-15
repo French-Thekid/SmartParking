@@ -9,6 +9,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class VparkedPage implements OnInit {
   selectedSpot: string;
+  iconColorA="white"
+  iconColorNA="red"
+  iconColorRE="#7FFF00"
   SbuttonColor = 'clear';
   iconColor1 = 'white';
   iconColor2 = 'white';

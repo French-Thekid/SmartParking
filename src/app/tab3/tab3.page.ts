@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
+import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
+import { switchMap, flatMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, combineLatest, Subject, ObjectUnsubscribedError } from 'rxjs';
 import {
   o_userI,
   OccupiedUserService
@@ -19,6 +22,7 @@ export class Tab3Page {
   booked: boolean = false;
   intervalVar:any;
   o_users: o_userI[];
+  reservedSpace: p_spaceI;
   ouser: o_userI;
   ouserID: string;
   sec=0;
@@ -117,7 +121,7 @@ export class Tab3Page {
           //check Database here
           console.log("times Up bruh")
           //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
-
+          
           //call this if they lost the spot only
           this.lossSpot();
           this.booked=false;
