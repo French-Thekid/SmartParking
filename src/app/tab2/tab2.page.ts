@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-tab2',
@@ -9,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab2Page {
   buttonColor = '#000';
-  constructor(public router: Router, public alertController: AlertController) { }
+  constructor(public router: Router, public alertController: AlertController, public afstore: AngularFirestore) { }
 
   async OpenLogin() {
     this.buttonColor = '#000080';
