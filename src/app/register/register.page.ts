@@ -28,6 +28,9 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
+  back(){
+    this.router.navigate(['tabs']);
+  }
   async register() {
     const { username, userid, password /*cpassword*/ } = this;
     /*if(password !== cpassword) {

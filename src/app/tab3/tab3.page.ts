@@ -9,29 +9,70 @@ import { Router } from '@angular/router';
 export class Tab3Page {
   constructor(public alertController: AlertController, public router: Router) {}
   time = 5;
-  check = false;
+  check:boolean = false;
+  check1:boolean = false;
+  timer=0;
+  min=0;
   async reserveSpot() {
-    if (this.check == true) {
+    var IDChk = JSON.parse(localStorage.getItem('userID'));
+    if (IDChk == null) {
       const alert = await this.alertController.create({
-        header: 'Reservation',
-        subHeader: 'Your spot has been successfully Reserved.',
-        message:
-          'Fail to arrive in ' + this.time + ' mins and you might lose it.',
-        buttons: ['OK']
-      });
-      await alert.present();
-      this.check = false;
-    } else {
-      const alert = await this.alertController.create({
-        header: 'Reservation',
-        subHeader: 'Please Select Time and Spot.',
+        header: 'Unknown User',
+        subHeader: 'Please Log-in to Continue.',
         buttons: ['OK']
       });
 
       await alert.present();
     }
+    else{
+      if ( (this.check1 == true) && (this.check == true) ) {
+        const alert = await this.alertController.create({
+          header: 'Reservation',
+          subHeader: 'Your spot has been successfully Reserved.',
+          message:
+            'Failure to arrive in ' + this.time + ' mins and you will lose it.',
+          buttons: ['OK']
+        });
+        await alert.present();
+        this.startcountdown(this.time);
+        this.check = false;
+        this.check1 = false;
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Reservation',
+          subHeader: 'Please Select Time and Spot.',
+          buttons: ['OK']
+        });
+  
+        await alert.present();
+      }
+
+      
+    }
+
+    
   }
+  async startcountdown(T:any){
+      var intervalVar = setInterval(function(){
+        this.timer++;
+        if((this.timer-60)==1){
+          this.min++;
+          this.timer= this.timer-60;
+        }
+        if(this.min==T){
+          //check Database here
+          console.log("times Up bruh")
+
+          //do this last:
+          clearInterval(intervalVar);
+          this.timer=0;
+          this.min=0;
+        }
+      }.bind(this),1000)
+  }
+
   selectSpot() {
+    this.check1 = true;
     this.router.navigate(['sspot']);
   }
   async selectTime() {
@@ -56,12 +97,6 @@ export class Tab3Page {
           type: 'radio',
           label: '15 Minutes',
           value: '15'
-        },
-        {
-          name: 'radio3',
-          type: 'radio',
-          label: '20 Minutes',
-          value: '20'
         }
       ],
       buttons: [

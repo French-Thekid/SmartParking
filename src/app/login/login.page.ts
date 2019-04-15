@@ -30,21 +30,21 @@ export class LoginPage implements OnInit {
     private storage: Storage,
     public user: UserService
   ) {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-          this.userData = user;
-          localStorage.setItem('userID', JSON.stringify(this.userid));
-          localStorage.setItem('password', JSON.stringify(this.password));
-          JSON.parse(localStorage.getItem('userID'));
-          JSON.parse(localStorage.getItem('password'));
-      } 
-      else {
-          localStorage.setItem('userID', null);
-          localStorage.setItem('password', null);
-          JSON.parse(localStorage.getItem('userID'));
-          JSON.parse(localStorage.getItem('password'));
-      }
-      })
+    // this.afAuth.authState.subscribe(user => {
+    //   if (user) {
+    //       this.userData = user;
+    //       localStorage.setItem('userID', JSON.stringify(this.userid));
+    //       localStorage.setItem('password', JSON.stringify(this.password));
+    //       JSON.parse(localStorage.getItem('userID'));
+    //       JSON.parse(localStorage.getItem('password'));
+    //   } 
+    //   else {
+    //       localStorage.setItem('userID', null);
+    //       localStorage.setItem('password', null);
+    //       JSON.parse(localStorage.getItem('userID'));
+    //       JSON.parse(localStorage.getItem('password'));
+    //   }
+    //   })
 
 
   }

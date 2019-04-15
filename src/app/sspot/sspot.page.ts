@@ -135,14 +135,16 @@ export class SspotPage implements OnInit {
 
 
 
-    const alert = await this.alertController.create({
-      header: 'French Pop-up',
-      subHeader: 'Under Construction',
-      message: 'Parking lot ' + spot + ' selected',
-      translucent: true,
-      buttons: ['OK']
-    });
+    // const alert = await this.alertController.create({
+    //   header: 'French Pop-up',
+    //   subHeader: 'Under Construction',
+    //   message: 'Parking lot ' + spot + ' selected',
+    //   translucent: true,
+    //   buttons: ['OK']
+    // });
 
-    await alert.present();
+    // await alert.present();
+    this.router.navigate(['/tabs/tab3']);
+
   }
 }

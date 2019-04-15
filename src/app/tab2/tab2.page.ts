@@ -13,7 +13,7 @@ export class Tab2Page {
 
   async OpenLogin() {
     this.buttonColor = '#000080';
-    var IDChk = localStorage.getItem('userID');
+    var IDChk = JSON.parse(localStorage.getItem('userID'));
     if (IDChk != null) {
       const alert = await this.alertController.create({
         header: 'Confirm!',
@@ -30,6 +30,8 @@ export class Tab2Page {
             text: 'Yes',
             handler: () => {
               console.log('Confirm Okay');
+              localStorage.setItem('userID',null);
+              localStorage.setItem('password',null);
               this.router.navigate(['login']);
             }
           }
