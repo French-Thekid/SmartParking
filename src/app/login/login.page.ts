@@ -4,11 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
 import { Storage } from '@ionic/storage';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
-
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
@@ -23,14 +20,34 @@ export class LoginPage implements OnInit {
   userid: string = '';
   var:string = '';
   password: string = '';
-
+  userData: any;
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
+    public ngZone: NgZone,
+    public afstore: AngularFirestore,
     private alertController: AlertController,
     private storage: Storage,
     public user: UserService
-  ) {}
+  ) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+          this.userData = user;
+          localStorage.setItem('userID', JSON.stringify(this.userid));
+          localStorage.setItem('password', JSON.stringify(this.password));
+          JSON.parse(localStorage.getItem('userID'));
+          JSON.parse(localStorage.getItem('password'));
+      } 
+      else {
+          localStorage.setItem('userID', null);
+          localStorage.setItem('password', null);
+          JSON.parse(localStorage.getItem('userID'));
+          JSON.parse(localStorage.getItem('password'));
+      }
+      })
+
+
+  }
 
   async OpenPortal() {
     const { userid, password } = this;
@@ -47,6 +64,29 @@ export class LoginPage implements OnInit {
     }
     else{
       try {
+
+        return this.afAuth.auth.signInWithEmailAndPassword( userid + '@smartpark.com', password).then((result) => {
+                  this.ngZone.run(() => {
+                          localStorage.setItem('userID', JSON.stringify(this.userid));
+                          localStorage.setItem('password', JSON.stringify(this.password));
+
+                          if(userid.length==3){
+                            //admin portal link
+                          }
+                          else if(userid.length==5){
+                            //staff/home portal link
+                          }
+                          else if(userid.length==7){
+                            this.router.navigate(['tabs']);
+                          }
+                          this.router.navigate(['admin-portal']);
+                  });
+                 var SetUserData=result.user;
+
+            }).catch((error) => {
+           console.log(error.message)
+        })
+
         const res = await this.afAuth.auth.signInWithEmailAndPassword(
           userid + '@smartpark.com',
           password
@@ -57,24 +97,12 @@ export class LoginPage implements OnInit {
         }
         else if(userid.length==5){
           //staff/home portal link
-          this.storage.set('userID', this.userid);
+          //this.storage.set('userID', this.userid);
         }
         else if(userid.length==7){
            //student/home portal link
-           this.storage.set('userID', this.userid);
+          // this.storage.set('userID', this.userid);
         }
-       // var idR=this.getUID();
-       
-
-        // const alert = await this.alertController.create({
-        //   header: 'Warning',
-        //   subHeader: 'Testing',
-        //   message: "Username: "+idR,
-        //   translucent: true,
-        //   buttons: ['OK']
-        // });
-        // await alert.present();
-        //this.router.navigate(['admin-portal']);
 
         this.userid="";
         this.password="";
@@ -120,4 +148,8 @@ export class LoginPage implements OnInit {
     });
     return y;
   }
+
+ 
+
+
 }

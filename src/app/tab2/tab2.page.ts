@@ -11,16 +11,39 @@ export class Tab2Page {
   buttonColor = '#000';
   constructor(public router: Router, public alertController: AlertController) {}
 
-  OpenLogin() {
+  async OpenLogin() {
     this.buttonColor = '#000080';
-    this.router.navigate(['login']);
+    var IDChk=localStorage.getItem('userID');
+          if(IDChk!=null){
+            const alert = await this.alertController.create({
+              header: 'Confirm!',
+              message: "<strong>Already signed in under user ID:"+JSON.parse(localStorage.getItem('userID'))+"</strong>, would you like to log-out and log in as somewone else?",
+              buttons: [
+                {
+                  text: 'No',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: (blah) => {
+                    console.log('Confirm Cancel: blah');
+                  }
+                }, {
+                  text: 'Yes',
+                  handler: () => {
+                    console.log('Confirm Okay');
+                    this.router.navigate(['login']);
+                  }
+                }
+              ]
+            });
+            await alert.present();
+          }
   }
 
   async openProfile() {
     const alert = await this.alertController.create({
       header: 'French Pop-up',
       subHeader: 'Under Construction',
-      message: 'This section will be up soon fam.',
+      message: 'This section will be up soon fam. Logged in as: '+JSON.parse(localStorage.getItem('userID')),
       translucent: true,
       buttons: ['OK']
     });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-admin-portal',
@@ -13,7 +14,7 @@ export class AdminPortalPage implements OnInit {
   select3: string = "rgba(0,0,0,0.2)";
   select4: string = "rgba(0,0,0,0.2)";
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private storage: Storage,) { }
 
   logOut(){
     this.router.navigate(['login']);
@@ -21,10 +22,12 @@ export class AdminPortalPage implements OnInit {
 
 
   async EntranceV(){
-    this.select = "rgba(255,255,255,0.4)";
-    this.router.navigate(['allocate-vehicle']);
-    await this.stall(300);
-    this.select = "rgba(0,0,0,0.2)";
+    console.log(JSON.parse(localStorage.getItem('userID')));
+
+    // this.select = "rgba(255,255,255,0.4)";
+    // this.router.navigate(['allocate-vehicle']);
+    // await this.stall(300);
+    // this.select = "rgba(0,0,0,0.2)";
   }
   async exitV(){
     this.select1 = "rgba(255,255,255,0.4)";
