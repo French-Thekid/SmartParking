@@ -113,6 +113,7 @@ export class SspotPage implements OnInit {
       });
 
       this.afstore.collection('reservation').doc(this.s_space.parkID).set({
+        userid: JSON.parse(localStorage.getItem('userID')),
         parkID: this.s_space.parkID
       })
 

@@ -70,8 +70,10 @@ export class DeallocateVehiclePage implements OnInit {
           console.log(this.ouser);
 
           this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-            status: true
+            status: true,
+            reserved: false
           });
+          this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
         });
 
         this.afstore.collection('o_users').doc(this.scannedCode).delete();
@@ -96,11 +98,10 @@ export class DeallocateVehiclePage implements OnInit {
       // this.freeSpace.parkID = this.freeSpaceID;
       // console.log(this.freeSpaceID);
       this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-        status: true
+        status: true,
+        reserved: false
       });
-
-
-
+      this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
     });
 
 

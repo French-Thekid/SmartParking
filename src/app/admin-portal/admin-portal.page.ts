@@ -14,40 +14,40 @@ export class AdminPortalPage implements OnInit {
   select3: string = "rgba(0,0,0,0.2)";
   select4: string = "rgba(0,0,0,0.2)";
 
-  constructor(public router: Router, private storage: Storage,) { }
+  constructor(public router: Router, private storage: Storage, ) { }
 
-  logOut(){
+  logOut() {
     this.router.navigate(['login']);
   }
 
 
-  async EntranceV(){
-    console.log(JSON.parse(localStorage.getItem('userID')));
+  async EntranceV() {
+    //console.log(JSON.parse(localStorage.getItem('userID')));
 
-    // this.select = "rgba(255,255,255,0.4)";
-    // this.router.navigate(['allocate-vehicle']);
-    // await this.stall(300);
-    // this.select = "rgba(0,0,0,0.2)";
+    this.select = "rgba(255,255,255,0.4)";
+    this.router.navigate(['allocate-vehicle']);
+    await this.stall(300);
+    this.select = "rgba(0,0,0,0.2)";
   }
-  async exitV(){
+  async exitV() {
     this.select1 = "rgba(255,255,255,0.4)";
     this.router.navigate(['deallocate-vehicle']);
     await this.stall(300);
     this.select1 = "rgba(0,0,0,0.2)";
   }
-  async vehicleV(){
+  async vehicleV() {
     this.select2 = "rgba(255,255,255,0.4)";
     this.router.navigate(['vparked']);
     await this.stall(300);
     this.select2 = "rgba(0,0,0,0.2)";
   }
-  
+
   ngOnInit() {
     this.select = "rgba(0,0,0,0.2)";
   }
 
- 
-  stall(ms: number){
-    return new Promise( resolve => setTimeout(resolve, ms) );
+
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
