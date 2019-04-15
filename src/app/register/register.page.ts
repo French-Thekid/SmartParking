@@ -24,27 +24,27 @@ export class RegisterPage implements OnInit {
     public afstore: AngularFirestore,
     private alertController: AlertController,
     public user: UserService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async register() {
     const { username, userid, password /*cpassword*/ } = this;
     /*if(password !== cpassword) {
       return console.err("Passwords don't match")
     }*/
-    if((this.username=="")||(this.userid=="")||(this.password=="")||(this.password1=="")){
-        const alert = await this.alertController.create({
-          header: 'Warning',
-          subHeader: 'Incomplete Form',
-          message: "Please Check to ensure all fields are filled",
-          translucent: true,
-          buttons: ['OK']
-        });
-        await alert.present();
+    if ((this.username == "") || (this.userid == "") || (this.password == "") || (this.password1 == "")) {
+      const alert = await this.alertController.create({
+        header: 'Warning',
+        subHeader: 'Incomplete Form',
+        message: "Please Check to ensure all fields are filled",
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
     }
-    else{
-      if(this.password!=this.password1){
+    else {
+      if (this.password != this.password1) {
         const alert = await this.alertController.create({
           header: 'Warning',
           subHeader: 'Passwords do not match',
@@ -54,38 +54,36 @@ export class RegisterPage implements OnInit {
         });
         await alert.present();
       }
-      else{
+      else {
         try {
-          const res = await this.afAuth.auth.createUserWithEmailAndPassword(
-            userid + '@smartpark.com',
-            password
-          );
-    
-          this.afstore.doc(`users/${res.user.uid}`).set({ username, userid });
-    
+          const res = await this.afAuth.auth.createUserWithEmailAndPassword(userid + '@smartpark.com', password);
+
+          // this.afstore.doc(`users/${res.user.uid}`).set({ username, userid });
+          this.afstore.collection('users').doc(userid).set({ username, userid });
+
           this.user.setUser({
             username,
             userid,
             uid: res.user.uid
           });
-    
+
           this.router.navigate(['admin-portal']);
         } catch (error) {
-            console.dir(error);
-            if(error.code === 'auth/weak-password'){
-              const alert = await this.alertController.create({
-                header: 'Warning',
-                subHeader: 'Invalid Password',
-                message: "Please enter a stronger password",
-                translucent: true,
-                buttons: ['OK']
-              });
-              await alert.present();
-            }
+          console.dir(error);
+          if (error.code === 'auth/weak-password') {
+            const alert = await this.alertController.create({
+              header: 'Warning',
+              subHeader: 'Invalid Password',
+              message: "Please enter a stronger password",
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
+          }
         }
       }
-      
+
     }
-   
+
   }
 }
