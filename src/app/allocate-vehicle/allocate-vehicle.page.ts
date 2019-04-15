@@ -103,7 +103,8 @@ export class AllocateVehiclePage implements OnInit {
           // this.freeSpace.parkID = this.freeSpaceID;
           // console.log(this.freeSpaceID);
           this.afstore.collection('parkingSpace').doc(this.reservedSpace.parkID).update({
-            status: false
+            status: false,
+            reserved: false
           })
 
           this.afstore.collection('o_users').doc(this.License).set({

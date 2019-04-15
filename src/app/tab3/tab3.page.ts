@@ -33,9 +33,11 @@ export class Tab3Page {
   spaces: Observable<any[]>;
   s_space: p_spaceI;
 
+  query1: Query;
   docRef1: DocumentReference;
   spaces1: Observable<any[]>;
   s_space1: p_spaceI;
+
   async reserveSpot() {
     if (this.booked == true) {
       const alert = await this.alertController.create({
@@ -82,6 +84,7 @@ export class Tab3Page {
       }
       else {
         if ((this.check1 == true) && (this.check == true)) {
+
           var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
             this.s_space = <p_spaceI>doc.payload.doc.data();
@@ -131,11 +134,21 @@ export class Tab3Page {
 
   }
   async lossSpot() {
+
+    this.afstore.collection('parkingSpace').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).update({
+      status: true,
+      reserved: false
+    });
+    this.afstore.collection('reservation').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).delete();
+
+    //call this if they lost the spot only
+    this.booked = false;
     const alert = await this.alertController.create({
       header: 'Reservation Cancelled',
       subHeader: 'Im Sorry but your reservation has been cancelled due to late arrival.',
       buttons: ['OK']
     });
+
     await alert.present();
   }
   async startcountdown(T: any) {
@@ -146,20 +159,26 @@ export class Tab3Page {
         this.sec = this.sec - 60;
       }
       if (this.min == 1) {
+
         //check Database here
         console.log("times Up bruh")
         //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
-        this.afstore.collection('parkingSpace').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).update({
-          status: true,
-          reserved: false
+
+
+
+        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).limit(1)).snapshotChanges();
+        var subscripton = snapshotResult.subscribe(doc => {
+          this.s_space1 = <p_spaceI>doc.payload.doc.data();
+          this.docRef1 = doc.payload.doc.ref;
+
+          subscripton.unsubscribe();
+          console.log(this.s_space1);
+
+          if (this.s_space1.reserved == true && this.s_space1.status == true) {
+            this.lossSpot();
+          }
+
         });
-        this.afstore.collection('reservation').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).delete();
-
-        //call this if they lost the spot only
-        this.lossSpot();
-        this.booked = false;
-
-
         //do this last (reseting values and stopping counter):
         clearInterval(this.intervalVar);
         this.sec = 0;
