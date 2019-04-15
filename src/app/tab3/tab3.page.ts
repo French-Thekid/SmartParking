@@ -1,71 +1,131 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
+import {
+  o_userI,
+  OccupiedUserService
+} from '../services/occupied-user.service';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  constructor(public alertController: AlertController, public router: Router) {}
+  constructor(public alertController: AlertController,public afstore: AngularFirestore, public router: Router) {}
   time = 5;
   check:boolean = false;
   check1:boolean = false;
-  timer=0;
+  booked: boolean = false;
+  intervalVar:any;
+  o_users: o_userI[];
+  ouser: o_userI;
+  ouserID: string;
+  sec=0;
   min=0;
   async reserveSpot() {
-    var IDChk = JSON.parse(localStorage.getItem('userID'));
-    if (IDChk == null) {
+    if(this.booked==true){
       const alert = await this.alertController.create({
-        header: 'Unknown User',
-        subHeader: 'Please Log-in to Continue.',
-        buttons: ['OK']
+        header: 'Reservation Found!',
+        message: "You have already made a reservation, would you like to cancel and make a new one?",
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Yes',
+            handler: () => {
+              //cancel current reservation
+              this.sec=0;
+              this.min=0;
+              clearInterval(this.intervalVar);
+              var spot='GP'+JSON.parse(localStorage.getItem('sspot'));
+              this.afstore.collection('parkingSpace').doc(spot).update({
+                reserved: false
+              });
+              this.afstore.collection('reservation').doc(spot).delete();
+        
+              console.log('new reservation selected');
+              this.booked=false;
+            }
+          }
+        ]
       });
-
       await alert.present();
     }
     else{
-      if ( (this.check1 == true) && (this.check == true) ) {
+      var IDChk = JSON.parse(localStorage.getItem('userID'));
+      if (IDChk == null) {
         const alert = await this.alertController.create({
-          header: 'Reservation',
-          subHeader: 'Your spot has been successfully Reserved.',
-          message:
-            'Failure to arrive in ' + this.time + ' mins and you will lose it.',
+          header: 'Unknown User',
+          subHeader: 'Please Log-in to Continue.',
           buttons: ['OK']
         });
-        await alert.present();
-        this.startcountdown(this.time);
-        this.check = false;
-        this.check1 = false;
-      } else {
-        const alert = await this.alertController.create({
-          header: 'Reservation',
-          subHeader: 'Please Select Time and Spot.',
-          buttons: ['OK']
-        });
-  
         await alert.present();
       }
-
-      
+      else{
+        if ( (this.check1 == true) && (this.check == true) ) {
+          const alert = await this.alertController.create({
+            header: 'Reservation',
+            subHeader: 'Your spot has been successfully Reserved.',
+            message:
+              'Failure to arrive in ' + this.time + ' mins and you will lose it.',
+            buttons: ['OK']
+          });
+          await alert.present();
+          this.booked=true;
+          this.startcountdown(this.time);
+          this.check = false;
+          this.check1 = false;
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Reservation',
+            subHeader: 'Please Select Time and Spot.',
+            buttons: ['OK']
+          });
+    
+          await alert.present();
+        }
+  
+        
+      }
+  
     }
-
+    
     
   }
+  async lossSpot(){
+    const alert = await this.alertController.create({
+      header: 'Reservation Cancelled',
+      subHeader: 'Im Sorry but your reservation has been cancelled due to late arrival.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
   async startcountdown(T:any){
-      var intervalVar = setInterval(function(){
-        this.timer++;
-        if((this.timer-60)==1){
+       this.intervalVar = setInterval(function(){
+        this.sec++;
+        if((this.sec-60)==T){
           this.min++;
-          this.timer= this.timer-60;
+          this.sec= this.sec-60;
         }
         if(this.min==T){
           //check Database here
           console.log("times Up bruh")
+          //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
 
-          //do this last:
-          clearInterval(intervalVar);
-          this.timer=0;
+          //call this if they lost the spot only
+          this.lossSpot();
+          this.booked=false;
+
+
+          //do this last (reseting values and stopping counter):
+          clearInterval(this.intervalVar);
+          this.sec=0;
           this.min=0;
         }
       }.bind(this),1000)

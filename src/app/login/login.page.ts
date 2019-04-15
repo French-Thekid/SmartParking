@@ -71,15 +71,14 @@ export class LoginPage implements OnInit {
                           localStorage.setItem('password', JSON.stringify(this.password));
 
                           if(userid.length==3){
-                            //admin portal link
+                            this.router.navigate(['admin-portal']);
                           }
                           else if(userid.length==5){
-                            //staff/home portal link
+                            this.router.navigate(['tabs']);
                           }
                           else if(userid.length==7){
                             this.router.navigate(['tabs']);
-                          }
-                          this.router.navigate(['admin-portal']);
+                          }   
                   });
                  var SetUserData=result.user;
 

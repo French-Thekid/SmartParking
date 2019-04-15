@@ -99,7 +99,7 @@ export class SspotPage implements OnInit {
 
   async returnSpot(spot: string) {
     this.selectedSpot = spot;
-
+    localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
     var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
     var subscripton = snapshotResult.subscribe(doc => {
       this.s_space = <p_spaceI>doc.payload.doc.data();
