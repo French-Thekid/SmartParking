@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-button
+        (click)="back()"
+        routerLink="/"
+        routerDirection="back"
+        color="Dark"
+        id="back"
+      >
+        <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title>Check Reports</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  <!-- <table cellpadding="20px" style="width:100%;border:1px solid silver;background-color:rgba(0,0,0,0.1);color:white;font-family: monserrat">
+    <tr style="border-bottom: 1px solid silver">
+        <th>Users</th>
+        <th>Reports</th>
+    </tr>
+    <tr style="border-bottom: 1px solid silver">
+        <td style="border-right: 1px solid silver">1503803</td>
+        <td>Somebody scratch me car fam Somebody scratch me car fam</td>
+    </tr>
+    <tr style="border-bottom: 1px solid silver">
+        <td style="border-right: 1px solid silver">1503803</td>
+        <td>Somebody scratch me car fam Somebody scratch me car fam</td>
+    </tr>
+  </table> -->
+  <!-- <ion-card>
+      <ion-card-content>
+        <ion-card-title>{{info.reporterLicNbr}}</ion-card-title>
+  
+        <p>{{info.Report}}</p>
+      </ion-card-content>
+    </ion-card> -->
+    <table>
+        <thead>
+          <th>Users</th>
+          <th>Reports</th>
+          <th>Date</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Reports of reports">
+      
+            <td>{{reports.id }}</td>
+            <td>{{reports.Report}}</td>
+            <td>{{reports.date}}</td>
+            <td>
+                <button (click)="delete(reports.Lic)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+</ion-content>

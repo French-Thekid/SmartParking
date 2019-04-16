@@ -89,6 +89,8 @@ export class Tab1Page {
     effect: 'flip'
   };
   
+ 
+
   // doc = this.afstore.collection('parkingSpace');
 
   // var observer = doc.onSnapshot(docSnapshot => {

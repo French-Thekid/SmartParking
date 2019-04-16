@@ -41,6 +41,9 @@ export class AdminPortalPage implements OnInit {
     await this.stall(300);
     this.select2 = "rgba(0,0,0,0.2)";
   }
+  reportV(){
+    this.router.navigate(['creports']);
+  }
 
   ngOnInit() {
     this.select = "rgba(0,0,0,0.2)";
