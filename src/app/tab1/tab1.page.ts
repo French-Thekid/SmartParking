@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-tab1',
@@ -76,7 +77,7 @@ export class Tab1Page {
 
 
 
-  constructor(public router: Router, public alertController: AlertController) {}
+  constructor(public router: Router, public afstore: AngularFirestore,public alertController: AlertController) {}
   //Check DB Here
   temp = false;
   checkDB() {
@@ -88,4 +89,13 @@ export class Tab1Page {
     effect: 'flip'
   };
   
+  // doc = this.afstore.collection('parkingSpace');
+
+  // var observer = doc.onSnapshot(docSnapshot => {
+  //   console.log(`Received doc snapshot: ${docSnapshot}`);
+  //   // ...
+  // }, err => {
+  //   console.log(`Encountered error: ${err}`);
+  // });
+
 }

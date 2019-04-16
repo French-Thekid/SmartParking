@@ -1,7 +1,7 @@
 import { Component, Query } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AngularFirestore, DocumentReference } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentReference, DocumentChangeAction } from 'angularfire2/firestore';
 import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
 import { switchMap, flatMap } from 'rxjs/operators';
 import { Observable, BehaviorSubject, combineLatest, Subject, ObjectUnsubscribedError } from 'rxjs';
@@ -35,7 +35,7 @@ export class Tab3Page {
 
   query1: Query;
   docRef1: DocumentReference;
-  spaces1: Observable<any[]>;
+  spaces1: DocumentChangeAction<{}>[];
   s_space1: p_spaceI;
 
   async reserveSpot() {
@@ -134,55 +134,66 @@ export class Tab3Page {
 
   }
   async lossSpot() {
-
-    this.afstore.collection('parkingSpace').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).update({
-      status: true,
-      reserved: false
-    });
-    this.afstore.collection('reservation').doc('GP' + JSON.parse(localStorage.getItem('sspot'))).delete();
-
-    //call this if they lost the spot only
-    this.booked = false;
     const alert = await this.alertController.create({
       header: 'Reservation Cancelled',
       subHeader: 'Im Sorry but your reservation has been cancelled due to late arrival.',
       buttons: ['OK']
     });
+    
 
     await alert.present();
   }
+  public dealwithit(){
+    var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
+        var subscripton1 = snapshotResult1.subscribe(doc => {
+          this.s_space1 = <p_spaceI>doc.payload.doc.data();
+          this.docRef1 = doc.payload.doc.ref;
+
+          subscripton1.unsubscribe();
+          console.log(this.s_space1);
+
+           if (this.s_space1.reserved == true && this.s_space1.status == true) {
+             console.log('mad');
+             this.afstore.collection('parkingSpace').doc(this.s_space1.parkID).update({
+               status: true,
+               reserved: false
+             });
+             this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
+            
+          //   //call this if they lost the spot only
+          
+          this.lossSpot();
+            
+           }
+          
+        });
+  }  
+
   async startcountdown(T: any) {
+    
     this.intervalVar = setInterval(function () {
       this.sec++;
       if ((this.sec - 60) == 0) {
         this.min++;
         this.sec = this.sec - 60;
       }
-      if (this.min == 1) {
+      
+      
+      if (this.min == T) {
 
+        this.dealwithit();
         //check Database here
         console.log("times Up bruh")
         //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
+        
 
 
-
-        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).limit(1)).snapshotChanges();
-        var subscripton = snapshotResult.subscribe(doc => {
-          this.s_space1 = <p_spaceI>doc.payload.doc.data();
-          this.docRef1 = doc.payload.doc.ref;
-
-          subscripton.unsubscribe();
-          console.log(this.s_space1);
-
-          if (this.s_space1.reserved == true && this.s_space1.status == true) {
-            this.lossSpot();
-          }
-
-        });
+        
         //do this last (reseting values and stopping counter):
         clearInterval(this.intervalVar);
         this.sec = 0;
         this.min = 0;
+        this.booked=false;
       }
     }.bind(this), 1000)
   }
@@ -224,6 +235,7 @@ export class Tab3Page {
     else {
       this.check1 = true;
       this.router.navigate(['sspot']);
+      
     }
   }
   async selectTime() {
