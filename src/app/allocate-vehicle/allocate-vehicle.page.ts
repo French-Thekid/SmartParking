@@ -114,78 +114,83 @@ export class AllocateVehiclePage implements OnInit {
           });
 
         });
-        //stuff
-        // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-        // var subscripton = snapshotResult.subscribe(doc => {
-        //   this.freeSpace = <p_spaceI>doc.payload.doc.data();
-        //   this.docRef = doc.payload.doc.ref;
+        if (this.userallocateid.length == 5) {
 
-        //   subscripton.unsubscribe();
-        //   console.log(this.freeSpace.parkID);
-        //   // this.freeSpace.parkID = this.freeSpaceID;
-        //   // console.log(this.freeSpaceID);
-        //   this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-        //     status: false
-        //   })
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.freeSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
 
-        //   this.afstore.collection('o_users').doc(this.License).set({
-        //     userLicNbr: this.License,
-        //     userid: this.userallocateid,
-        //     parkID: this.freeSpace.parkID
-        //   });
+            subscripton.unsubscribe();
+            console.log(this.freeSpace.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+              status: false
+            })
 
-        // });
+            this.afstore.collection('o_users').doc(this.License).set({
+              userLicNbr: this.License,
+              userid: this.userallocateid,
+              parkID: this.freeSpace.parkID
+            });
+
+
+
+          });
+        }
+
+        if (this.userallocateid.length == 7) {
+
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.freeSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
+            if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+              subscripton.unsubscribe();
+              console.log(this.freeSpace.parkID);
+              // this.freeSpace.parkID = this.freeSpaceID;
+              // console.log(this.freeSpaceID);
+              this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+                status: false
+              })
+
+              this.afstore.collection('o_users').doc(this.License).set({
+                userLicNbr: this.License,
+                userid: this.userallocateid,
+                parkID: this.freeSpace.parkID
+              });
+            }
+
+
+          });
+        }
+
+
       }
+
       else {
-        //var spacesRef = this.afstore.collection("parkingSpace")
-        //var query = spacesRef.where()
 
-        //var amt = spacesRef.;
-
-        //this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1));
-
-        // var id = this.afstore.collection('parkingSpace', res => res.where('status', '==', true).limit(1)).get().subscribe(function (querySnapshot) {
-        //   querySnapshot.forEach(function (doc) {
-        //     console.log(doc.id, ' => ', doc.data());
-        //   });
-        // });
-
-
-
-
-
-        // console.log("ID: "+id)
-
-        //  var parkSpace = this.afstore.collection('parkingSpace');
-        //  var query =  parkSpace.where('status', '==', 'true')
-
-
-
-        // this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-        //   status: false
-        // })
-        // this.afstore.collection('temp').doc(this.License).set({
-        //   userLicNbr: this.License,
-        // });
-
-        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
         var subscripton = snapshotResult.subscribe(doc => {
           this.freeSpace = <p_spaceI>doc.payload.doc.data();
           this.docRef = doc.payload.doc.ref;
+          if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+            subscripton.unsubscribe();
+            console.log(this.freeSpace.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+              status: false
+            })
 
-          subscripton.unsubscribe();
-          console.log(this.freeSpace.parkID);
-          // this.freeSpace.parkID = this.freeSpaceID;
-          // console.log(this.freeSpaceID);
-          this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-            status: false
-          })
+            this.afstore.collection('o_users').doc(this.License).set({
+              userLicNbr: this.License,
+              userid: this.userallocateid,
+              parkID: this.freeSpace.parkID
+            });
+          }
 
-          this.afstore.collection('o_users').doc(this.License).set({
-            userLicNbr: this.License,
-            userid: this.userallocateid,
-            parkID: this.freeSpace.parkID
-          });
 
         });
 

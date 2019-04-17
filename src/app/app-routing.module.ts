@@ -22,7 +22,8 @@ const routes: Routes = [
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
   },  { path: 'sspot', loadChildren: './sspot/sspot.module#SspotPageModule' },
-  { path: 'vparked', loadChildren: './vparked/vparked.module#VparkedPageModule' }
+  { path: 'vparked', loadChildren: './vparked/vparked.module#VparkedPageModule' },
+  { path: 'creports', loadChildren: './creports/creports.module#CreportsPageModule' }
 
 ];
 @NgModule({

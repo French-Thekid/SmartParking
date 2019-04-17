@@ -4,12 +4,22 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
 import { Storage } from '@ionic/storage';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument,DocumentReference } from '@angular/fire/firestore';
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
+import { flatMap } from 'rxjs/operators';
+import { query } from '@angular/core/src/render3';
+import { BehaviorSubject, combineLatest, Subject, ObjectUnsubscribedError } from 'rxjs';
+import {
+  o_userI,
+  OccupiedUserService
+} from '../services/occupied-user.service';
+import { user } from '../services/user.model';
+
 
 @Component({
   selector: 'app-login',
@@ -21,6 +31,9 @@ export class LoginPage implements OnInit {
   var:string = '';
   password: string = '';
   userData: any;
+  docRef: DocumentReference;
+  users: Observable<any[]>;
+  user_: user;
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
@@ -68,8 +81,18 @@ export class LoginPage implements OnInit {
         return this.afAuth.auth.signInWithEmailAndPassword( userid + '@smartpark.com', password).then((result) => {
                   this.ngZone.run(() => {
                           localStorage.setItem('userID', JSON.stringify(this.userid));
-                          localStorage.setItem('password', JSON.stringify(this.password));
+                          //localStorage.setItem('password', JSON.stringify(this.password));
+                          // var snapshotResult = this.afstore.collection('user', ref => ref.where('userid', '==', JSON.parse(localStorage.getItem('userID'))).limit(1)).snapshotChanges().pipe(flatMap(users => users));
+                          // var subscripton = snapshotResult.subscribe(doc => {
+                          // this.user_ = <user>doc.payload.doc.data();
+                          // this.docRef = doc.payload.doc.ref;
 
+                          //   subscripton.unsubscribe();
+                          //   console.log(this.user_);
+                          //   localStorage.setItem('uname', this.user_.username);
+                          //   console.log('name' + JSON.parse(localStorage.getItem('uname')));
+
+                          // });
                           if(userid.length==3){
                             this.router.navigate(['admin-portal']);
                           }
