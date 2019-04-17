@@ -1261,6 +1261,8 @@ export class Tab1Page {
 
 
 
+
+
   // doc = this.afstore.collection('parkingSpace');
 
   // var observer = doc.onSnapshot(docSnapshot => {
