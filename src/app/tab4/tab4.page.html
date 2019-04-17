@@ -25,10 +25,12 @@
         <ion-item [ngStyle]="{'background-color':select1}" (click)="sendReport1(ST)" >
           <ion-icon slot="start" name="car"></ion-icon>
           <ion-label id="L1">Parking Spot Taken</ion-label>
+          <ion-icon float-right ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
         </ion-item>
         <ion-item [ngStyle]="{'background-color':select2}" (click)="sendReport2(PL)">
           <ion-icon slot="start" name="car"></ion-icon>
           <ion-label id="L1">Neighboring Driver Parked Lean</ion-label>
+          <ion-icon float-right ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
         </ion-item>
       </ion-list>
     </ion-card-content>
