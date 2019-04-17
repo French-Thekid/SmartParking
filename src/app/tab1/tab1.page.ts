@@ -23,9 +23,9 @@ export class Tab1Page {
 
 
   iconColor: any = '#00FF00';
-  iconColor1 = 'red';
+  iconColor1 = 'clear';
   iconColor2 = 'red';
-  iconColor3 = '#7FFF00';
+  iconColor3 = 'clear';
   iconColor4 = 'red';
   iconColor5 = 'clear';
   iconColor6 = 'red';
@@ -87,7 +87,6 @@ export class Tab1Page {
   iconColorNA = "red"
   iconColorRE = "#7FFF00"
   iconColorvar = 'clear';
-
 
 
   constructor(public router: Router, public afstore: AngularFirestore, public alertController: AlertController) {
