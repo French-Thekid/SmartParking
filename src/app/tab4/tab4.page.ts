@@ -35,6 +35,15 @@ export class Tab4Page {
     await alert.present();
   }
   async sendReport1(sex: string){
+    if(JSON.parse(localStorage.getItem('userID'))==null ){
+      const alert = await this.alertController.create({
+        header: 'Notification',
+        subHeader: 'Please Register/ Login to submit report',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    else{
     this.select1 = "rgba(255,255,255,0.4)";
     await this.stall(300);
     this.select1 = "rgba(0,0,0,0.2)";
@@ -87,6 +96,7 @@ export class Tab4Page {
     });
     alert.present();
   }
+  }
   async reportMade(){
     const alert = await this.alertController.create({
       header: 'Report Submitted',
@@ -106,59 +116,79 @@ export class Tab4Page {
     await alert.present();
   }
   async sendReport2(sex: string){
-    this.select2 = "rgba(255,255,255,0.4)";
-    await this.stall(300);
-    this.select2 = "rgba(0,0,0,0.2)";
-
-    const alert = await this.alertController.create({
-      header: 'License Place Number Required',
-      inputs: [
-        {
-          name: 'ULic',
-          placeholder: 'Your License Plate number',
-          type: 'text'
-        },
-        {
-          name: 'OLic',
-          placeholder: 'Next Person License Plate number',
-          type: 'text'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Report Cancelled');
+    if(JSON.parse(localStorage.getItem('userID'))==null ){
+      const alert = await this.alertController.create({
+        header: 'Notification',
+        subHeader: 'Please Register/ Login to submit report',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    else{
+      this.select2 = "rgba(255,255,255,0.4)";
+      await this.stall(300);
+      this.select2 = "rgba(0,0,0,0.2)";
+  
+      const alert = await this.alertController.create({
+        header: 'License Place Number Required',
+        inputs: [
+          {
+            name: 'ULic',
+            placeholder: 'Your License Plate number',
+            type: 'text'
+          },
+          {
+            name: 'OLic',
+            placeholder: 'Next Person License Plate number',
+            type: 'text'
           }
-        },
-        {
-          text: 'Make Report',
-          handler: data => {
-            if ((data.ULic!="")&&(data.OLic!="")) {
-              this.ReportLicense1=data.ULic;
-              this.ReportLicense2=data.OLic;
-              this.ReportContent="The vehicle parked in the neighboring parking space is also in my space leaving not much space for me to park"
-              this.afstore.collection('reports').doc(this.ReportLicense1).set({
-                reporterLicNbr: this.ReportLicense1,
-                reportLicNbr2: this.ReportLicense2,
-                report: this.ReportContent
-              });
-              this.reportMade();
-              this.ReportLicense1="";
-              this.ReportLicense2="";
-              this.ReportContent="";
-            } else {
-              this.inIm();
-              return false;
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: data => {
+              console.log('Report Cancelled');
+            }
+          },
+          {
+            text: 'Make Report',
+            handler: data => {
+              if ((data.ULic!="")&&(data.OLic!="")) {
+                this.ReportLicense1=data.ULic;
+                this.ReportLicense2=data.OLic;
+                this.ReportContent="The vehicle parked in the neighboring parking space is also in my space leaving not much space for me to park"
+                this.afstore.collection('reports').doc(this.ReportLicense1).set({
+                  reporterLicNbr: this.ReportLicense1,
+                  reportLicNbr2: this.ReportLicense2,
+                  report: this.ReportContent
+                });
+                this.reportMade();
+                this.ReportLicense1="";
+                this.ReportLicense2="";
+                this.ReportContent="";
+              } else {
+                this.inIm();
+                return false;
+              }
             }
           }
-        }
-      ]
-    });
-    alert.present();
+        ]
+      });
+      alert.present();
+    }
+    
   }
   async sendReport() {
+    if(JSON.parse(localStorage.getItem('userID'))==null ){
+      const alert = await this.alertController.create({
+        header: 'Notification',
+        subHeader: 'Please Register/ Login to submit report',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    else{
     if((this.ReportLicense1!="")&&(this.ReportContent!="")){
       if(this.ReportLicense2==""){
         this.ReportLicense2="N/A"
@@ -181,6 +211,7 @@ export class Tab4Page {
       });
       await alert.present();
     }
+   }
   }
  
 }

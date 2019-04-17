@@ -17,6 +17,8 @@ export class AdminPortalPage implements OnInit {
   constructor(public router: Router, private storage: Storage, ) { }
 
   logOut() {
+    localStorage.setItem('userID',null);
+    localStorage.setItem('password',null);
     this.router.navigate(['login']);
   }
 

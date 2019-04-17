@@ -45,14 +45,52 @@ export class Tab2Page {
   }
 
   async openProfile() {
+    if(JSON.parse(localStorage.getItem('userID'))==null ){
+      const alert = await this.alertController.create({
+        header: 'Notification',
+        subHeader: 'Please Register/ Login to view profile',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+    else{
+      var cat:string;
+      if(JSON.parse(localStorage.getItem('userID')).length==3){
+          cat="Administrator";
+      }
+      else if(JSON.parse(localStorage.getItem('userID')).length==5){
+          cat="Staff"
+      }
+      else if(JSON.parse(localStorage.getItem('userID')).length==7){
+          cat="student"
+      }
+      const alert = await this.alertController.create({
+        header: 'User Profile',
+        message: '<strong>Name:</strong>French<br><strong>ID Number:</strong> 12312312<br><strong>Account Type:</strong>'+cat,
+        translucent: true,
+        buttons: [{
+          text: 'Ok',
+          role: 'cancel'
+        },
+        {
+          text: 'Log Out',
+          handler: data => {
+            localStorage.setItem('userID',null);
+            localStorage.setItem('password',null);
+            this.loggedOut();
+          }
+        }]
+      });
+      await alert.present();
+      }
+    
+  }
+  async loggedOut(){
     const alert = await this.alertController.create({
-      header: 'French Pop-up',
-      subHeader: 'Under Construction',
-      message: 'This section will be up soon fam. Logged in as: ' + JSON.parse(localStorage.getItem('userID')),
-      translucent: true,
+      header: 'Notification',
+      subHeader: 'Log-out Successful',
       buttons: ['OK']
     });
-
     await alert.present();
   }
 }

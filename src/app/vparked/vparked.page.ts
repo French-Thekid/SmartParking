@@ -1267,6 +1267,7 @@ export class VparkedPage implements OnInit {
       await alert.present();
     }
     else{
+      //search o_users for details
       this.selectedSpot = spot;
       const alert = await this.alertController.create({
         header: 'Parking Details',
