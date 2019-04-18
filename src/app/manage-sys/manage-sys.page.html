@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-button  (click)="back()" routerLink="/" routerDirection="back" color="Dark" id="back">
+        <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title>Manage System</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+    <ion-card class="welcome-card">
+      <ion-img id="image1" src="/assets/EP.jpg"></ion-img>
+      <ion-card-content>
+        <p>System Management, here you will be able to address reports made my users of the application regarding parking issues, you will be able to either remove a user or swap two vehicles parking space to resolve an issue.</p>
+      </ion-card-content>
+      <ion-card-content>
+  
+        <ion-list>
+          <ion-card style="padding-left:10px;background-color:rgba(0,0,0,0.5);height:40px;font-size:15px;align-content:center;color:white">
+              <ion-label style="color:white" id="L1">Select an action from the list below to continue</ion-label><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <ion-icon ios="ios-arrow-down" md="md-arrow-down"></ion-icon>
+          </ion-card>
+          <ion-item [ngStyle]="{'background-color':select2}" (click)="removeV()">
+              <ion-icon slot="start" name="car"></ion-icon>
+              <ion-label id="L1">Remove Vehicle</ion-label>
+              <ion-icon float-right ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+          </ion-item>
+          <ion-item [ngStyle]="{'background-color':select1}" (click)="swapV()" >
+            <ion-icon slot="start" name="car"></ion-icon>
+            <ion-label id="L1">Change Vehicle parking </ion-label>
+            <ion-icon ios="ios-arrow-down" md="md-arrow-down"></ion-icon>
+          </ion-item>
+          <div style="border-radius:5px;border-left:0.1px solid silver;border-right:0.1px solid silver;border-bottom:0.1px solid silver;background-color: rgba(0,0,0,0.2)" *ngIf="showMe">
+                <ion-input [(ngModel)]="License1" type="text" placeholder="First vehicle License number"></ion-input>
+                <ion-button ionFocus size="small" shape="round" expand="block" color="dark" (click)="selectParking()">Select new Parking</ion-button>
+                <ion-input [(ngModel)]="License2" type="text" placeholder="Second vehicle License number"></ion-input>
+                <ion-button ionFocus size="small" shape="round" expand="block" color="dark" (click)="selectParking1()">Select new Parking</ion-button>
+                
+          </div>
+          
+        </ion-list>
+      </ion-card-content>
+  
+    </ion-card>
+  </ion-content>

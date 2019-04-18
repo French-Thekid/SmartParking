@@ -153,19 +153,15 @@ export class Tab3Page {
           console.log(this.s_space1);
 
            if (this.s_space1.reserved == true && this.s_space1.status == true) {
-             console.log('mad');
-             this.afstore.collection('parkingSpace').doc(this.s_space1.parkID).update({
-               status: true,
-               reserved: false
-             });
-             this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
+                console.log('mad');
+                this.afstore.collection('parkingSpace').doc(this.s_space1.parkID).update({
+                  status: true,
+                  reserved: false
+                });
+                this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
             
-          //   //call this if they lost the spot only
-          
-          this.lossSpot();
-            
-           }
-          
+              this.lossSpot();
+           } 
         });
   }  
 
@@ -177,19 +173,11 @@ export class Tab3Page {
         this.min++;
         this.sec = this.sec - 60;
       }
-      
-      
       if (this.min == T) {
-
         this.dealwithit();
         //check Database here
         console.log("times Up bruh")
-        //selected spot from reservation: 'GP'+JSON.parse(localStorage.getItem('sspot'))
-        
-
-
-        
-        //do this last (reseting values and stopping counter):
+       //do this last (reseting values and stopping counter):
         clearInterval(this.intervalVar);
         this.sec = 0;
         this.min = 0;
