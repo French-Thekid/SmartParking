@@ -32,7 +32,7 @@ export class AllocateVehiclePage implements OnInit {
   spaces1: Observable<any[]>;
   reservedSpace: p_spaceI;
 
-
+  done=false;
 
 
 
@@ -114,41 +114,16 @@ export class AllocateVehiclePage implements OnInit {
             userid: this.userallocateid,
             parkID: this.reservedSpace.parkID
           });
-
+          this.done=true
         });
-        if (this.userallocateid.length == 5) {
+        if(this.done==true){
+          if (this.userallocateid.length == 5) {
 
-          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-          var subscripton = snapshotResult.subscribe(doc => {
-            this.freeSpace = <p_spaceI>doc.payload.doc.data();
-            this.docRef = doc.payload.doc.ref;
-
-            subscripton.unsubscribe();
-            console.log(this.freeSpace.parkID);
-            // this.freeSpace.parkID = this.freeSpaceID;
-            // console.log(this.freeSpaceID);
-            this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-              status: false
-            })
-
-            this.afstore.collection('o_users').doc(this.License).set({
-              userLicNbr: this.License,
-              userid: this.userallocateid,
-              parkID: this.freeSpace.parkID
-            });
-
-
-
-          });
-        }
-
-        if (this.userallocateid.length == 7) {
-
-          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
-          var subscripton = snapshotResult.subscribe(doc => {
-            this.freeSpace = <p_spaceI>doc.payload.doc.data();
-            this.docRef = doc.payload.doc.ref;
-            if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+            var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+            var subscripton = snapshotResult.subscribe(doc => {
+              this.freeSpace = <p_spaceI>doc.payload.doc.data();
+              this.docRef = doc.payload.doc.ref;
+  
               subscripton.unsubscribe();
               console.log(this.freeSpace.parkID);
               // this.freeSpace.parkID = this.freeSpaceID;
@@ -156,18 +131,46 @@ export class AllocateVehiclePage implements OnInit {
               this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
                 status: false
               })
-
+  
               this.afstore.collection('o_users').doc(this.License).set({
                 userLicNbr: this.License,
                 userid: this.userallocateid,
                 parkID: this.freeSpace.parkID
               });
-            }
-
-
-          });
+  
+  
+  
+            });
+          }
+  
+          if (this.userallocateid.length == 7) {
+  
+            var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
+            var subscripton = snapshotResult.subscribe(doc => {
+              this.freeSpace = <p_spaceI>doc.payload.doc.data();
+              this.docRef = doc.payload.doc.ref;
+              if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+                subscripton.unsubscribe();
+                console.log(this.freeSpace.parkID);
+                // this.freeSpace.parkID = this.freeSpaceID;
+                // console.log(this.freeSpaceID);
+                this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+                  status: false
+                })
+  
+                this.afstore.collection('o_users').doc(this.License).set({
+                  userLicNbr: this.License,
+                  userid: this.userallocateid,
+                  parkID: this.freeSpace.parkID
+                });
+              }
+  
+  
+            });
+          }
+          this.vibration.vibrate(0.1);
         }
-        this.vibration.vibrate(0.1);
+        
       }
       else {
 

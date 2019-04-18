@@ -1274,15 +1274,12 @@ export class SwapVehiclesPage implements OnInit {
   async returnSpot(spot: string) {
     var License = JSON.parse(localStorage.getItem('tempLic'))
     this.selectedSpot = spot;
-      var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
-        var subscripton = snapshotResult.subscribe(doc => {
+    var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+    var subscripton = snapshotResult.subscribe(doc => {
           this.freeSpace = <p_spaceI>doc.payload.doc.data();
           this.docRef = doc.payload.doc.ref;
-          if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
-            subscripton.unsubscribe();
+          subscripton.unsubscribe();
             console.log(this.freeSpace.parkID);
-            // this.freeSpace.parkID = this.freeSpaceID;
-            // console.log(this.freeSpaceID);
             this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
               status: false
             })
@@ -1292,7 +1289,7 @@ export class SwapVehiclesPage implements OnInit {
               userid: JSON.parse(localStorage.getItem('tempID')),
               parkID: this.freeSpace.parkID
             });
-          }
+          
 
         });
       
@@ -1304,6 +1301,13 @@ export class SwapVehiclesPage implements OnInit {
       });
       await alert.present();
       this.router.navigate(['manage-sys']);
+
+      await this.stall(1000);
+      localStorage.setItem('tempLic',null);
+      localStorage.setItem('tempID',null);
+  }
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

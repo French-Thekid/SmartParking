@@ -27,7 +27,6 @@ export class ManageSysPage implements OnInit {
   showMe=false;
   License1: string="";
   License2: string="";
-  afstore: any;
   currentImage: any;
   scannedCode: string;
   License: string="";
@@ -37,7 +36,7 @@ export class ManageSysPage implements OnInit {
   users: Observable<any[]>;
   ouser: o_userI;
   ouserID: string;
-  constructor(private router:Router,private alertController:AlertController) { }
+  constructor(public afstore: AngularFirestore, private router:Router,private alertController:AlertController) { }
 
 
 
@@ -59,7 +58,7 @@ export class ManageSysPage implements OnInit {
         header: 'License Place Number Required',
         inputs: [
           {
-            name: 'License',
+            name: 'ULic',
             placeholder: 'Driver License Plate number',
             type: 'text'
           }
@@ -68,11 +67,11 @@ export class ManageSysPage implements OnInit {
           {
             text: 'Remove Vehicle',
             handler: data => {
-              if (data.License!="") {
-                this.remove(data);
+              if (data.ULic!="") {
+                this.remove(data.ULic);
               }
               else{
-                 
+                 this.fail();
               }
             }
           },
@@ -89,6 +88,7 @@ export class ManageSysPage implements OnInit {
       alert.present();
     }
 
+    
     async swapV(){
       this.select1 = "rgba(255,255,255,0.4)";
       await this.stall(300);
@@ -101,102 +101,99 @@ export class ManageSysPage implements OnInit {
       }
     }
 
-   
+   async pop(){
+    const alert = await this.alertController.create({
+      header: 'Warning',
+      subHeader: 'Invalid Input',
+      message: 'Please enter license plate number and/or ID to continue',
+      translucent: true,
+      buttons: ['OK']
+    });
+    await alert.present();
+   }
 
-    async selectParking(){
+   selectParking(){
         if(this.License1==""){
-          const alert = await this.alertController.create({
-            header: 'Warning',
-            subHeader: 'Invalid Input',
-            message: 'Please enter license plate number and/or ID to continue',
-            translucent: true,
-            buttons: ['OK']
-          });
-          await alert.present();
+          this.pop();
         }
         else{
-          // var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License1).limit(1)).snapshotChanges().pipe(flatMap(users => users));
-          // var subscripton = snapshotResult.subscribe(doc => {
-          //   this.ouser = <o_userI>doc.payload.doc.data();
-          //   this.docRef = doc.payload.doc.ref;
-    
-          //   subscripton.unsubscribe();
-          //   console.log(this.ouser);
-          //   if(this.ouser.parkID==null){
-          //     console.log('not found');
-          //     //this.Fail(this.License);
-          //   }
-          //   localStorage.setItem('tempID', JSON.stringify(this.ouser.userid));
-          //   // this.freeSpace.parkID = this.freeSpaceID;
-          //   // console.log(this.freeSpaceID);
-          //   this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-          //     status: true,
-          //     reserved: false
-          //   });
-          //   this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
-          // });
-          // this.afstore.collection('o_users').doc(this.License1).delete();
+          var snapshotResult=this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License1).limit(1)).get()
+          this.stall(1000);
+          var subscripton = snapshotResult.subscribe(doc => {
+            subscripton.unsubscribe();
+            doc.docs.forEach(ouser => {
+              localStorage.setItem('tempID', JSON.stringify(ouser.data().userid));
+              // this.freeSpace.parkID = this.freeSpaceID;
+              // console.log(this.freeSpaceID);
+              this.afstore.collection('parkingSpace').doc(ouser.data().parkID).update({
+                status: true,
+                reserved: false
+            })
+            this.afstore.collection('reservation').doc(ouser.data().parkID).delete();
+           });
+          
+          this.afstore.collection('o_users').doc(this.License1).delete();
 
-          // localStorage.setItem('tempLic', JSON.stringify(this.License1));
-          // this.router.navigate(['swap-vehicle']);
-        }
+          localStorage.setItem('tempLic', JSON.stringify(this.License1));
+          this.router.navigate(['swap-vehicles']);
+        });
+      }
     }
     async selectParking1(){
       if(this.License2==""){
-         this.fail();
+        this.pop();
       }
       else{
-        // var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License2).limit(1)).snapshotChanges().pipe(flatMap(users => users));
-        // var subscripton = snapshotResult.subscribe(doc => {
-        //   this.ouser = <o_userI>doc.payload.doc.data();
-        //   this.docRef = doc.payload.doc.ref;
-  
-        //   subscripton.unsubscribe();
-        //   console.log(this.ouser);
-        //   if(this.ouser.parkID==null){
-        //     console.log('not found');
-        //     //this.Fail(this.License);
-        //   }
-        //   localStorage.setItem('tempID', JSON.stringify(this.ouser.userid));
-        //   // this.freeSpace.parkID = this.freeSpaceID;
-        //   // console.log(this.freeSpaceID);
-        //   this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-        //     status: true,
-        //     reserved: false
-        //   });
-        //   this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
-        // });
-        // this.afstore.collection('o_users').doc(this.License2).delete();
+        var snapshotResult=this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License2).limit(1)).get()
+        this.stall(1000);
+        var subscripton = snapshotResult.subscribe(doc => {
+          subscripton.unsubscribe();
+          doc.docs.forEach(ouser => {
+            localStorage.setItem('tempID', JSON.stringify(ouser.data().userid));
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(ouser.data().parkID).update({
+              status: true,
+              reserved: false
+          })
+          this.afstore.collection('reservation').doc(ouser.data().parkID).delete();
+         });
+        
+        this.afstore.collection('o_users').doc(this.License2).delete();
 
-        // localStorage.setItem('tempLic', JSON.stringify(this.License2));
-        // this.router.navigate(['swap-vehicle']);
-      }
+        localStorage.setItem('tempLic', JSON.stringify(this.License2));
+        this.router.navigate(['swap-vehicles']);
+      });
+    }
   }
-  remove(data:any){
-     
-        // var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', data.License).limit(1)).snapshotChanges().pipe(flatMap(users => users));
-        // var subscripton = snapshotResult.subscribe(doc => {
-        //   this.ouser = <o_userI>doc.payload.doc.data();
-        //   this.docRef = doc.payload.doc.ref;
-  
-        //   subscripton.unsubscribe();
-        //   console.log(this.ouser);
-        //   if(this.ouser.parkID==null){
-        //     console.log('not found');
-        //     //this.Fail(this.License);
-        //   }
-        //   // this.freeSpace.parkID = this.freeSpaceID;
-        //   // console.log(this.freeSpaceID);
-        //   this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-        //     status: true,
-        //     reserved: false
-        //   });
-        //   this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
-        // });
-        // this.afstore.collection('o_users').doc(data.License).delete();
-      
+  remove(license:string){
+        var snapshotResult=this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==',license).limit(1)).get()
+        this.stall(1000);
+        var subscripton = snapshotResult.subscribe(doc => {
+          subscripton.unsubscribe();
+          doc.docs.forEach(ouser => {
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(ouser.data().parkID).update({
+              status: true,
+              reserved: false
+          })
+          this.afstore.collection('reservation').doc(ouser.data().parkID).delete();
+        });
+        this.afstore.collection('o_users').doc(license).delete();
+      });
+      this.success();
     }
     
+   async success(){
+      const alert = await this.alertController.create({
+        header: 'Notification',
+        subHeader: 'Vehicle Successfully Removed',
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
+   }
    async fail(){
       const alert = await this.alertController.create({
         header: 'Warning',
@@ -207,4 +204,5 @@ export class ManageSysPage implements OnInit {
       });
       await alert.present();
     }
+   
 }
