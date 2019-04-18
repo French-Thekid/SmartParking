@@ -6,6 +6,7 @@ import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { o_userI } from '../services/occupied-user.service';
 import { p_spaceI } from '../services/parking-space.service';
+import { user } from '../services/user.model';
 
 @Component({
   selector: 'app-vparked',
@@ -17,6 +18,10 @@ export class VparkedPage implements OnInit {
   docRef: DocumentReference;
   spaces: Observable<any[]>;
   s_space: p_spaceI;
+
+  docRef2: DocumentReference;
+  usernames: Observable<any[]>;
+  user: user;
 
   o_user: o_userI;
 
@@ -1273,20 +1278,45 @@ export class VparkedPage implements OnInit {
 
       var snapshotResult1 = this.afstore.collection('o_users', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
       var subscripton1 = snapshotResult1.subscribe(async doc => {
+
         this.o_user = <o_userI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
-        const alert = await this.alertController.create({
-          header: 'Parking Details',
-          message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '',
-          translucent: true,
-          buttons: ['OK']
+        if (this.o_user.userid == '') {
+          this.o_user.userid = 'N/A';
+          console.log('Occupied Nuh have no ID');
+          const alert = await this.alertController.create({
+            header: 'Parking Details',
+            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>: N/A',
+            translucent: true,
+            buttons: ['OK']
+          });
+          await alert.present();
+
+        }
+        var snapshotResult2 = this.afstore.collection('users', ref => ref.where('userid', '==', this.o_user.userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
+        var subscripton2 = snapshotResult2.subscribe(async doc => {
+          this.user = <user>doc.payload.doc.data();
+          this.docRef2 = doc.payload.doc.ref;
+
+
+
+          subscripton2.unsubscribe();
+
+
+          const alert = await this.alertController.create({
+            header: 'Parking Details',
+            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>:' + this.user.username + '',
+            translucent: true,
+            buttons: ['OK']
+          });
+
+
+          await alert.present();
+          console.log(this.s_space);
+          subscripton1.unsubscribe();
         });
-        await alert.present();
-        console.log(this.s_space);
-        subscripton1.unsubscribe();
+
       });
-
-
     }
 
   }
