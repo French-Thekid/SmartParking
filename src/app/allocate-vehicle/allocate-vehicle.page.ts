@@ -96,6 +96,9 @@ export class AllocateVehiclePage implements OnInit {
       if ((this.userallocateid != '') && (this.License != "")) {
 
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
+        if(snapshotResult!=null){
+          this.done=true
+        }
         var subscripton = snapshotResult.subscribe(doc => {
           this.reservedSpace = <p_spaceI>doc.payload.doc.data();
           this.docRef = doc.payload.doc.ref;
@@ -114,7 +117,7 @@ export class AllocateVehiclePage implements OnInit {
             userid: this.userallocateid,
             parkID: this.reservedSpace.parkID
           });
-          this.done=true
+         
         });
         if(this.done==true){
           if (this.userallocateid.length == 5) {
