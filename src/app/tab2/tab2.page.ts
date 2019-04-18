@@ -23,6 +23,7 @@ export class Tab2Page {
     this.buttonColor = '#000080';
     var IDChk = JSON.parse(localStorage.getItem('userID'));
     if (IDChk != null) {
+
       const alert = await this.alertController.create({
         header: 'Confirm!',
         message: "<strong>Already signed in under user ID:" + JSON.parse(localStorage.getItem('userID')) + "</strong>, would you like to log-out and log in as someone else?",

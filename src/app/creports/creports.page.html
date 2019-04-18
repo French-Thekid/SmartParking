@@ -14,44 +14,27 @@
   </ion-header>
 
 <ion-content padding>
-  <!-- <table cellpadding="20px" style="width:100%;border:1px solid silver;background-color:rgba(0,0,0,0.1);color:white;font-family: monserrat">
-    <tr style="border-bottom: 1px solid silver">
-        <th>Users</th>
-        <th>Reports</th>
-    </tr>
-    <tr style="border-bottom: 1px solid silver">
-        <td style="border-right: 1px solid silver">1503803</td>
-        <td>Somebody scratch me car fam Somebody scratch me car fam</td>
-    </tr>
-    <tr style="border-bottom: 1px solid silver">
-        <td style="border-right: 1px solid silver">1503803</td>
-        <td>Somebody scratch me car fam Somebody scratch me car fam</td>
-    </tr>
-  </table> -->
-  <!-- <ion-card>
-      <ion-card-content>
-        <ion-card-title>{{info.reporterLicNbr}}</ion-card-title>
-  
-        <p>{{info.Report}}</p>
-      </ion-card-content>
-    </ion-card> -->
-    <table>
-        <thead>
-          <th>Users</th>
-          <th>Reports</th>
-          <th>Date</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let Reports of reports">
-      
-            <td>{{reports.id }}</td>
-            <td>{{reports.Report}}</td>
-            <td>{{reports.date}}</td>
-            <td>
-                <button (click)="delete(reports.Lic)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <table style="width:100%;border:1px solid silver;background-color:rgba(0,0,0,0.4);color:white;font-family: monserrat">
+          <thead style="background-color:rgba(0,0,0,0.8);border-bottom: 1px solid silver">
+            <th style="border-right: 1px solid silver">Reporter License number</th>
+            <th style="border-right: 1px solid silver">Report</th>
+            <th style="border-right: 1px solid silver">Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor='let report of Reports' style="border-bottom: 1px solid silver"> 
+                <td style="border-right: 1px solid silver">{{report.reporterLicNbr }}</td>
+                <td style="font-size:12px;border-right: 1px solid silver">{{report.report}}</td>
+                <td>
+                    <button id="btn"(click)="deleteReport(report.reporterLicNbr)">Delete Report</button>
+                </td>
+            </tr>
+            
+          </tbody>
+          
+        </table>
+      <!-- <div class="content">
+         <form id="add-report-form"></form> 
+          <ul id="report-List"></ul>
+      </div> -->
 
 </ion-content>

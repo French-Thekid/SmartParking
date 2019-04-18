@@ -9,6 +9,7 @@ import { Observable, BehaviorSubject, combineLatest, Subject, ObjectUnsubscribed
 import { switchMap, flatMap } from 'rxjs/operators';
 import { query } from '@angular/core/src/render3';
 import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Component({
   selector: 'app-allocate-vehicle',
@@ -34,10 +35,12 @@ export class AllocateVehiclePage implements OnInit {
 
 
 
+
   constructor(
     private router: Router,
     public platform: Platform,
     public afstore: AngularFirestore,
+    private vibration: Vibration,
     private qrcService: QRCService,
     private alertController: AlertController,
     private o_userService: OccupiedUserService,
@@ -91,7 +94,6 @@ export class AllocateVehiclePage implements OnInit {
     }
     else {
       if ((this.userallocateid != '') && (this.License != "")) {
-
 
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
         var subscripton = snapshotResult.subscribe(doc => {
@@ -165,10 +167,8 @@ export class AllocateVehiclePage implements OnInit {
 
           });
         }
-
-
+        this.vibration.vibrate(0.1);
       }
-
       else {
 
         var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
@@ -216,12 +216,19 @@ export class AllocateVehiclePage implements OnInit {
           });
           await alert.present();
         }
-        //this.License = '';
+        
+        this.vibration.vibrate(0.1);
       }
     }
+    await this.stall(2000);
+    this.License = '';
+    this.userallocateid = '';
   }
 
   back() {
     this.router.navigate(['admin-portal']);
+  }
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
