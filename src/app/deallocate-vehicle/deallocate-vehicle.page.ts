@@ -23,7 +23,7 @@ import { flatMap } from 'rxjs/operators';
 export class DeallocateVehiclePage implements OnInit {
   currentImage: any;
   scannedCode: string;
-  License: string;
+  License: string="";
   o_users: o_userI[];
   query: Query;
   docRef: DocumentReference;
@@ -84,41 +84,61 @@ export class DeallocateVehiclePage implements OnInit {
       });
   }
 
-  deallocate() {
-    this.vibration.vibrate(0.1);
-    this.popUp(this.License);
-
-    var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(users => users));
-    var subscripton = snapshotResult.subscribe(doc => {
-      this.ouser = <o_userI>doc.payload.doc.data();
-      this.docRef = doc.payload.doc.ref;
-
-      subscripton.unsubscribe();
-      console.log(this.ouser);
-      // this.freeSpace.parkID = this.freeSpaceID;
-      // console.log(this.freeSpaceID);
-      this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
-        status: true,
-        reserved: false
+  async deallocate() {
+    if(this.License==''){
+      const alert = await this.alertController.create({
+        header: 'Warning',
+        subHeader: 'Invalid Input',
+        message: 'Please enter license plate number and/or ID to continue',
+        translucent: true,
+        buttons: ['OK']
       });
-      this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
-    });
+      await alert.present();
+    }
+    else{
+      this.vibration.vibrate(0.1);
+      this.popUp(this.License);
 
+      var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(users => users));
+      var subscripton = snapshotResult.subscribe(doc => {
+        this.ouser = <o_userI>doc.payload.doc.data();
+        this.docRef = doc.payload.doc.ref;
 
-    this.afstore.collection('o_users').doc(this.License).delete();
-
+        subscripton.unsubscribe();
+        console.log(this.ouser);
+        if(this.ouser.parkID==null){
+          console.log('not found');
+          //this.Fail(this.License);
+        }
+        // this.freeSpace.parkID = this.freeSpaceID;
+        // console.log(this.freeSpaceID);
+        this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
+          status: true,
+          reserved: false
+        });
+        this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
+      });
+      this.afstore.collection('o_users').doc(this.License).delete();
+    }
   }
 
   async popUp(License) {
     const alert = await this.alertController.create({
-      header: 'French Pop-up',
-      subHeader: 'The Code Read was',
-      message: 'Vehicle with License Plate #: ' + License + ' removed',
+      header: 'Notification',
+      subHeader: 'Vehicle with License Plate #: ' + License + ' removed',
       buttons: ['OK']
     });
     await alert.present();
     this.scannedCode = ''; //resetting
     this.License = ''; //resetting
+  }
+  async Fail(License) {
+    const alert = await this.alertController.create({
+      header: 'Notification',
+      subHeader: 'Vehicle with License Plate #: ' + License + ' was not found',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }
 

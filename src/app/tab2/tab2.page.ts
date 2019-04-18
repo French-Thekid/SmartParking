@@ -66,7 +66,7 @@ export class Tab2Page {
       }
       const alert = await this.alertController.create({
         header: 'User Profile',
-        message: '<strong>Name:</strong>French<br><strong>ID Number:</strong> 12312312<br><strong>Account Type:</strong>'+cat,
+        message: '<strong>Name:</strong>French<br><strong>ID Number:</strong> '+JSON.parse(localStorage.getItem('userID'))+'<br><strong>Account Type:</strong>'+cat,
         translucent: true,
         buttons: [{
           text: 'Ok',
