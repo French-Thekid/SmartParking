@@ -32,7 +32,7 @@ export class AllocateVehiclePage implements OnInit {
   spaces1: Observable<any[]>;
   reservedSpace: p_spaceI;
 
-  done=false;
+  done = false;
 
 
 
@@ -96,38 +96,66 @@ export class AllocateVehiclePage implements OnInit {
       if ((this.userallocateid != '') && (this.License != "")) {
 
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-        if(snapshotResult!=null){
-          this.done=true
+        if (snapshotResult != null) {
+          this.done = false;
+          console.log('this.done');
           //NOTIFY USER
-        }
-        var subscripton = snapshotResult.subscribe(doc => {
-          this.reservedSpace = <p_spaceI>doc.payload.doc.data();
-          this.docRef = doc.payload.doc.ref;
 
-          subscripton.unsubscribe();
-          console.log(this.reservedSpace.parkID);
-          // this.freeSpace.parkID = this.freeSpaceID;
-          // console.log(this.freeSpaceID);
-          this.afstore.collection('parkingSpace').doc(this.reservedSpace.parkID).update({
-            status: false,
-            reserved: false
-          })
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.reservedSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
 
-          this.afstore.collection('o_users').doc(this.License).set({
-            userLicNbr: this.License,
-            userid: '',
-            parkID: this.reservedSpace.parkID
+            subscripton.unsubscribe();
+            console.log(this.reservedSpace.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(this.reservedSpace.parkID).update({
+              status: false,
+              reserved: false
+            })
+
+            this.afstore.collection('o_users').doc(this.License).set({
+              userLicNbr: this.License,
+              userid: this.userallocateid,
+              parkID: this.reservedSpace.parkID
+            });
+            this.afstore.collection('reservation').doc(this.reservedSpace.parkID).delete();
+
           });
-         
-        });
-        if(this.done==true){
-          if (this.userallocateid.length == 5) {
+          console.log('Reservation found');
+        }
+        if ((this.userallocateid.length == 5) && (this.done == false)) {
 
-            var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-            var subscripton = snapshotResult.subscribe(doc => {
-              this.freeSpace = <p_spaceI>doc.payload.doc.data();
-              this.docRef = doc.payload.doc.ref;
-  
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.freeSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
+
+            subscripton.unsubscribe();
+            console.log(this.freeSpace.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+              status: false
+            })
+
+            this.afstore.collection('o_users').doc(this.License).set({
+              userLicNbr: this.License,
+              userid: this.userallocateid,
+              parkID: this.freeSpace.parkID
+            });
+
+
+
+          });
+        }
+
+        else if ((this.userallocateid.length == 7) && (this.done == false)) {
+          var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(doc => {
+            this.freeSpace = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
+            if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
               subscripton.unsubscribe();
               console.log(this.freeSpace.parkID);
               // this.freeSpace.parkID = this.freeSpaceID;
@@ -135,46 +163,20 @@ export class AllocateVehiclePage implements OnInit {
               this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
                 status: false
               })
-  
+
               this.afstore.collection('o_users').doc(this.License).set({
                 userLicNbr: this.License,
-                userid: '',
+                userid: this.userallocateid,
                 parkID: this.freeSpace.parkID
               });
-  
-  
-  
-            });
-          }
-  
-          if (this.userallocateid.length == 7) {
-  
-            var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
-            var subscripton = snapshotResult.subscribe(doc => {
-              this.freeSpace = <p_spaceI>doc.payload.doc.data();
-              this.docRef = doc.payload.doc.ref;
-              if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
-                subscripton.unsubscribe();
-                console.log(this.freeSpace.parkID);
-                // this.freeSpace.parkID = this.freeSpaceID;
-                // console.log(this.freeSpaceID);
-                this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-                  status: false
-                })
-  
-                this.afstore.collection('o_users').doc(this.License).set({
-                  userLicNbr: this.License,
-                  userid: '',
-                  parkID: this.freeSpace.parkID
-                });
-              }
-  
-  
-            });
-          }
-          this.vibration.vibrate(0.1);
+            }
+
+
+          });
         }
-        
+        this.vibration.vibrate(0.1);
+        // }
+
       }
       else {
 
@@ -223,7 +225,7 @@ export class AllocateVehiclePage implements OnInit {
           });
           await alert.present();
         }
-        
+
         this.vibration.vibrate(0.1);
       }
     }
