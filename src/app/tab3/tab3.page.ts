@@ -103,6 +103,7 @@ export class Tab3Page {
             })
 
           });
+          this.router.navigate(['tabs/tab3']);
           const alert = await this.alertController.create({
             header: 'Reservation',
             subHeader: 'Your spot has been successfully Reserved.',
@@ -112,6 +113,7 @@ export class Tab3Page {
           });
 
           await alert.present();
+
           this.booked = true;
           this.startcountdown(this.time);
           this.check = false;
@@ -139,34 +141,34 @@ export class Tab3Page {
       subHeader: 'Im Sorry but your reservation has been cancelled due to late arrival.',
       buttons: ['OK']
     });
-    
+
 
     await alert.present();
   }
-  public dealwithit(){
+  public dealwithit() {
     var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-        var subscripton1 = snapshotResult1.subscribe(doc => {
-          this.s_space1 = <p_spaceI>doc.payload.doc.data();
-          this.docRef1 = doc.payload.doc.ref;
+    var subscripton1 = snapshotResult1.subscribe(doc => {
+      this.s_space1 = <p_spaceI>doc.payload.doc.data();
+      this.docRef1 = doc.payload.doc.ref;
 
-          subscripton1.unsubscribe();
-          console.log(this.s_space1);
+      subscripton1.unsubscribe();
+      console.log(this.s_space1);
 
-           if (this.s_space1.reserved == true && this.s_space1.status == true) {
-                console.log('mad');
-                this.afstore.collection('parkingSpace').doc(this.s_space1.parkID).update({
-                  status: true,
-                  reserved: false
-                });
-                this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
-            
-              this.lossSpot();
-           } 
+      if (this.s_space1.reserved == true && this.s_space1.status == true) {
+        console.log('mad');
+        this.afstore.collection('parkingSpace').doc(this.s_space1.parkID).update({
+          status: true,
+          reserved: false
         });
-  }  
+        this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
+
+        this.lossSpot();
+      }
+    });
+  }
 
   async startcountdown(T: any) {
-    
+
     this.intervalVar = setInterval(function () {
       this.sec++;
       if ((this.sec - 60) == 0) {
@@ -177,11 +179,11 @@ export class Tab3Page {
         this.dealwithit();
         //check Database here
         console.log("times Up bruh")
-       //do this last (reseting values and stopping counter):
+        //do this last (reseting values and stopping counter):
         clearInterval(this.intervalVar);
         this.sec = 0;
         this.min = 0;
-        this.booked=false;
+        this.booked = false;
       }
     }.bind(this), 1000)
   }
@@ -222,8 +224,9 @@ export class Tab3Page {
     }
     else {
       this.check1 = true;
+
       this.router.navigate(['sspot']);
-      
+
     }
   }
   async selectTime() {

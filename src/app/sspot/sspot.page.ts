@@ -6,6 +6,7 @@ import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { o_userI } from '../services/occupied-user.service';
 import { p_spaceI } from '../services/parking-space.service';
+import { user } from '../services/user.model';
 
 @Component({
   selector: 'app-sspot',
@@ -21,6 +22,11 @@ export class SspotPage implements OnInit {
   docRef1: DocumentReference;
   spaces1: Observable<any[]>;
   s_space1: p_spaceI;
+
+  docRef2: DocumentReference;
+  spaces2: Observable<any[]>;
+  s_space2: p_spaceI;
+  o_user: o_userI;
 
 
   selectedSpot: string;
@@ -90,12 +96,14 @@ export class SspotPage implements OnInit {
   iconColorNA = "red"
   iconColorRE = "#7FFF00"
   iconColorvar = 'white';
+  moveon: boolean;
+  staffCheck: boolean = false;
 
   constructor(
     private router: Router,
     private alertController: AlertController,
     public afstore: AngularFirestore
-  ) { 
+  ) {
     var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '==', 'GP01').limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
     var subscripton1 = snapshotResult1.subscribe(doc => {
       this.s_space = <p_spaceI>doc.payload.doc.data();
@@ -1269,26 +1277,59 @@ export class SspotPage implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
+      this.router.navigate(['sspot']);
+      this.staffCheck = true;
+
+
     }
     else {
-      localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
+      this.staffCheck = false;
+    }
+    if (this.staffCheck == true) {
+      this.router.navigate(['sspot']);
+
+    } else {
 
 
-      // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', spot).where('status', '==', true).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-      // var subscripton = snapshotResult.subscribe(doc => {
-      //   this.s_space = <p_spaceI>doc.payload.doc.data();
-      //   this.docRef = doc.payload.doc.ref;
-
-      //   subscripton.unsubscribe();
-      //   console.log(this.s_space);
-
-      //   this.afstore.collection('parkingSpace').doc(this.s_space.parkID).update({
-      //     reserved: true
-      //   });
-
-      // });
+      this.staffCheck = false;
+      console.log('it reach yaso');
+      var snapshotResult2 = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces2 => spaces2));
+      var subscripton2 = snapshotResult2.subscribe(async doc => {
+        this.s_space2 = <p_spaceI>doc.payload.doc.data();
+        this.docRef2 = doc.payload.doc.ref;
 
 
+
+        if ((this.s_space2.status == false) || (this.s_space2.reserved == true)) {
+          const alert = await this.alertController.create({
+            header: 'Warning',
+            subHeader: 'Invalid Spot Selected',
+            message: 'It appears the spot you have selected is currently unavailable',
+            translucent: true,
+            buttons: ['OK']
+          });
+          await alert.present();
+          this.router.navigate(['sspot']);
+
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Parking Spot Selected',
+            message: '<strong>Parking Spot</strong>: ' + this.s_space2.parkID + '',
+            translucent: true,
+            buttons: ['OK']
+          });
+          await alert.present();
+          localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
+          this.router.navigate(['/tabs/tab3']);
+        }
+        console.log(this.s_space2.parkID);
+        // this.freeSpace.parkID = this.freeSpaceID;
+        // console.log(this.freeSpaceID);
+
+
+        subscripton2.unsubscribe();
+
+      });
 
       // const alert = await this.alertController.create({
       //   header: 'French Pop-up',
@@ -1299,7 +1340,15 @@ export class SspotPage implements OnInit {
       // });
 
       // await alert.present();
-      this.router.navigate(['/tabs/tab3']);
+
+
+
     }
+
+
+
   }
+
+
+
 }
