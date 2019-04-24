@@ -1,7 +1,7 @@
 # SmartParking
 This is a cross platform mobile application created using Ionic 4 framework with angular 7 and firebase Cloud db for storage and real time processing. This is an assistive smart parking management system that will enable users to view all available parking spaces in real time, providing reservation features for registered members, users can also file complain which will be received by the application admin logged on. upon arrival to UTECH the same app provides levels of access therefore admin will have access to an admin portal from which they can allocate, deallocate, view reports made by user, view all vehicles parked and their respective information as well as manage system.
 
-	The implementation of the project Smart Campus will potentially increase the efficiency of the above-mentioned service 
+  The implementation of the project Smart Campus will potentially increase the efficiency of the above-mentioned service 
   offered by the institution through the implementation of a mobile application called Smart Parking. This application 
   will notify members of the institution of all vacant parking spots on campus.  The assistive parking lot management 
   application will provide options for the staff to either select a parking lot beforehand; or be assigned a parking
