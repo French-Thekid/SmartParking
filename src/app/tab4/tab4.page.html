@@ -38,8 +38,8 @@
       <ion-input placeholder="Enter your License Plate number" [(ngModel)]="ReportLicense1"> </ion-input>
       <ion-input placeholder="Enter the other vehicle's License plate number" [(ngModel)]="ReportLicense2"> </ion-input>
       <br>
-      <ion-textarea rows="6" cols="20" placeholder="Explain issue here..." [(ngModel)]="ReportContent"></ion-textarea>
-      <ion-button ionFocus size="small" shape="round" expand="block" color="dark" (click)="sendReport()">Submit
+      <ion-textarea rows="6" cols="20" placeholder="Explain issue here..." [(ngModel)]="ReportContent"></ion-textarea><br>
+      <ion-button ionFocus [ngStyle]="{'background-color':buttonColor,'color':'white'}"  size="small" shape="round" expand="block" color="Clear" (click)="sendReport()">Submit
         Issue</ion-button>
     </ion-card-content>
 

@@ -16,7 +16,9 @@ export class RegisterPage implements OnInit {
   username: string = '';
   userid: string = '';
   password: string = '';
-  password1: string = ""
+  password1: string = "";
+  clear:String="rgba(0,0,0,0.1)";
+  log:string="rgba(0,0,0,0.1)";
 
   constructor(
     public router: Router,
@@ -31,7 +33,24 @@ export class RegisterPage implements OnInit {
   back(){
     this.router.navigate(['tabs']);
   }
+
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  async clearIn(){
+    this.clear = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.clear = "rgba(0,0,0,0.1)";
+
+    this.userid= "";
+    this.password="";
+    this.username="";
+    this.password1="";
+  }
   async register() {
+    this.log = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.log = "rgba(0,0,0,0.1)";
     const { username, userid, password /*cpassword*/ } = this;
     /*if(password !== cpassword) {
       return console.err("Passwords don't match")

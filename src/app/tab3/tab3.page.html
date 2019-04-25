@@ -22,19 +22,9 @@
       <ion-label> Click Reserve and thats it! </ion-label>
     </ion-card-content>
     <ion-card-content>
-      <ion-button (click)="selectSpot()" ionFocus color="dark"
-        ><ion-icon name="compass"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My
-        Desired Spot</ion-button
-      >
-      <ion-button (click)="selectTime()" ionFocus color="dark"
-        ><ion-icon name="time"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My
-        ETA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button
-      >
-      <ion-button (click)="reserveSpot()" ionFocus color="dark"
-        ><ion-icon name="checkmark-circle"></ion-icon
-        >&nbsp;&nbsp;&nbsp;&nbsp;Reserve My
-        Spot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button
-      >
+      <ion-button [ngStyle]="{'background-color':buttonColor,'color':'white'}" (click)="selectSpot()" ionFocus color="Clear"><ion-icon name="compass"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My Desired Spot</ion-button>
+      <ion-button [ngStyle]="{'background-color':buttonColor1,'color':'white'}" (click)="selectTime()" ionFocus color="Clear"><ion-icon name="time"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Select My ETA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
+      <ion-button [ngStyle]="{'background-color':buttonColor2,'color':'white'}" (click)="reserveSpot()" ionFocus color="Clear"><ion-icon name="checkmark-circle"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;Reserve My Spot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

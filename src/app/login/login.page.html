@@ -33,16 +33,12 @@
           <br />
           <p style="font-family:Monserrat; color:#DCDCDC">
             Not a member?
-            <a style="text-decoration: none;color:blue" href="register"
-              >Register now</a
-            >
+            <a style="text-decoration: none;color:blue" href="register">Register now</a>
           </p>
         </ion-list>
         <br /><br />
-        <ion-button id="btn2" href="#" color="Clear">Clear</ion-button>
-        <ion-button id="btn2" (click)="OpenPortal()" color="Clear"
-          >Login</ion-button
-        >
+        <ion-button type="reset" [ngStyle]="{'background-color':clear}" id="btn2" (click)="clearIn()" color="Clear">Clear</ion-button>
+        <ion-button [ngStyle]="{'background-color':log}" id="btn2" (click)="OpenPortal()" color="Clear">Login</ion-button>
       </ion-card-content>
     </ion-card>
   </ion-card>

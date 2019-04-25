@@ -11,6 +11,7 @@ export class Tab4Page {
   ReportLicense1 = '';
   ReportLicense2 = '';
   ReportContent = '';
+  buttonColor:string="#000080";
   select1: string = "rgba(0,0,0,0.2)";
   select2: string = "rgba(0,0,0,0.2)";
 
@@ -35,6 +36,9 @@ export class Tab4Page {
     await alert.present();
   }
   async sendReport1(sex: string){
+    this.select1 = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.select1 = "rgba(0,0,0,0.2)";
     if(JSON.parse(localStorage.getItem('userID'))==null ){
       const alert = await this.alertController.create({
         header: 'Notification',
@@ -44,9 +48,7 @@ export class Tab4Page {
       await alert.present();
     }
     else{
-    this.select1 = "rgba(255,255,255,0.4)";
-    await this.stall(300);
-    this.select1 = "rgba(0,0,0,0.2)";
+    
   
     const alert = await this.alertController.create({
       header: 'License Place Number Required',
@@ -116,6 +118,9 @@ export class Tab4Page {
     await alert.present();
   }
   async sendReport2(sex: string){
+    this.select2 = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.select2 = "rgba(0,0,0,0.2)";
     if(JSON.parse(localStorage.getItem('userID'))==null ){
       const alert = await this.alertController.create({
         header: 'Notification',
@@ -125,9 +130,7 @@ export class Tab4Page {
       await alert.present();
     }
     else{
-      this.select2 = "rgba(255,255,255,0.4)";
-      await this.stall(300);
-      this.select2 = "rgba(0,0,0,0.2)";
+      
   
       const alert = await this.alertController.create({
         header: 'License Place Number Required',
@@ -180,6 +183,9 @@ export class Tab4Page {
     
   }
   async sendReport() {
+    this.buttonColor="rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.buttonColor ="#000080";
     if(JSON.parse(localStorage.getItem('userID'))==null ){
       const alert = await this.alertController.create({
         header: 'Notification',

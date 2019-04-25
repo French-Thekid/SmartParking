@@ -31,6 +31,8 @@ export class LoginPage implements OnInit {
   var:string = '';
   password: string = '';
   userData: any;
+  clear:String="rgba(0,0,0,0.1)";
+  log:string="rgba(0,0,0,0.1)";
   docRef: DocumentReference;
   users: Observable<any[]>;
   user_: user;
@@ -61,8 +63,24 @@ export class LoginPage implements OnInit {
 
 
   }
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async clearIn(){
+    this.clear = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.clear = "rgba(0,0,0,0.1)";
+
+    this.userid= "";
+    this.password="";
+  }
 
   async OpenPortal() {
+    this.log = "rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.log = "rgba(0,0,0,0.1)";
+
     const { userid, password } = this;
     if((this.userid=="")||(this.password==""))
     {

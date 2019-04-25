@@ -20,6 +20,9 @@ export class Tab3Page {
   check: boolean = false;
   check1: boolean = false;
   booked: boolean = false;
+  buttonColor:string="#000080"
+  buttonColor1:string="#000080"
+  buttonColor2:string="#000080"
   intervalVar: any;
   o_users: o_userI[];
   reservedSpace: p_spaceI;
@@ -38,7 +41,14 @@ export class Tab3Page {
   spaces1: DocumentChangeAction<{}>[];
   s_space1: p_spaceI;
 
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   async reserveSpot() {
+    this.buttonColor2="rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.buttonColor2 = "#000080";
+
     if (this.booked == true) {
       const alert = await this.alertController.create({
         header: 'Reservation Found!',
@@ -189,6 +199,9 @@ export class Tab3Page {
   }
 
   async selectSpot() {
+    this.buttonColor="rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.buttonColor = "#000080";
     if (this.booked == true) {
       const alert = await this.alertController.create({
         header: 'Reservation Found!',
@@ -224,12 +237,14 @@ export class Tab3Page {
     }
     else {
       this.check1 = true;
-
       this.router.navigate(['sspot']);
 
     }
   }
   async selectTime() {
+    this.buttonColor1="rgba(255,255,255,0.4)";
+    await this.stall(100);
+    this.buttonColor1 = "#000080";
     if (this.booked == true) {
       const alert = await this.alertController.create({
         header: 'Reservation Found!',
