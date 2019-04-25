@@ -24,6 +24,7 @@
       <ion-card-content id="c1">
         <ion-card-subtitle id="Fault">
           <ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer
+          <ion-toggle [(ngModel)]="Reservation" (ionChange)="Reserve()"></ion-toggle> reservation
         </ion-card-subtitle>
         <ion-input placeholder="Enter the Vehicle's License Plate number" [(ngModel)]="License">
         </ion-input>

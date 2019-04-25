@@ -22,6 +22,7 @@ export class AllocateVehiclePage implements OnInit {
   qrcObj: qrcI;
   encodedData: string = '';
   FPrinter: boolean = false;
+  Reservation: boolean = false;
   query: Query;
   docRef: DocumentReference;
   spaces: Observable<any[]>;
@@ -75,11 +76,25 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
   }
-
-
-
-
-
+  async Reserve() {
+    if (this.Reservation == true) {
+      const alert = await this.alertController.create({
+        header: 'Reservation Notification',
+        subHeader: 'Reservation Allocation Enabled',
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Reservation Notification',
+        subHeader: 'Reservation Allocation Disabled',
+        translucent: true,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
 
   async allocateVehicle() {
     if (this.License == '') {
@@ -93,7 +108,7 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
     else {
-      if ((this.userallocateid != '') && (this.License != "")) {
+      if (this.Reservation==true/*(this.userallocateid != '') && (this.License != "")*/) {
 
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
         if (snapshotResult != null) {
