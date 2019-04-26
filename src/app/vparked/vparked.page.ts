@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { o_userI } from '../services/occupied-user.service';
 import { p_spaceI } from '../services/parking-space.service';
 import { user } from '../services/user.model';
+import { reservationI } from '../services/reservation.service';
 
 @Component({
   selector: 'app-vparked',
@@ -95,6 +96,9 @@ export class VparkedPage implements OnInit {
   iconColor58 = 'white';
   iconColor59 = 'white';
   iconColor60 = 'white';
+  reserved: reservationI;
+  docRef3: DocumentReference;
+  user2: user;
 
   constructor(private router: Router, public afstore: AngularFirestore, private alertController: AlertController) {
     var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '==', 'GP01').limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
@@ -1314,6 +1318,38 @@ export class VparkedPage implements OnInit {
           await alert.present();
           console.log(this.s_space);
           subscripton1.unsubscribe();
+        });
+
+      });
+
+
+      var snapshotResult3 = this.afstore.collection('reservation', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces3 => spaces3));
+      var subscripton3 = snapshotResult3.subscribe(async doc => {
+
+        this.reserved = <reservationI>doc.payload.doc.data();
+        this.docRef3 = doc.payload.doc.ref;
+
+        var snapshotResult4 = this.afstore.collection('users', ref => ref.where('userid', '==', this.reserved.userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
+        var subscripton4 = snapshotResult4.subscribe(async doc => {
+          this.user2 = <user>doc.payload.doc.data();
+          this.docRef2 = doc.payload.doc.ref;
+
+
+
+          subscripton4.unsubscribe();
+
+
+          const alert = await this.alertController.create({
+            header: 'Parking Details',
+            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + ' is Reserved<br><strong>Driver ID</strong>:' + this.reserved.userid + '<br><strong>Driver Name</strong>:' + this.user2.username + '',
+            translucent: true,
+            buttons: ['OK']
+          });
+
+
+          await alert.present();
+          console.log(this.reserved);
+          subscripton3.unsubscribe();
         });
 
       });
