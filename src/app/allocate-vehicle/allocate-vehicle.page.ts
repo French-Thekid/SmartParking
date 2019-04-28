@@ -111,10 +111,7 @@ export class AllocateVehiclePage implements OnInit {
       if (this.Reservation == true/*(this.userallocateid != '') && (this.License != "")*/) {
 
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-        if (snapshotResult != null) {
-          this.done = false;
-          console.log('this.done');
-          //NOTIFY USER
+            
 
           var subscripton = snapshotResult.subscribe(doc => {
             this.reservedSpace = <p_spaceI>doc.payload.doc.data();
@@ -138,7 +135,7 @@ export class AllocateVehiclePage implements OnInit {
 
           });
           console.log('Reservation found');
-        }
+        
 
         // }
 

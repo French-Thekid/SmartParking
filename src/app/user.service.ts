@@ -4,6 +4,9 @@ interface user {
   username: string;
   userid: string;
   uid: string;
+  license: string;
+  department: string;
+  email:string;
 }
 
 @Injectable()
@@ -18,6 +21,15 @@ export class UserService {
 
   getUsername() {
     return this.user.username;
+  }
+  getEmail() {
+    return this.user.email;
+  }
+  getLicense() {
+    return this.user.license;
+  }
+  getDepartment() {
+    return this.user.department;
   }
 
   /*getAccountType() {

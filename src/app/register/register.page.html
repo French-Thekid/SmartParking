@@ -11,6 +11,7 @@
     </ion-button>
     <ion-title>Registration</ion-title>
   </ion-toolbar>
+ 
 </ion-header>
 
 <ion-content padding>
@@ -29,17 +30,30 @@
             <ion-input type="text" placeholder="   ID Number" [(ngModel)]="userid"></ion-input>
           </ion-item>
           <ion-item>
+            <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
+            <ion-input type="email" placeholder="   Email Address"  [(ngModel)]="email"></ion-input>
+           
+          </ion-item>
+          <ion-item>
             <ion-icon name="lock"></ion-icon>
             <ion-input type="Password"  placeholder="   Password"  [(ngModel)]="password"></ion-input>
           </ion-item>
           <ion-item>
               <ion-icon name="lock"></ion-icon>
               <ion-input type="Password"  placeholder="   Confirm Password"  [(ngModel)]="password1"></ion-input>
-            </ion-item>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="home"></ion-icon>
+            <ion-input type="text"  placeholder="   School/Department"  [(ngModel)]="department"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="cash"></ion-icon>
+            <ion-input type="text"  placeholder="   License Plate Number"  [(ngModel)]="license"></ion-input>
+          </ion-item>
         </ion-list>
         <br/>
         <ion-button type="reset" [ngStyle]="{'background-color':clear}" id="btn2" (click)="clearIn()" color="Clear">Clear</ion-button>
-        <ion-button [ngStyle]="{'background-color':log}" id="btn2" (click)="register()" color="Clear">Register</ion-button>
+        <ion-button type="submit" [ngStyle]="{'background-color':log}" id="btn2" (click)="register()" color="Clear">Register</ion-button>
       </ion-card-content>
     </ion-card>
   </ion-card>

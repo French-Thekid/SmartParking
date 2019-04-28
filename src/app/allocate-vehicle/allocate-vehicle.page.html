@@ -16,13 +16,13 @@
           <ion-label style="margin-left:15%;text-shadow: 1px 1px grey" id="lbl1">Vehicle Allocation</ion-label>
         </ion-list-header>
 
-        <ion-label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the Vehicle's
-          information
+        <ion-label style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the Vehicle's
+          information<br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;below
           to Continue</ion-label>
       </ion-card>
       <ion-card-content id="c1">
-        <ion-card-subtitle id="Fault">
+        <ion-card-subtitle style="font-size: 10px" id="Fault">
           <ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer
           <ion-toggle [(ngModel)]="Reservation" (ionChange)="Reserve()"></ion-toggle> reservation
         </ion-card-subtitle>

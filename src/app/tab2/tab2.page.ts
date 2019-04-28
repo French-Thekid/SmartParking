@@ -16,8 +16,17 @@ export class Tab2Page {
   docRef2: DocumentReference;
   usernames: Observable<any[]>;
   user: user;
+  logged=true;
   buttonColor = '#000';
-  constructor(public router: Router, public alertController: AlertController, public afstore: AngularFirestore) { }
+  constructor(public router: Router, public alertController: AlertController, public afstore: AngularFirestore) { 
+    if (JSON.parse(localStorage.getItem('userID')) == null) {
+      this.logged=true;
+    }
+    else{
+      this.logged=false;
+    }
+  
+  }
 
   async OpenLogin() {
     this.buttonColor = '#000080';
@@ -42,6 +51,7 @@ export class Tab2Page {
               localStorage.setItem('userID', null);
               localStorage.setItem('password', null);
               this.router.navigate(['login']);
+              this.logged=true;
             }
           }
         ]
