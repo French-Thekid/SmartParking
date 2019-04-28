@@ -34,6 +34,7 @@ export class AllocateVehiclePage implements OnInit {
   docRef1: DocumentReference;
   spaces1: Observable<any[]>;
   reservedSpace: p_spaceI;
+  who: user;
   users: Observable<any[]>;
   user_: user;
   done = false;
@@ -113,15 +114,19 @@ export class AllocateVehiclePage implements OnInit {
     }
     else {
       //getting ID
-      var snapshotResult = this.afstore.collection('users', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-      var subscripton2 = snapshotResult.subscribe(async doc => {
-        var user = <user>doc.payload.doc.data();
-        var docRef2 = doc.payload.doc.ref;
-        subscripton2.unsubscribe();
-        this.userallocateid=user.userid;
-      });
+        var snapshotResult = this.afstore.collection('users', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
+
+        var subscriptond = snapshotResult.subscribe(doc => {
+          this.who = <user>doc.payload.doc.data();
+          this.docRef = doc.payload.doc.ref;
+
+          subscriptond.unsubscribe();
+          localStorage.setItem('TempID', this.who.userid);
+        });
+       
+      console.log("userID1: "+JSON.parse(localStorage.getItem('TempID')));
       if (this.Reservation == true) {
-          
+         
         var snapshotResult = this.afstore.collection('reservation', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
 
           var subscripton = snapshotResult.subscribe(doc => {
@@ -139,16 +144,21 @@ export class AllocateVehiclePage implements OnInit {
 
             this.afstore.collection('o_users').doc(this.License).set({
               userLicNbr: this.License,
-              userid: this.userallocateid,
+              userid: JSON.parse(localStorage.getItem('TempID')),
               parkID: this.reservedSpace.parkID
             });
             this.afstore.collection('reservation').doc(this.reservedSpace.parkID).delete();
 
           });
           console.log('Reservation found');
+        
+
+        // }
+
       }
       else {
-        if ((this.userallocateid.length == 5) && (this.done == false)) {
+        var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
+        if ((tempID.length == 5) && (this.done == false)) {
 
           var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
@@ -165,7 +175,7 @@ export class AllocateVehiclePage implements OnInit {
 
             this.afstore.collection('o_users').doc(this.License).set({
               userLicNbr: this.License,
-              userid: this.userallocateid,
+              userid: tempID,
               parkID: this.freeSpace.parkID
             });
 
@@ -173,8 +183,8 @@ export class AllocateVehiclePage implements OnInit {
 
           });
         }
-
-        else if ((this.userallocateid.length == 7) && (this.done == false)) {
+        else if ((tempID.length == 7) && (this.done == false)) {
+          console.log("2")
           var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
             this.freeSpace = <p_spaceI>doc.payload.doc.data();
@@ -187,10 +197,11 @@ export class AllocateVehiclePage implements OnInit {
               this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
                 status: false
               })
+              var id = JSON.parse(localStorage.getItem('TempID'));
 
               this.afstore.collection('o_users').doc(this.License).set({
                 userLicNbr: this.License,
-                userid: this.userallocateid,
+                userid: tempID,
                 parkID: this.freeSpace.parkID
               });
             }
@@ -200,6 +211,7 @@ export class AllocateVehiclePage implements OnInit {
         }
         // this.vibration.vibrate(0.1);
         else{
+          console.log("3")
           var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
             this.freeSpace = <p_spaceI>doc.payload.doc.data();
@@ -212,15 +224,19 @@ export class AllocateVehiclePage implements OnInit {
               this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
                 status: false
               })
-
+              var id = JSON.parse(localStorage.getItem('TempID'));
               this.afstore.collection('o_users').doc(this.License).set({
                 userLicNbr: this.License,
-                userid: this.userallocateid,
+                userid: tempID,
                 parkID: this.freeSpace.parkID
               });
             }
           });
         }
+
+
+
+
         //var o_userRef = this.afstore.collection('o_users');
         //var query = o_userRef.where('userLicNbr', '==', '7907EM');
         //this.afstore
@@ -247,7 +263,7 @@ export class AllocateVehiclePage implements OnInit {
     }
     await this.stall(2000);
     this.License = '';
-    this.userallocateid = '';
+    //localStorage.setItem('TempID','');
   }
 
   back() {

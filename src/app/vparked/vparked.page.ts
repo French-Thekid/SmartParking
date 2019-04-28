@@ -1280,8 +1280,8 @@ export class VparkedPage implements OnInit {
       //search o_users for details
       this.selectedSpot = spot;
 
-      var snapshotResult1 = this.afstore.collection('o_users', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
-      var subscripton1 = snapshotResult1.subscribe(async doc => {
+      var snapshotResult6 = this.afstore.collection('o_users', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+      var subscripton11 = snapshotResult6.subscribe(async doc => {
 
         this.o_user = <o_userI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
@@ -1297,28 +1297,31 @@ export class VparkedPage implements OnInit {
           await alert.present();
 
         }
-        var snapshotResult2 = this.afstore.collection('users', ref => ref.where('userid', '==', this.o_user.userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
-        var subscripton2 = snapshotResult2.subscribe(async doc => {
-          this.user = <user>doc.payload.doc.data();
-          this.docRef2 = doc.payload.doc.ref;
-
-
-
-          subscripton2.unsubscribe();
-
-
-          const alert = await this.alertController.create({
-            header: 'Parking Details',
-            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>:' + this.user.username + '',
-            translucent: true,
-            buttons: ['OK']
+        
+          var snapshotResult12 = this.afstore.collection('users', ref => ref.where('userid', '==', this.o_user.userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
+          var subscripton21 = snapshotResult12.subscribe(async doc => {
+            this.user = <user>doc.payload.doc.data();
+            this.docRef2 = doc.payload.doc.ref;
+  
+  
+  
+            subscripton21.unsubscribe();
+  
+  
+            const alert = await this.alertController.create({
+              header: 'Parking Details',
+              message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>:' + this.user.username + '',
+              translucent: true,
+              buttons: ['OK']
+            });
+  
+  
+            await alert.present();
+            console.log(this.s_space);
+            subscripton11.unsubscribe();
           });
-
-
-          await alert.present();
-          console.log(this.s_space);
-          subscripton1.unsubscribe();
-        });
+        
+        
 
       });
 

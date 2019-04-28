@@ -1311,22 +1311,21 @@ export class SspotPage implements OnInit {
           await alert.present();
           this.router.navigate(['sspot']);
 
-        } else {
-          const alert = await this.alertController.create({
-            header: 'Parking Spot Selected',
-            message: '<strong>Parking Spot</strong>: ' + this.s_space2.parkID + '',
-            translucent: true,
-            buttons: ['OK']
-          });
-          await alert.present();
+        } 
+        else {
+            const alert = await this.alertController.create({
+              header: 'Parking Spot Selected',
+              message: '<strong>Parking Spot</strong>: ' + this.s_space2.parkID + '',
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
           localStorage.setItem('sspot', JSON.stringify(this.selectedSpot));
           this.router.navigate(['/tabs/tab3']);
         }
         console.log(this.s_space2.parkID);
         // this.freeSpace.parkID = this.freeSpaceID;
         // console.log(this.freeSpaceID);
-
-
         subscripton2.unsubscribe();
 
       });
