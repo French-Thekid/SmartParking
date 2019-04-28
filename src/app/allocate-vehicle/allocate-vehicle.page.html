@@ -26,9 +26,8 @@
           <ion-toggle [(ngModel)]="FPrinter" (ionChange)="updatePrint()"></ion-toggle> Faulty Printer
           <ion-toggle [(ngModel)]="Reservation" (ionChange)="Reserve()"></ion-toggle> reservation
         </ion-card-subtitle>
+        <br><br>
         <ion-input placeholder="Enter the Vehicle's License Plate number" [(ngModel)]="License">
-        </ion-input>
-        <ion-input placeholder="Enter the Driver's ID number (Optional)" [(ngModel)]="userallocateid">
         </ion-input>
         <ion-button id="proceed" [ngStyle]="{ 'background-color': buttonColor }" (click)="allocateVehicle()">Allocate
           Vehicle</ion-button>

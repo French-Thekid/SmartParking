@@ -100,71 +100,72 @@ export class LoginPage implements OnInit {
                   this.ngZone.run(() => {
                           localStorage.setItem('userID', JSON.stringify(this.userid));
                           //localStorage.setItem('password', JSON.stringify(this.password));
-                          // var snapshotResult = this.afstore.collection('user', ref => ref.where('userid', '==', JSON.parse(localStorage.getItem('userID'))).limit(1)).snapshotChanges().pipe(flatMap(users => users));
-                          // var subscripton = snapshotResult.subscribe(doc => {
-                          // this.user_ = <user>doc.payload.doc.data();
-                          // this.docRef = doc.payload.doc.ref;
-
-                          //   subscripton.unsubscribe();
-                          //   console.log(this.user_);
-                          //   localStorage.setItem('uname', this.user_.username);
-                          //   console.log('name' + JSON.parse(localStorage.getItem('uname')));
-
-                          // });
-                          if(userid.length==3){
-                            this.router.navigate(['admin-portal']);
-                          }
-                          else if(userid.length==5){
-                            this.router.navigate(['tabs']);
-                          }
-                          else if(userid.length==7){
-                            this.router.navigate(['tabs']);
-                          }   
+                          var snapshotResult2 = this.afstore.collection('users', ref => ref.where('userid', '==', userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
+                          var subscripton2 = snapshotResult2.subscribe(async doc => {
+                            var user = <user>doc.payload.doc.data();
+                            var docRef2 = doc.payload.doc.ref;
+                            subscripton2.unsubscribe();
+                            console.log("Curr Lic: "+user.license)
+                            localStorage.setItem('License', JSON.stringify(user.license));
+                          });
                   });
                  var SetUserData=result.user;
+                if(userid.length==3){
+                  this.router.navigate(['admin-portal']);
+                }
+                else if(userid.length==5){
+                  this.router.navigate(['tabs']);
+                }
+                else if(userid.length==7){
+                  this.router.navigate(['tabs']);
+                }
 
-            }).catch((error) => {
-           console.log(error.message)
+            }).catch((err) => {
+           console.log(err.message)
+           console.log("Code: "+err.code)
+           if (err.code === 'auth/wrong-password') {
+            console.log('Invalid');
+            this.logFail();
+           }
+           if(err.code="auth/user-not-found"){
+             this.logFail1();
+           }
         })
-
-        const res = await this.afAuth.auth.signInWithEmailAndPassword(
-          userid + '@smartpark.com',
-          password
-        );
-          //return this.OpenPortal().updateUserData(res.user);
-        if(userid.length==3){
-          //admin portal link
-        }
-        else if(userid.length==5){
-          //staff/home portal link
-          //this.storage.set('userID', this.userid);
-        }
-        else if(userid.length==7){
-           //student/home portal link
-          // this.storage.set('userID', this.userid);
-        }
 
         this.userid="";
         this.password="";
       } catch (err) {
         console.dir(err);
-        if (err.code === 'auth/user-not-found') {
-          console.log('User not Found');
-          const alert = await this.alertController.create({
-            header: 'Warning',
-            subHeader: 'User Not Found',
-            message: "Please Check credentials and try again",
-            translucent: true,
-            buttons: ['OK']
-          });
-          await alert.present();
+        console.log("Code1: "+err.code)
+        if (err.code === 'auth/wrong-password') {
+          this.logFail();
+        }
+        if(err.code="auth/user-not-found"){
+          this.logFail1();
         }
       }
-    
     }
-    
   }
-
+  async logFail(){
+    const alert = await this.alertController.create({
+      header: 'Warning',
+      subHeader: 'Invalid Username/Password',
+      message: "Please Check credentials and try again",
+      translucent: true,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+  async logFail1(){
+    const alert = await this.alertController.create({
+      header: 'Warning',
+      subHeader: 'User Not Found',
+      message: "Please Check credentials and try again",
+      translucent: true,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
   returnHome() {
     this.router.navigate(['tabs']);
     this.userid="";

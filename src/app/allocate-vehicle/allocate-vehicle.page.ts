@@ -10,6 +10,8 @@ import { switchMap, flatMap } from 'rxjs/operators';
 import { query } from '@angular/core/src/render3';
 import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { UserService } from '../user.service';
+import { user } from '../services/user.model';
 
 @Component({
   selector: 'app-allocate-vehicle',
@@ -32,7 +34,8 @@ export class AllocateVehiclePage implements OnInit {
   docRef1: DocumentReference;
   spaces1: Observable<any[]>;
   reservedSpace: p_spaceI;
-
+  users: Observable<any[]>;
+  user_: user;
   done = false;
 
 
@@ -43,6 +46,7 @@ export class AllocateVehiclePage implements OnInit {
     public afstore: AngularFirestore,
     private vibration: Vibration,
     private qrcService: QRCService,
+    public user: UserService,
     private alertController: AlertController,
     private o_userService: OccupiedUserService,
     private p_spaceService: ParkingSpaceService
@@ -108,10 +112,17 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
     else {
-      if (this.Reservation == true/*(this.userallocateid != '') && (this.License != "")*/) {
-
-        var snapshotResult = this.afstore.collection('reservation', ref => ref.where('userid', '==', this.userallocateid).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-            
+      //getting ID
+      var snapshotResult = this.afstore.collection('users', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
+      var subscripton2 = snapshotResult.subscribe(async doc => {
+        var user = <user>doc.payload.doc.data();
+        var docRef2 = doc.payload.doc.ref;
+        subscripton2.unsubscribe();
+        this.userallocateid=user.userid;
+      });
+      if (this.Reservation == true) {
+          
+        var snapshotResult = this.afstore.collection('reservation', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
 
           var subscripton = snapshotResult.subscribe(doc => {
             this.reservedSpace = <p_spaceI>doc.payload.doc.data();
@@ -135,10 +146,6 @@ export class AllocateVehiclePage implements OnInit {
 
           });
           console.log('Reservation found');
-        
-
-        // }
-
       }
       else {
         if ((this.userallocateid.length == 5) && (this.done == false)) {
@@ -192,7 +199,7 @@ export class AllocateVehiclePage implements OnInit {
           });
         }
         // this.vibration.vibrate(0.1);
-        else if (this.userallocateid == '') {
+        else{
           var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
           var subscripton = snapshotResult.subscribe(doc => {
             this.freeSpace = <p_spaceI>doc.payload.doc.data();
@@ -212,15 +219,8 @@ export class AllocateVehiclePage implements OnInit {
                 parkID: this.freeSpace.parkID
               });
             }
-
-
           });
-
         }
-
-
-
-
         //var o_userRef = this.afstore.collection('o_users');
         //var query = o_userRef.where('userLicNbr', '==', '7907EM');
         //this.afstore

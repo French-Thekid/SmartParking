@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
 
-  private updateUserData({ uid, userid, username, accountType }: user) {
+  private updateUserData({ uid, userid, username, accountType,license,department,email }: user) {
     const userRef: AngularFirestoreDocument<user> = this.afs.doc(
       `users/${uid}`
     );
@@ -41,7 +41,10 @@ export class AuthService {
       uid,
       userid,
       username,
-      accountType
+      accountType,
+      license,
+      department,
+      email
     };
 
     return userRef.set(data, { merge: true });

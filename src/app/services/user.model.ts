@@ -3,6 +3,9 @@ export interface user {
   userid: string;
   username?: string;
   accountType?: string;
+  license: string;
+  department: string;
+  email:string;
 }
 
 export class UserService {

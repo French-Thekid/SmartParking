@@ -22,6 +22,6 @@
         <ion-label>   New And Fully Efficient Parking Spot <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reservation System.</ion-label>
     </ion-card-content>
   </ion-card>
-  <ion-button *ngIf="logged" id="btnLog" ionFocus (click)="OpenLogin()" routerDirection="Forward"  shape="round" expand="block" [ngStyle]="{'background-color':buttonColor}" >Log In</ion-button>
+  <ion-button  id="btnLog" ionFocus (click)="OpenLogin()" routerDirection="Forward"  shape="round" expand="block" [ngStyle]="{'background-color':buttonColor}" >{{logged}}</ion-button>
 </ion-content>
  

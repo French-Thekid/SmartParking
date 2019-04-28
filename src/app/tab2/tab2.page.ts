@@ -16,14 +16,14 @@ export class Tab2Page {
   docRef2: DocumentReference;
   usernames: Observable<any[]>;
   user: user;
-  logged=true;
+  logged="Fresh";
   buttonColor = '#000';
   constructor(public router: Router, public alertController: AlertController, public afstore: AngularFirestore) { 
     if (JSON.parse(localStorage.getItem('userID')) == null) {
-      this.logged=true;
+      this.logged="Log In";
     }
     else{
-      this.logged=false;
+      this.logged="Log Out";
     }
   
   }
@@ -51,7 +51,7 @@ export class Tab2Page {
               localStorage.setItem('userID', null);
               localStorage.setItem('password', null);
               this.router.navigate(['login']);
-              this.logged=true;
+              this.logged="Log In";
             }
           }
         ]
@@ -94,7 +94,7 @@ export class Tab2Page {
         }
         const alert = await this.alertController.create({
           header: 'User Profile',
-          message: '<strong>Name:</strong>' + this.user.username + '<br><strong>ID Number:</strong>' + this.user.userid + '<br><strong>Account Type:</strong>' + cat,
+          message: '<strong>Name:</strong>' + this.user.username + '<br><strong>ID Number:</strong>' + this.user.userid + '<br><strong>Account Type:</strong>' + cat +'<br><strong>Email:</strong>' + this.user.email +'<br><strong>Department:</strong>' + this.user.department +'<br><strong>License #:</strong>' + this.user.license,
           translucent: true,
           buttons: [{
             text: 'Ok',
@@ -107,6 +107,7 @@ export class Tab2Page {
               localStorage.setItem('userID', null);
               localStorage.setItem('password', null);
               this.loggedOut();
+              this.logged="Log In";
             }
           }]
 
