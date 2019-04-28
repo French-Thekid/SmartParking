@@ -1306,11 +1306,17 @@ export class VparkedPage implements OnInit {
   
   
             subscripton21.unsubscribe();
-  
+            var type;
+            if(this.user.userid.length==7){
+               type="Student"
+            }
+            else{
+               type="Staff"
+            }
   
             const alert = await this.alertController.create({
               header: 'Parking Details',
-              message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>:' + this.user.username + '',
+              message: '<strong>Parking Spot</strong> ' + this.selectedSpot + '<br><strong>Vehicle License</strong>:' + this.o_user.userLicNbr + '<br><strong>Driver ID</strong>:' + this.o_user.userid + '<br><strong>Driver Name</strong>:' + this.user.username + '<br><strong>Type:</strong>' + type +'<br><strong>Email:</strong>' + this.user.email +'<br><strong>Department:</strong>' + this.user.department,
               translucent: true,
               buttons: ['OK']
             });
@@ -1340,11 +1346,18 @@ export class VparkedPage implements OnInit {
 
 
           subscripton4.unsubscribe();
+          var type;
+            if(this.user.userid.length==7){
+               type="Student"
+            }
+            else{
+               type="Staff"
+            }
 
 
           const alert = await this.alertController.create({
             header: 'Parking Details',
-            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + ' is Reserved<br><strong>Driver ID</strong>:' + this.reserved.userid + '<br><strong>Driver Name</strong>:' + this.user2.username + '',
+            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + ' is Reserved<br><strong>Driver ID</strong>:' + this.reserved.userid + '<br><strong>Driver Name</strong>:' + this.user2.username +  '<br><strong>Type:</strong>' + type +'<br><strong>Email:</strong>' + this.user.email +'<br><strong>Department:</strong>' + this.user.department,
             translucent: true,
             buttons: ['OK']
           });
