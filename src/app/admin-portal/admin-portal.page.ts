@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { key } from 'localforage';
 
 @Component({
   selector: 'app-admin-portal',
@@ -13,8 +16,36 @@ export class AdminPortalPage implements OnInit {
   select2: string = "rgba(0,0,0,0.2)";
   select3: string = "rgba(0,0,0,0.2)";
   select4: string = "rgba(0,0,0,0.2)";
+  count: number = 0;
+  
 
-  constructor(public router: Router, private storage: Storage, ) { }
+  constructor(public router: Router, 
+    public afstore: AngularFirestore,
+    private LNotif: LocalNotifications,
+    private storage: Storage, ) {
+      
+      var s =this.afstore.collection('reports').valueChanges()
+      var x=s.subscribe((data) => { 
+          console.log('new data added')
+          if((JSON.parse(localStorage.getItem('RChk'))==null)&&(this.count!=0))
+          {
+            this.newRep();
+            console.log('RChk: '+JSON.parse(localStorage.getItem('RChk')))
+          }
+          this.count++;
+         
+      })
+
+   }
+
+   newRep(){
+    this.LNotif.schedule({
+      id: 1,
+      text: 'New Report Made, Please Check Reports',
+      //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
+      data: { secret: key }
+    });
+   }
 
   logOut() {
     localStorage.setItem('userID',null);

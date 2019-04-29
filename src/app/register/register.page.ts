@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { key } from 'localforage';
 
 @Component({
   selector: 'app-register',
@@ -25,12 +27,24 @@ export class RegisterPage implements OnInit {
   log:string="rgba(0,0,0,0.1)";
 
   constructor(
+    private emailComposer: EmailComposer,
+    private platform:Platform,
+    private LNotif: LocalNotifications,
     public router: Router,
     public afAuth: AngularFireAuth,
     public afstore: AngularFirestore,
     private alertController: AlertController,
     public user: UserService
   ) { }
+    notify(){
+      this.LNotif.schedule({
+        id: 1,
+        text: 'I love Christina',
+        //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
+        data: { secret: key }
+      });
+    }
+ 
 
   ngOnInit() { }
 

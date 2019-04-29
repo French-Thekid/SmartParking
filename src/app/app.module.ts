@@ -22,7 +22,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { UserService } from './user.service';
 import { AngularFireFunctionsModule, FunctionsRegionToken } from '@angular/fire/functions';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,7 +42,9 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   providers: [
     StatusBar,
+    LocalNotifications,
     Camera,
+    EmailComposer,
     SplashScreen,
     BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -9,13 +9,21 @@ import {
   o_userI,
   OccupiedUserService
 } from '../services/occupied-user.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { key } from 'localforage';
+import { Vibration } from '@ionic-native/vibration/ngx';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  constructor(public alertController: AlertController, public afstore: AngularFirestore, public router: Router) { }
+  constructor(
+    public alertController: AlertController, 
+    public afstore: AngularFirestore, 
+    public router: Router,
+    private vibration: Vibration,
+    private LNotif: LocalNotifications) { }
   time = 5;
   check: boolean = false;
   check1: boolean = false;
@@ -147,14 +155,12 @@ export class Tab3Page {
 
   }
   async lossSpot() {
-    const alert = await this.alertController.create({
-      header: 'Reservation Cancelled',
-      subHeader: 'Im Sorry but your reservation has been cancelled due to late arrival.',
-      buttons: ['OK']
+    this.LNotif.schedule({
+      id: 1,
+      text: 'Reservation Cancelled',
+      //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
+      data: { secret: key }
     });
-
-
-    await alert.present();
   }
   public dealwithit() {
     var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('spaceNbr', '==', JSON.parse(localStorage.getItem('sspot'))).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
@@ -172,8 +178,8 @@ export class Tab3Page {
           reserved: false
         });
         this.afstore.collection('reservation').doc(this.s_space1.parkID).delete();
-
         this.lossSpot();
+        this.vibration.vibrate(0.1);
       }
     });
   }
