@@ -61,6 +61,7 @@ export class CreportsPage implements OnInit {
       {
         text: 'Yes',
         handler: async data => {
+          
           this.afstore.collection('reports').doc(License).delete();
           this.removed();
           this.router.navigate(['creports']);
