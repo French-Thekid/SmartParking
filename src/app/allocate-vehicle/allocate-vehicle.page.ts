@@ -100,7 +100,7 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
   }
-
+  
   async allocateVehicle() {
     if (this.License == '') {
       const alert = await this.alertController.create({
@@ -114,6 +114,10 @@ export class AllocateVehiclePage implements OnInit {
     }
     else {
       //getting ID
+      var x = JSON.parse(localStorage.getItem('TempID'));
+        if(x.length!=0){
+          localStorage.setItem('TempID', '1234');
+        }
         var snapshotResult = this.afstore.collection('users', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
         var subscriptond = snapshotResult.subscribe(doc => {
           this.who = <user>doc.payload.doc.data();
@@ -122,42 +126,97 @@ export class AllocateVehiclePage implements OnInit {
           subscriptond.unsubscribe();
           console.log("License: "+this.License);
           console.log("ID: "+this.who.userid);
+          if((this.who.userid.length>7)||(this.who.userid.length<5))
+          {
+              this.done=true;
+          }
           localStorage.setItem('TempID', this.who.userid);
           console.log("TempID: "+JSON.parse(localStorage.getItem('TempID')));
         });
 
-       await this.stall(400);//since the above function is async we need to wait a lil bit on the data
+       await this.stall(1000);//since the above function is async we need to wait a lil bit on the data
        console.log("userID1: "+JSON.parse(localStorage.getItem('TempID'))+"\n\n");
+
+       //Reservation section
        if (this.Reservation == true) {
-         
-        var snapshotResult = this.afstore.collection('reservation', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
-
+        var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
+          var tag=false
+          var snapshotResult = this.afstore.collection('reservation', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));
           var subscripton = snapshotResult.subscribe(doc => {
-            this.reservedSpace = <p_spaceI>doc.payload.doc.data();
-            this.docRef = doc.payload.doc.ref;
-
-            subscripton.unsubscribe();
-            console.log(this.reservedSpace.parkID);
-            // this.freeSpace.parkID = this.freeSpaceID;
-            // console.log(this.freeSpaceID);
-            this.afstore.collection('parkingSpace').doc(this.reservedSpace.parkID).update({
-              status: false,
-              reserved: false
-            })
-
-            this.afstore.collection('o_users').doc(this.License).set({
-              userLicNbr: this.License,
-              userid: JSON.parse(localStorage.getItem('TempID'))+"",
-              parkID: this.reservedSpace.parkID
-            });
-            this.afstore.collection('reservation').doc(this.reservedSpace.parkID).delete();
-
+          this.reservedSpace = <p_spaceI>doc.payload.doc.data();
+          this.docRef = doc.payload.doc.ref;
+          subscripton.unsubscribe();
+          console.log(this.reservedSpace.parkID);
+         
+          this.afstore.collection('parkingSpace').doc(this.reservedSpace.parkID).update({
+            status: false,
+            reserved: false
+          })
+          localStorage.setItem("tag","true");
+          console.log('Inside');
+          this.afstore.collection('o_users').doc(this.License).set({
+            userLicNbr: this.License,
+            userid: JSON.parse(localStorage.getItem('TempID'))+"",
+            parkID: this.reservedSpace.parkID
           });
-          console.log('Reservation found');
+          this.afstore.collection('reservation').doc(this.reservedSpace.parkID).delete();
+
+        });
         
-
-        // }
-
+        
+        await this.stall(1000)
+        if(JSON.parse(localStorage.getItem("tag"))!=true){
+            localStorage.setItem("tag","false");
+        }
+        console.log("lic1: "+this.License)
+        if(JSON.parse(localStorage.getItem("tag"))==false){
+          console.log('No Reservations Found');
+          const alert = await this.alertController.create({
+                    header: 'Confirmation',
+                    message: 'No Reservation Found, Would you like to assign next available parking space to driver?',
+                    translucent: true,
+                    buttons: [{
+                      text: 'No',
+                      role: 'cancel'
+                    },
+                    {
+                      text: 'Yes',
+                      handler: async data => {
+                        //ISSUE: PASSING ID INTO YES SECTION OF ALERT
+                        // var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
+                        // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
+                        // var subscripton = snapshotResult.subscribe(doc => {
+                        //   this.freeSpace = <p_spaceI>doc.payload.doc.data();
+                        //   this.docRef = doc.payload.doc.ref;
+                        //   if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+                        //     subscripton.unsubscribe();
+                        //     console.log(this.freeSpace.parkID);
+                        //     // this.freeSpace.parkID = this.freeSpaceID;
+                        //     // console.log(this.freeSpaceID);
+                        //     this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+                        //       status: false
+                        //     })
+                        //    console.log("lic: "+this.License)
+                        //     this.afstore.collection('o_users').doc(this.License).set({
+                        //       userLicNbr: this.License,
+                        //       userid: tempID,
+                        //       parkID: this.freeSpace.parkID
+                        //     });
+                        //   }
+                        // });
+                        // this.vibration.vibrate(0.1);
+                        
+                      }
+                    }]
+              
+                  });
+                  await alert.present();
+        }
+        else{
+          console.log('Reservation Found');
+          await this.stall(1000)
+          localStorage.setItem("tag","false");
+        }
       }
       else {
         var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
@@ -227,7 +286,7 @@ export class AllocateVehiclePage implements OnInit {
               var id = JSON.parse(localStorage.getItem('TempID'));
               this.afstore.collection('o_users').doc(this.License).set({
                 userLicNbr: this.License,
-                userid: tempID,
+                userid: '',
                 parkID: this.freeSpace.parkID
               });
             }
@@ -264,6 +323,7 @@ export class AllocateVehiclePage implements OnInit {
     }
     await this.stall(2000);
     this.License = '';
+    
   }
 
   back() {
