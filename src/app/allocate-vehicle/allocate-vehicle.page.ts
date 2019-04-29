@@ -12,6 +12,7 @@ import { p_spaceI, ParkingSpaceService } from '../services/parking-space.service
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { UserService } from '../user.service';
 import { user } from '../services/user.model';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-allocate-vehicle',
@@ -30,6 +31,7 @@ export class AllocateVehiclePage implements OnInit {
   spaces: Observable<any[]>;
   freeSpace: p_spaceI;
   freeSpaceID: string;
+  wait= false
 
   docRef1: DocumentReference;
   spaces1: Observable<any[]>;
@@ -44,6 +46,7 @@ export class AllocateVehiclePage implements OnInit {
   constructor(
     private router: Router,
     public platform: Platform,
+    public loadingController: LoadingController,
     public afstore: AngularFirestore,
     private vibration: Vibration,
     private qrcService: QRCService,
@@ -100,13 +103,16 @@ export class AllocateVehiclePage implements OnInit {
       await alert.present();
     }
   }
-  
+  async presentLoading() {
+    
+  }
+
   async allocateVehicle() {
-    if (this.License == '') {
+    if ((this.License == '')||(this.License.length!=6)) {
       const alert = await this.alertController.create({
         header: 'Warning',
         subHeader: 'Invalid Input',
-        message: 'Please enter license plate number and/or ID to continue',
+        message: 'Please enter a valid license plate number to continue',
         translucent: true,
         buttons: ['OK']
       });
@@ -114,6 +120,8 @@ export class AllocateVehiclePage implements OnInit {
     }
     else {
       //getting ID
+
+      localStorage.setItem('TL',this.License);
       var x = JSON.parse(localStorage.getItem('TempID'));
         if(x.length!=0){
           localStorage.setItem('TempID', '1234');
@@ -134,7 +142,7 @@ export class AllocateVehiclePage implements OnInit {
           console.log("TempID: "+JSON.parse(localStorage.getItem('TempID')));
         });
 
-       await this.stall(1000);//since the above function is async we need to wait a lil bit on the data
+       await this.stall(400);//since the above function is async we need to wait a lil bit on the data
        console.log("userID1: "+JSON.parse(localStorage.getItem('TempID'))+"\n\n");
 
        //Reservation section
@@ -161,56 +169,85 @@ export class AllocateVehiclePage implements OnInit {
           });
           this.afstore.collection('reservation').doc(this.reservedSpace.parkID).delete();
 
+          this.vibration.vibrate(0.1);
         });
         
-        
-        await this.stall(1000)
+       // await this.stall(500)
+          const loading = await this.loadingController.create({
+            message: 'Please Wait ...',
+            duration: 500
+          });
+          await loading.present();
+      
+          const { role, data } = await loading.onDidDismiss();
+      
+          //console.log('Loading dismissed!');
         if(JSON.parse(localStorage.getItem("tag"))!=true){
             localStorage.setItem("tag","false");
         }
-        console.log("lic1: "+this.License)
+        console.log("lic1: "+JSON.parse(localStorage.getItem('TempID')))
         if(JSON.parse(localStorage.getItem("tag"))==false){
-          console.log('No Reservations Found');
-          const alert = await this.alertController.create({
-                    header: 'Confirmation',
-                    message: 'No Reservation Found, Would you like to assign next available parking space to driver?',
-                    translucent: true,
-                    buttons: [{
-                      text: 'No',
-                      role: 'cancel'
-                    },
-                    {
-                      text: 'Yes',
-                      handler: async data => {
-                        //ISSUE: PASSING ID INTO YES SECTION OF ALERT
-                        // var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
-                        // var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
-                        // var subscripton = snapshotResult.subscribe(doc => {
-                        //   this.freeSpace = <p_spaceI>doc.payload.doc.data();
-                        //   this.docRef = doc.payload.doc.ref;
-                        //   if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
-                        //     subscripton.unsubscribe();
-                        //     console.log(this.freeSpace.parkID);
-                        //     // this.freeSpace.parkID = this.freeSpaceID;
-                        //     // console.log(this.freeSpaceID);
-                        //     this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
-                        //       status: false
-                        //     })
-                        //    console.log("lic: "+this.License)
-                        //     this.afstore.collection('o_users').doc(this.License).set({
-                        //       userLicNbr: this.License,
-                        //       userid: tempID,
-                        //       parkID: this.freeSpace.parkID
-                        //     });
-                        //   }
-                        // });
-                        // this.vibration.vibrate(0.1);
-                        
-                      }
-                    }]
+            const alert = await this.alertController.create({
+              header: 'APMS Notification',
+              subHeader: 'No Reservation Found',
+              message: 'Recommendation: Switching off reservation mode and allocate regularly',
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
+            console.log('No reservation Found');
+          // this.wait=false;
+          // console.log('No Reservations Found');
+          // const alert = await this.alertController.create({
+          //           header: 'Confirmation',
+          //           message: 'No Reservation Found, Would you like to assign next available parking space to driver?',
+          //           translucent: true,
+          //           buttons: [{
+          //             text: 'No',
+          //             role: 'cancel',
+          //             handler: data =>{
+          //               localStorage.setItem('tag2','false');
+          //             }
+          //           },
+          //           {
+          //             text: 'Yes',
+          //             handler: async data => {
+          //                 localStorage.setItem('tag2','true')
+          //             }
+          //           }]
               
-                  });
-                  await alert.present();
+          //         });
+          //         await alert.present();
+          //         if(JSON.parse(localStorage.getItem('tag2'))==true){
+
+          //         }
+          //         else{
+          //           if(JSON.parse(localStorage.getItem('tag2'))==true){
+          //             var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '>', 'GP20').limit(40)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          //             var subscripton = snapshotResult.subscribe(async doc => {
+          //               this.freeSpace = <p_spaceI>doc.payload.doc.data();
+          //               this.docRef = doc.payload.doc.ref;
+          //               if ((this.freeSpace.status == true) && (this.freeSpace.reserved == false)) {
+          //                 subscripton.unsubscribe();
+          //                 console.log(this.freeSpace.parkID);
+          //                 this.afstore.collection('parkingSpace').doc(this.freeSpace.parkID).update({
+          //                 //  status: false
+          //                 })
+          //                 console.log("lic: "+JSON.parse(localStorage.getItem('TL')))
+          //                 console.log("ID: "+JSON.parse(localStorage.getItem('TempID')))
+          //                 this.afstore.collection('o_users').doc(JSON.parse(localStorage.getItem('TL'))+"").set({
+          //                   userLicNbr: JSON.parse(localStorage.getItem('TL'))+"",
+          //                   userid: JSON.parse(localStorage.getItem('TempID'))+"",
+          //                   parkID: this.freeSpace.parkID
+          //                 });
+          //               }
+          //             });
+          //             this.vibration.vibrate(0.1);
+          //       }
+          //       else{
+          //         console.log('Else')
+          //       }
+          //    }   
         }
         else{
           console.log('Reservation Found');
@@ -321,7 +358,7 @@ export class AllocateVehiclePage implements OnInit {
 
       }
     }
-    await this.stall(2000);
+    await this.stall(3000);
     this.License = '';
     
   }
