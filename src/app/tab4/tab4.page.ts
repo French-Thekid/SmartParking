@@ -133,7 +133,7 @@ export class Tab4Page {
       
   
       const alert = await this.alertController.create({
-        header: 'License Place Number Required',
+        header: 'License Plate Number Required',
         inputs: [
           {
             name: 'ULic',

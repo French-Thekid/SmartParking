@@ -160,7 +160,7 @@ export class AllocateVehiclePage implements OnInit {
             status: false,
             reserved: false
           })
-          //localStorage.setItem("tag","true");
+          localStorage.setItem("tag","true");
           console.log('Inside');
           this.afstore.collection('o_users').doc(this.License).set({
             userLicNbr: this.License,
@@ -172,7 +172,6 @@ export class AllocateVehiclePage implements OnInit {
           this.vibration.vibrate(0.1);
         });
         
-       // await this.stall(500)
           const loading = await this.loadingController.create({
             message: 'Please Wait ...',
             duration: 500
@@ -185,7 +184,7 @@ export class AllocateVehiclePage implements OnInit {
         if(JSON.parse(localStorage.getItem("tag"))!=true){
             localStorage.setItem("tag","false");
         }
-        console.log("lic1: "+JSON.parse(localStorage.getItem('TempID')))
+        console.log("tag: "+JSON.parse(localStorage.getItem('tag')))
         if(JSON.parse(localStorage.getItem("tag"))==false){
             const alert = await this.alertController.create({
               header: 'APMS Notification',
@@ -199,6 +198,7 @@ export class AllocateVehiclePage implements OnInit {
             this.wait=false; 
         }
         else{
+          this.vibration.vibrate(0.1);
           console.log('Reservation Found');
           await this.stall(1000)
           localStorage.setItem("tag","false");

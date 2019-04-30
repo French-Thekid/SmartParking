@@ -14,6 +14,7 @@ import {
 import { Observable } from 'rxjs';
 import { p_spaceI } from '../services/parking-space.service';
 import { flatMap } from 'rxjs/operators';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-deallocate-vehicle',
@@ -83,22 +84,23 @@ export class DeallocateVehiclePage implements OnInit {
         console.log('Error', err);
       });
   }
-
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   async deallocate() {
-    if(this.License==''){
+    if((this.License=='')||(this.License.length!=6)){
       const alert = await this.alertController.create({
         header: 'Warning',
         subHeader: 'Invalid Input',
-        message: 'Please enter license plate number to continue',
+        message: 'Please enter a valid license plate number to continue',
         translucent: true,
         buttons: ['OK']
       });
       await alert.present();
     }
     else{
-      this.vibration.vibrate(0.1);
-      this.popUp(this.License);
-
+      
+      localStorage.setItem("tem",'false');
       var snapshotResult = this.afstore.collection('o_users', ref => ref.where('userLicNbr', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(users => users));
       var subscripton = snapshotResult.subscribe(doc => {
         this.ouser = <o_userI>doc.payload.doc.data();
@@ -106,25 +108,45 @@ export class DeallocateVehiclePage implements OnInit {
 
         subscripton.unsubscribe();
         console.log(this.ouser);
-        if(this.ouser.parkID==null){
-          console.log('not found');
-          //this.Fail(this.License);
+        var x = this.ouser.parkID.split('P');
+        if(x!=null){
+          var y = x[0];
+          if(y=='G'){
+              localStorage.setItem("tem",'true');
+              console.log("tem INSIDE: ",JSON.parse(localStorage.getItem('tem')))
+          }
+          else{
+            localStorage.setItem("tem",'false');
+            console.log("tem INSIDE: ",JSON.parse(localStorage.getItem('tem')))
+          }
         }
-        // this.freeSpace.parkID = this.freeSpaceID;
-        // console.log(this.freeSpaceID);
         this.afstore.collection('parkingSpace').doc(this.ouser.parkID).update({
           status: true,
           reserved: false
         });
         this.afstore.collection('reservation').doc(this.ouser.parkID).delete();
+        
       });
       this.afstore.collection('o_users').doc(this.License).delete();
+
+      console.log("tem: ",JSON.parse(localStorage.getItem('tem')))
+      await this.stall(1000);
+      if(JSON.parse(localStorage.getItem('tem'))==false){
+        console.log("no such vehicle")
+        this.Fail(this.License);
+      }
+      else if (JSON.parse(localStorage.getItem('tem'))==true){
+        this.popUp(this.License);
+        localStorage.setItem("tem",'false');
+        this.vibration.vibrate(0.1);
+      }
+
     }
   }
 
   async popUp(License) {
     const alert = await this.alertController.create({
-      header: 'Notification',
+      header: 'APMS Notification',
       subHeader: 'Vehicle with License Plate #: ' + License + ' removed',
       buttons: ['OK']
     });
@@ -134,8 +156,8 @@ export class DeallocateVehiclePage implements OnInit {
   }
   async Fail(License) {
     const alert = await this.alertController.create({
-      header: 'Notification',
-      subHeader: 'Vehicle with License Plate #: ' + License + ' was not found',
+      header: 'Error',
+      subHeader: 'No Vehicle Found with license #: ' + License,
       buttons: ['OK']
     });
     await alert.present();

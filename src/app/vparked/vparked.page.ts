@@ -1282,9 +1282,9 @@ export class VparkedPage implements OnInit {
 
       var snapshotResult6 = this.afstore.collection('o_users', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
       var subscripton11 = snapshotResult6.subscribe(async doc => {
-
         this.o_user = <o_userI>doc.payload.doc.data();
         this.docRef = doc.payload.doc.ref;
+
         if (this.o_user.userid == '') {
           this.o_user.userid = 'N/A';
           console.log('Occupied Nuh have no ID');
@@ -1334,7 +1334,6 @@ export class VparkedPage implements OnInit {
 
       var snapshotResult3 = this.afstore.collection('reservation', ref => ref.where('parkID', '==', 'GP' + this.selectedSpot).limit(1)).snapshotChanges().pipe(flatMap(spaces3 => spaces3));
       var subscripton3 = snapshotResult3.subscribe(async doc => {
-
         this.reserved = <reservationI>doc.payload.doc.data();
         this.docRef3 = doc.payload.doc.ref;
 
@@ -1343,31 +1342,34 @@ export class VparkedPage implements OnInit {
           this.user2 = <user>doc.payload.doc.data();
           this.docRef2 = doc.payload.doc.ref;
 
+          var snapshotResult12 = this.afstore.collection('users', ref => ref.where('userid', '==', this.reserved.userid).limit(1)).snapshotChanges().pipe(flatMap(usernames => usernames));
+          var subscripton21 = snapshotResult12.subscribe(async doc => {
+            this.user2 = <user>doc.payload.doc.data();
+            this.docRef2 = doc.payload.doc.ref;
+  
+                  subscripton21.unsubscribe();
+                  var type="student";
+                  console.log("ID: "+this.reserved.userid)
+                    if(this.reserved.userid.length==7){
+                        type="Student"
+                    }
+                    else{
+                        type="Staff"
+                    }
+                    const alert = await this.alertController.create({
+                      header: 'Parking Details',
+                      message: '<strong>Parking Spot</strong> ' + this.selectedSpot + ' is Reserved<br><strong>Driver ID</strong>:' + this.reserved.userid + '<br><strong>Driver Name</strong>:' + this.user2.username +  '<br><strong>Type:</strong>' + type +'<br><strong>Email:</strong>' + this.user2.email +'<br><strong>Department:</strong>' + this.user2.department,
+                      translucent: true,
+                      buttons: ['OK']
+                    });
+                    await alert.present();
+                });
 
-
-          subscripton4.unsubscribe();
-          var type;
-            if(this.user.userid.length==7){
-               type="Student"
-            }
-            else{
-               type="Staff"
-            }
-
-
-          const alert = await this.alertController.create({
-            header: 'Parking Details',
-            message: '<strong>Parking Spot</strong> ' + this.selectedSpot + ' is Reserved<br><strong>Driver ID</strong>:' + this.reserved.userid + '<br><strong>Driver Name</strong>:' + this.user2.username +  '<br><strong>Type:</strong>' + type +'<br><strong>Email:</strong>' + this.user.email +'<br><strong>Department:</strong>' + this.user.department,
-            translucent: true,
-            buttons: ['OK']
-          });
-
-
-          await alert.present();
           console.log(this.reserved);
-          subscripton3.unsubscribe();
+         
+          subscripton4.unsubscribe();
         });
-
+        subscripton3.unsubscribe();
       });
     }
 
