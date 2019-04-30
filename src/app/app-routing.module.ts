@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'vparked', loadChildren: './vparked/vparked.module#VparkedPageModule' },
   { path: 'creports', loadChildren: './creports/creports.module#CreportsPageModule' },
   { path: 'manage-sys', loadChildren: './manage-sys/manage-sys.module#ManageSysPageModule' },
-  { path: 'swap-vehicles', loadChildren: './swap-vehicles/swap-vehicles.module#SwapVehiclesPageModule' }
+  { path: 'swap-vehicles', loadChildren: './swap-vehicles/swap-vehicles.module#SwapVehiclesPageModule' },
+  { path: 'sspot-r', loadChildren: './sspot-r/sspot-r.module#SspotRPageModule' }
 
 ];
 @NgModule({

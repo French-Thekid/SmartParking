@@ -123,8 +123,6 @@ export class ManageSysPage implements OnInit {
             subscripton.unsubscribe();
             doc.docs.forEach(ouser => {
               localStorage.setItem('tempID', JSON.stringify(ouser.data().userid));
-              // this.freeSpace.parkID = this.freeSpaceID;
-              // console.log(this.freeSpaceID);
               this.afstore.collection('parkingSpace').doc(ouser.data().parkID).update({
                 status: true,
                 reserved: false

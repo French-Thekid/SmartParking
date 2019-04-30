@@ -17,7 +17,7 @@
           <tbody>
             <tr *ngFor='let report of Reports' style="border-bottom: 1px solid silver"> 
                 <td style="border-right: 1px solid silver">{{report.reporterLicNbr }}</td>
-                <td style="font-size:12px;border-right: 1px solid silver">{{report.report}}</td>
+                <td style="font-size:12px;border-right: 1px solid silver">{{report.report}}<br><strong>Violator's License:</strong>  {{report.reportLicNbr2}}<br><strong>Spot Moved:</strong>  {{report.newSpot}}</td>
                 <td>
                     <button id="btn"(click)="deleteReport(report.reporterLicNbr)">Delete Report</button>
                 </td>

@@ -75,7 +75,7 @@ export class CreportsPage implements OnInit {
 
     });
     await alert.present();
-
+    
     
   }
   async removed(){
