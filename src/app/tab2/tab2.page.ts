@@ -16,9 +16,10 @@ export class Tab2Page {
   docRef2: DocumentReference;
   usernames: Observable<any[]>;
   user: user;
-  logged="Fresh";
+  logged="Log Out";
   buttonColor = '#000';
   constructor(public router: Router, public alertController: AlertController, public afstore: AngularFirestore) { 
+    console.log('Main')
     if (JSON.parse(localStorage.getItem('userID')) == null) {
       this.logged="Log In";
     }
@@ -27,12 +28,12 @@ export class Tab2Page {
     }
   
   }
-
+  ngOnInit() { 
+  }
   async OpenLogin() {
     this.buttonColor = '#000080';
     var IDChk = JSON.parse(localStorage.getItem('userID'));
     if (IDChk != null) {
-
       const alert = await this.alertController.create({
         header: 'Confirm!',
         message: "<strong>Already signed in under user ID:" + JSON.parse(localStorage.getItem('userID')) + "</strong>, would you like to log-out and log in as someone else?",
@@ -52,6 +53,12 @@ export class Tab2Page {
               localStorage.setItem('password', null);
               this.router.navigate(['login']);
               this.logged="Log In";
+              if (JSON.parse(localStorage.getItem('userID')) == null) {
+                this.logged="Log In";
+              }
+              else{
+                this.logged="Log Out";
+              }   
             }
           }
         ]
@@ -61,7 +68,15 @@ export class Tab2Page {
       this.router.navigate(['login']);
     }
   }
-
+  ionViewDidLoad(){
+    console.log("fucker");
+    if (JSON.parse(localStorage.getItem('userID')) == null) {
+      this.logged="Log In";
+    }
+    else{
+      this.logged="Log Out";
+    }   
+  }
   async openProfile() {
 
     if (JSON.parse(localStorage.getItem('userID')) == null) {
@@ -108,6 +123,12 @@ export class Tab2Page {
               localStorage.setItem('password', null);
               this.loggedOut();
               this.logged="Log In";
+              if (JSON.parse(localStorage.getItem('userID')) == null) {
+                this.logged="Log In";
+              }
+              else{
+                this.logged="Log Out";
+              }     
             }
           }]
 

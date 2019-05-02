@@ -32,70 +32,70 @@ export class SspotPage implements OnInit {
   selectedSpot: string;
   SbuttonColor = 'clear';
   iconColor: any = '#00FF00';
-  iconColor1 = 'white';
+  iconColor1 = '#7FFF00';
   iconColor2 = 'red';
-  iconColor3 = 'white';
+  iconColor3 = '#7FFF00';
   iconColor4 = 'red';
-  iconColor5 = 'white';
+  iconColor5 = '#7FFF00';
   iconColor6 = 'red';
-  iconColor7 = 'white';
+  iconColor7 = '#7FFF00';
   iconColor8 = 'red';
-  iconColor9 = 'white';
+  iconColor9 = '#7FFF00';
   iconColor10 = 'red';
-  iconColor11 = 'white';
-  iconColor12 = 'white';
-  iconColor13 = 'white';
-  iconColor14 = 'white';
-  iconColor15 = 'white';
-  iconColor16 = 'white';
-  iconColor17 = 'white';
-  iconColor18 = 'white';
-  iconColor19 = 'white';
-  iconColor20 = 'white';
-  iconColor21 = 'white';
-  iconColor22 = 'white';
-  iconColor23 = 'white';
-  iconColor24 = 'white';
-  iconColor25 = 'white';
-  iconColor26 = 'white';
-  iconColor27 = 'white';
-  iconColor28 = 'white';
-  iconColor29 = 'white';
-  iconColor30 = 'white';
-  iconColor31 = 'white';
-  iconColor32 = 'white';
-  iconColor33 = 'white';
-  iconColor34 = 'white';
-  iconColor35 = 'white';
-  iconColor36 = 'white';
-  iconColor37 = 'white';
-  iconColor38 = 'white';
-  iconColor39 = 'white';
-  iconColor40 = 'white';
-  iconColor41 = 'white';
-  iconColor42 = 'white';
-  iconColor43 = 'white';
-  iconColor44 = 'white';
-  iconColor45 = 'white';
-  iconColor46 = 'white';
-  iconColor47 = 'white';
-  iconColor48 = 'white';
-  iconColor49 = 'white';
-  iconColor50 = 'white';
-  iconColor51 = 'white';
-  iconColor52 = 'white';
-  iconColor53 = 'white';
-  iconColor54 = 'white';
-  iconColor55 = 'white';
-  iconColor56 = 'white';
-  iconColor57 = 'white';
-  iconColor58 = 'white';
-  iconColor59 = 'white';
-  iconColor60 = 'white';
-  iconColorA = "white"
+  iconColor11 = '#7FFF00';
+  iconColor12 = '#7FFF00';
+  iconColor13 = '#7FFF00';
+  iconColor14 = '#7FFF00';
+  iconColor15 = '#7FFF00';
+  iconColor16 = '#7FFF00';
+  iconColor17 = '#7FFF00';
+  iconColor18 = '#7FFF00';
+  iconColor19 = '#7FFF00';
+  iconColor20 = '#7FFF00';
+  iconColor21 = '#7FFF00';
+  iconColor22 = '#7FFF00';
+  iconColor23 = '#7FFF00';
+  iconColor24 = '#7FFF00';
+  iconColor25 = '#7FFF00';
+  iconColor26 = '#7FFF00';
+  iconColor27 = '#7FFF00';
+  iconColor28 = '#7FFF00';
+  iconColor29 = '#7FFF00';
+  iconColor30 = '#7FFF00';
+  iconColor31 = '#7FFF00';
+  iconColor32 = '#7FFF00';
+  iconColor33 = '#7FFF00';
+  iconColor34 = '#7FFF00';
+  iconColor35 = '#7FFF00';
+  iconColor36 = '#7FFF00';
+  iconColor37 = '#7FFF00';
+  iconColor38 = '#7FFF00';
+  iconColor39 = '#7FFF00';
+  iconColor40 = '#7FFF00';
+  iconColor41 = '#7FFF00';
+  iconColor42 = '#7FFF00';
+  iconColor43 = '#7FFF00';
+  iconColor44 = '#7FFF00';
+  iconColor45 = '#7FFF00';
+  iconColor46 = '#7FFF00';
+  iconColor47 = '#7FFF00';
+  iconColor48 = '#7FFF00';
+  iconColor49 = '#7FFF00';
+  iconColor50 = '#7FFF00';
+  iconColor51 = '#7FFF00';
+  iconColor52 = '#7FFF00';
+  iconColor53 = '#7FFF00';
+  iconColor54 = '#7FFF00';
+  iconColor55 = '#7FFF00';
+  iconColor56 = '#7FFF00';
+  iconColor57 = '#7FFF00';
+  iconColor58 = '#7FFF00';
+  iconColor59 = '#7FFF00';
+  iconColor60 = '#7FFF00';
+  iconColorA = "#7FFF00"
   iconColorNA = "red"
-  iconColorRE = "#7FFF00"
-  iconColorvar = 'white';
+  iconColorRE = "white"
+  iconColorvar = '#7FFF00';
   moveon: boolean;
   staffCheck: boolean = false;
 
@@ -109,7 +109,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor1 = '#7FFF00';
+        this.iconColor1 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor1 = 'clear';
       }
@@ -117,7 +117,7 @@ export class SspotPage implements OnInit {
         this.iconColor1 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor1 = 'white';
+        this.iconColor1 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -129,7 +129,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor3 = '#7FFF00';
+        this.iconColor3 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor3 = 'clear';
       }
@@ -137,7 +137,7 @@ export class SspotPage implements OnInit {
         this.iconColor3 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor3 = 'white';
+        this.iconColor3 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -149,7 +149,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor5 = '#7FFF00';
+        this.iconColor5 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor5 = 'clear';
       }
@@ -157,7 +157,7 @@ export class SspotPage implements OnInit {
         this.iconColor5 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor5 = 'white';
+        this.iconColor5 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -169,7 +169,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor7 = '#7FFF00';
+        this.iconColor7 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor7 = 'clear';
       }
@@ -177,7 +177,7 @@ export class SspotPage implements OnInit {
         this.iconColor7 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor7 = 'white';
+        this.iconColor7 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -189,7 +189,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor9 = '#7FFF00';
+        this.iconColor9 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor9 = 'clear';
       }
@@ -197,7 +197,7 @@ export class SspotPage implements OnInit {
         this.iconColor9 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor9 = 'white';
+        this.iconColor9 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -209,7 +209,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor11 = '#7FFF00';
+        this.iconColor11 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor11 = 'clear';
       }
@@ -217,7 +217,7 @@ export class SspotPage implements OnInit {
         this.iconColor11 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor11 = 'white';
+        this.iconColor11 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -229,7 +229,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor12 = '#7FFF00';
+        this.iconColor12 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor12 = 'clear';
       }
@@ -237,7 +237,7 @@ export class SspotPage implements OnInit {
         this.iconColor12 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor12 = 'white';
+        this.iconColor12 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -249,7 +249,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor13 = '#7FFF00';
+        this.iconColor13 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor13 = 'clear';
       }
@@ -257,7 +257,7 @@ export class SspotPage implements OnInit {
         this.iconColor13 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor13 = 'white';
+        this.iconColor13 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -269,7 +269,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor14 = '#7FFF00';
+        this.iconColor14 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor14 = 'clear';
       }
@@ -277,7 +277,7 @@ export class SspotPage implements OnInit {
         this.iconColor14 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor14 = 'white';
+        this.iconColor14 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -289,7 +289,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor15 = '#7FFF00';
+        this.iconColor15 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor15 = 'clear';
       }
@@ -297,7 +297,7 @@ export class SspotPage implements OnInit {
         this.iconColor15 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor15 = 'white';
+        this.iconColor15 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -309,7 +309,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor16 = '#7FFF00';
+        this.iconColor16 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor16 = 'clear';
       }
@@ -317,7 +317,7 @@ export class SspotPage implements OnInit {
         this.iconColor16 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor16 = 'white';
+        this.iconColor16 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -329,7 +329,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor17 = '#7FFF00';
+        this.iconColor17 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor17 = 'clear';
       }
@@ -337,7 +337,7 @@ export class SspotPage implements OnInit {
         this.iconColor17 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor17 = 'white';
+        this.iconColor17 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -349,7 +349,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor18 = '#7FFF00';
+        this.iconColor18 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor18 = 'clear';
       }
@@ -357,7 +357,7 @@ export class SspotPage implements OnInit {
         this.iconColor18 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor18 = 'white';
+        this.iconColor18 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -369,7 +369,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor19 = '#7FFF00';
+        this.iconColor19 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor19 = 'clear';
       }
@@ -377,7 +377,7 @@ export class SspotPage implements OnInit {
         this.iconColor19 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor19 = 'white';
+        this.iconColor19 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -389,7 +389,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor20 = '#7FFF00';
+        this.iconColor20 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor20 = 'clear';
       }
@@ -397,7 +397,7 @@ export class SspotPage implements OnInit {
         this.iconColor20 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor20 = 'white';
+        this.iconColor20 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -409,7 +409,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor21 = '#7FFF00';
+        this.iconColor21 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor21 = 'clear';
       }
@@ -417,7 +417,7 @@ export class SspotPage implements OnInit {
         this.iconColor21 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor21 = 'white';
+        this.iconColor21 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -429,7 +429,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor22 = '#7FFF00';
+        this.iconColor22 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor22 = 'clear';
       }
@@ -437,7 +437,7 @@ export class SspotPage implements OnInit {
         this.iconColor22 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor22 = 'white';
+        this.iconColor22 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -449,7 +449,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor23 = '#7FFF00';
+        this.iconColor23 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor23 = 'clear';
       }
@@ -457,7 +457,7 @@ export class SspotPage implements OnInit {
         this.iconColor23 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor23 = 'white';
+        this.iconColor23 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -469,7 +469,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor24 = '#7FFF00';
+        this.iconColor24 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor24 = 'clear';
       }
@@ -477,7 +477,7 @@ export class SspotPage implements OnInit {
         this.iconColor24 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor24 = 'white';
+        this.iconColor24 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -489,7 +489,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor25 = '#7FFF00';
+        this.iconColor25 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor25 = 'clear';
       }
@@ -497,7 +497,7 @@ export class SspotPage implements OnInit {
         this.iconColor25 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor25 = 'white';
+        this.iconColor25 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -509,7 +509,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor26 = '#7FFF00';
+        this.iconColor26 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor26 = 'clear';
       }
@@ -517,7 +517,7 @@ export class SspotPage implements OnInit {
         this.iconColor26 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor26 = 'white';
+        this.iconColor26 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -530,7 +530,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor27 = '#7FFF00';
+        this.iconColor27 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor27 = 'clear';
       }
@@ -538,7 +538,7 @@ export class SspotPage implements OnInit {
         this.iconColor27 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor27 = 'white';
+        this.iconColor27 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -551,7 +551,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor28 = '#7FFF00';
+        this.iconColor28 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor28 = 'clear';
       }
@@ -559,7 +559,7 @@ export class SspotPage implements OnInit {
         this.iconColor28 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor28 = 'white';
+        this.iconColor28 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -573,7 +573,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor29 = '#7FFF00';
+        this.iconColor29 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor29 = 'clear';
       }
@@ -581,7 +581,7 @@ export class SspotPage implements OnInit {
         this.iconColor29 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor29 = 'white';
+        this.iconColor29 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -594,7 +594,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor30 = '#7FFF00';
+        this.iconColor30 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor30 = 'clear';
       }
@@ -602,7 +602,7 @@ export class SspotPage implements OnInit {
         this.iconColor30 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor30 = 'white';
+        this.iconColor30 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -615,7 +615,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor31 = '#7FFF00';
+        this.iconColor31 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor31 = 'clear';
       }
@@ -623,7 +623,7 @@ export class SspotPage implements OnInit {
         this.iconColor31 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor31 = 'white';
+        this.iconColor31 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -636,7 +636,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor32 = '#7FFF00';
+        this.iconColor32 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor32 = 'clear';
       }
@@ -644,7 +644,7 @@ export class SspotPage implements OnInit {
         this.iconColor32 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor32 = 'white';
+        this.iconColor32 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -657,7 +657,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor33 = '#7FFF00';
+        this.iconColor33 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor33 = 'clear';
       }
@@ -665,7 +665,7 @@ export class SspotPage implements OnInit {
         this.iconColor33 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor33 = 'white';
+        this.iconColor33 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -678,7 +678,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor34 = '#7FFF00';
+        this.iconColor34 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor34 = 'clear';
       }
@@ -686,7 +686,7 @@ export class SspotPage implements OnInit {
         this.iconColor34 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor34 = 'white';
+        this.iconColor34 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -699,7 +699,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor35 = '#7FFF00';
+        this.iconColor35 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor35 = 'clear';
       }
@@ -707,7 +707,7 @@ export class SspotPage implements OnInit {
         this.iconColor35 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor35 = 'white';
+        this.iconColor35 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -720,7 +720,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor36 = '#7FFF00';
+        this.iconColor36 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor36 = 'clear';
       }
@@ -728,7 +728,7 @@ export class SspotPage implements OnInit {
         this.iconColor36 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor36 = 'white';
+        this.iconColor36 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -741,7 +741,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor37 = '#7FFF00';
+        this.iconColor37 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor37 = 'clear';
       }
@@ -749,7 +749,7 @@ export class SspotPage implements OnInit {
         this.iconColor37 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor37 = 'white';
+        this.iconColor37 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -762,7 +762,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor38 = '#7FFF00';
+        this.iconColor38 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor38 = 'clear';
       }
@@ -770,7 +770,7 @@ export class SspotPage implements OnInit {
         this.iconColor38 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor38 = 'white';
+        this.iconColor38 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -783,7 +783,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor39 = '#7FFF00';
+        this.iconColor39 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor39 = 'clear';
       }
@@ -791,7 +791,7 @@ export class SspotPage implements OnInit {
         this.iconColor39 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor39 = 'white';
+        this.iconColor39 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -804,7 +804,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor40 = '#7FFF00';
+        this.iconColor40 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor40 = 'clear';
       }
@@ -812,7 +812,7 @@ export class SspotPage implements OnInit {
         this.iconColor40 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor40 = 'white';
+        this.iconColor40 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -825,7 +825,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor41 = '#7FFF00';
+        this.iconColor41 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor41 = 'clear';
       }
@@ -833,7 +833,7 @@ export class SspotPage implements OnInit {
         this.iconColor41 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor41 = 'white';
+        this.iconColor41 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -846,7 +846,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor42 = '#7FFF00';
+        this.iconColor42 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor42 = 'clear';
       }
@@ -854,7 +854,7 @@ export class SspotPage implements OnInit {
         this.iconColor42 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor42 = 'white';
+        this.iconColor42 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -867,7 +867,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor43 = '#7FFF00';
+        this.iconColor43 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor43 = 'clear';
       }
@@ -875,7 +875,7 @@ export class SspotPage implements OnInit {
         this.iconColor43 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor43 = 'white';
+        this.iconColor43 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -888,7 +888,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor44 = '#7FFF00';
+        this.iconColor44 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor44 = 'clear';
       }
@@ -896,7 +896,7 @@ export class SspotPage implements OnInit {
         this.iconColor44 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor44 = 'white';
+        this.iconColor44 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -909,7 +909,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor45 = '#7FFF00';
+        this.iconColor45 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor45 = 'clear';
       }
@@ -917,7 +917,7 @@ export class SspotPage implements OnInit {
         this.iconColor45 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor45 = 'white';
+        this.iconColor45 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -930,7 +930,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor46 = '#7FFF00';
+        this.iconColor46 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor46 = 'clear';
       }
@@ -938,7 +938,7 @@ export class SspotPage implements OnInit {
         this.iconColor46 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor46 = 'white';
+        this.iconColor46 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -951,7 +951,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor47 = '#7FFF00';
+        this.iconColor47 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor47 = 'clear';
       }
@@ -959,7 +959,7 @@ export class SspotPage implements OnInit {
         this.iconColor47 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor47 = 'white';
+        this.iconColor47 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -972,7 +972,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor48 = '#7FFF00';
+        this.iconColor48 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor48 = 'clear';
       }
@@ -980,7 +980,7 @@ export class SspotPage implements OnInit {
         this.iconColor48 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor48 = 'white';
+        this.iconColor48 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -993,7 +993,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor49 = '#7FFF00';
+        this.iconColor49 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor49 = 'clear';
       }
@@ -1001,7 +1001,7 @@ export class SspotPage implements OnInit {
         this.iconColor49 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor49 = 'white';
+        this.iconColor49 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1014,7 +1014,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor50 = '#7FFF00';
+        this.iconColor50 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor50 = 'clear';
       }
@@ -1022,7 +1022,7 @@ export class SspotPage implements OnInit {
         this.iconColor50 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor50 = 'white';
+        this.iconColor50 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1035,7 +1035,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor51 = '#7FFF00';
+        this.iconColor51 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor51 = 'clear';
       }
@@ -1043,7 +1043,7 @@ export class SspotPage implements OnInit {
         this.iconColor51 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor51 = 'white';
+        this.iconColor51 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1056,7 +1056,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor52 = '#7FFF00';
+        this.iconColor52 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor52 = 'clear';
       }
@@ -1064,7 +1064,7 @@ export class SspotPage implements OnInit {
         this.iconColor52 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor52 = 'white';
+        this.iconColor52 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1077,7 +1077,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor53 = '#7FFF00';
+        this.iconColor53 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor53 = 'clear';
       }
@@ -1085,7 +1085,7 @@ export class SspotPage implements OnInit {
         this.iconColor53 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor53 = 'white';
+        this.iconColor53 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1098,7 +1098,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor54 = '#7FFF00';
+        this.iconColor54 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor54 = 'clear';
       }
@@ -1106,7 +1106,7 @@ export class SspotPage implements OnInit {
         this.iconColor54 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor54 = 'white';
+        this.iconColor54 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1119,7 +1119,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor55 = '#7FFF00';
+        this.iconColor55 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor55 = 'clear';
       }
@@ -1127,7 +1127,7 @@ export class SspotPage implements OnInit {
         this.iconColor55 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor55 = 'white';
+        this.iconColor55 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1140,7 +1140,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor56 = '#7FFF00';
+        this.iconColor56 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor56 = 'clear';
       }
@@ -1148,7 +1148,7 @@ export class SspotPage implements OnInit {
         this.iconColor56 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor56 = 'white';
+        this.iconColor56 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1161,7 +1161,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor57 = '#7FFF00';
+        this.iconColor57 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor57 = 'clear';
       }
@@ -1169,7 +1169,7 @@ export class SspotPage implements OnInit {
         this.iconColor57 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor57 = 'white';
+        this.iconColor57 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1182,7 +1182,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor58 = '#7FFF00';
+        this.iconColor58 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor58 = 'clear';
       }
@@ -1190,7 +1190,7 @@ export class SspotPage implements OnInit {
         this.iconColor58 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor58 = 'white';
+        this.iconColor58 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1203,7 +1203,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor59 = '#7FFF00';
+        this.iconColor59 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor59 = 'clear';
       }
@@ -1211,7 +1211,7 @@ export class SspotPage implements OnInit {
         this.iconColor59 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor59 = 'white';
+        this.iconColor59 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1223,7 +1223,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColor60 = '#7FFF00';
+        this.iconColor60 = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColor60 = 'clear';
       }
@@ -1231,7 +1231,7 @@ export class SspotPage implements OnInit {
         this.iconColor60 = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColor60 = 'white';
+        this.iconColor60 = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);
@@ -1243,7 +1243,7 @@ export class SspotPage implements OnInit {
       this.s_space = <p_spaceI>doc.payload.doc.data();
       this.docRef = doc.payload.doc.ref;
       if (this.s_space.reserved == true) {
-        this.iconColorvar = '#7FFF00';
+        this.iconColorvar = 'white';
       } else if (this.s_space.reserved == false) {
         this.iconColorvar = 'clear';
       }
@@ -1251,7 +1251,7 @@ export class SspotPage implements OnInit {
         this.iconColorvar = 'red';
       }
       if (this.s_space.status == true && this.s_space.reserved == false) {
-        this.iconColorvar = 'white';
+        this.iconColorvar = '#7FFF00';
         console.log('yea');
       }
       console.log(this.s_space);

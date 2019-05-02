@@ -78,7 +78,6 @@ export class LoginPage implements OnInit {
     }
     else{
       try {
-
         return this.afAuth.auth.signInWithEmailAndPassword( userid + '@smartpark.com', password).then((result) => {
                   this.ngZone.run(() => {
                           localStorage.setItem('userID', JSON.stringify(this.userid));
@@ -102,6 +101,10 @@ export class LoginPage implements OnInit {
                 else if(userid.length==7){
                   this.router.navigate(['tabs']);
                 }
+
+                this.stall(7000);
+                this.userid=''
+                this.password=''
 
             }).catch((err) => {
            console.log(err.message)

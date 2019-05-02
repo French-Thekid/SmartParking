@@ -56,7 +56,6 @@ export class Tab3Page {
     this.buttonColor2="rgba(255,255,255,0.4)";
     await this.stall(100);
     this.buttonColor2 = "#000080";
-
     if (this.booked == true) {
       const alert = await this.alertController.create({
         header: 'Reservation Found!',
@@ -209,49 +208,70 @@ export class Tab3Page {
     this.buttonColor="rgba(255,255,255,0.4)";
     await this.stall(100);
     this.buttonColor = "#000080";
-    if (this.booked == true) {
-      const alert = await this.alertController.create({
-        header: 'Reservation Found!',
-        message: "You have already made a reservation, would you like to cancel and make a new one?",
-        buttons: [
-          {
-            text: 'No',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel: blah');
-            }
-          }, {
-            text: 'Yes',
-            handler: () => {
-              //cancel current reservation
-              this.sec = 0;
-              this.min = 0;
-              clearInterval(this.intervalVar);
-              var spot = 'GP' + JSON.parse(localStorage.getItem('sspot'));
-              this.afstore.collection('parkingSpace').doc(spot).update({
-                reserved: false
-              });
-              this.afstore.collection('reservation').doc(spot).delete();
-
-              console.log('new reservation selected');
-              this.booked = false;
-            }
-          }
-        ]
-      });
-      await alert.present();
-    }
-    else {
-      this.check1 = true;
-      this.router.navigate(['sspot']);
-
-    }
+    var IDChk = JSON.parse(localStorage.getItem('userID'));
+      if (IDChk == null) {
+        const alert = await this.alertController.create({
+          header: 'Unknown User',
+          subHeader: 'Please Log-in to Continue.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+      else{
+        if (this.booked == true) {
+          const alert = await this.alertController.create({
+            header: 'Reservation Found!',
+            message: "You have already made a reservation, would you like to cancel and make a new one?",
+            buttons: [
+              {
+                text: 'No',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Yes',
+                handler: () => {
+                  //cancel current reservation
+                  this.sec = 0;
+                  this.min = 0;
+                  clearInterval(this.intervalVar);
+                  var spot = 'GP' + JSON.parse(localStorage.getItem('sspot'));
+                  this.afstore.collection('parkingSpace').doc(spot).update({
+                    reserved: false
+                  });
+                  this.afstore.collection('reservation').doc(spot).delete();
+    
+                  console.log('new reservation selected');
+                  this.booked = false;
+                }
+              }
+            ]
+          });
+          await alert.present();
+        }
+        else {
+          this.check1 = true;
+          this.router.navigate(['sspot']);
+    
+        }
+      }
   }
   async selectTime() {
     this.buttonColor1="rgba(255,255,255,0.4)";
     await this.stall(100);
     this.buttonColor1 = "#000080";
+    var IDChk = JSON.parse(localStorage.getItem('userID'));
+      if (IDChk == null) {
+        const alert = await this.alertController.create({
+          header: 'Unknown User',
+          subHeader: 'Please Log-in to Continue.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+      else{
     if (this.booked == true) {
       const alert = await this.alertController.create({
         header: 'Reservation Found!',
@@ -332,5 +352,6 @@ export class Tab3Page {
 
       await alert.present();
     }
+  }
   }
 }

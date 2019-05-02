@@ -145,7 +145,7 @@ export class AllocateVehiclePage implements OnInit {
       //  console.log("userID1: "+JSON.parse(localStorage.getItem('TempID'))+"\n\n");
 
        //Reservation section
-       if (this.Reservation == true) {
+     //  if (this.Reservation == true) {
 
         var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
           var tag=false
@@ -186,26 +186,18 @@ export class AllocateVehiclePage implements OnInit {
         }
         console.log("tag: "+JSON.parse(localStorage.getItem('tag')))
         if(JSON.parse(localStorage.getItem("tag"))==false){
-            const alert = await this.alertController.create({
-              header: 'APMS Notification',
-              subHeader: 'No Reservation Found',
-              message: 'Recommendation: Switching off reservation mode and allocate regularly',
-              translucent: true,
-              buttons: ['OK']
-            });
-            await alert.present();
-            console.log('No reservation Found');
+            // const alert = await this.alertController.create({
+            //   header: 'APMS Notification',
+            //   subHeader: 'No Reservation Found',
+            //   message: 'Recommendation: Switching off reservation mode and allocate regularly',
+            //   translucent: true,
+            //   buttons: ['OK']
+            // });
+            // await alert.present();
+            // console.log('No reservation Found');
             this.wait=false; 
-        }
-        else{
-          this.vibration.vibrate(0.1);
-          console.log('Reservation Found');
-          await this.stall(1000)
-          localStorage.setItem("tag","false");
-        }
-      }
-      else {
-        var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
+            
+            var tempID=JSON.parse(localStorage.getItem('TempID'))+"";
         console.log('tempID Variable:'+tempID)
 
          if ((tempID.length == 5) && (this.done == false)) {
@@ -272,10 +264,19 @@ export class AllocateVehiclePage implements OnInit {
                 userLicNbr: this.License,
                 userid: '',
                 parkID: this.freeSpace.parkID
-              });
-            }
-         });
-      }
+                  });
+                }
+            });
+          }
+        }
+        else{
+          this.vibration.vibrate(0.1);
+          console.log('Reservation Found');
+          await this.stall(1000)
+          localStorage.setItem("tag","false");
+        }
+      // }
+      // else {
 
 
 
@@ -291,19 +292,29 @@ export class AllocateVehiclePage implements OnInit {
                 userid: userallocateid
               });*/
         if (this.FPrinter == true) {
-          const alert = await this.alertController.create({
-            header: 'On Screen Ticket',
-            subHeader: 'SCIT Parking Lot',
-            message: 'License Plate #:' + this.License + ' \n\n\n ', //'+this.encodedData,
-            translucent: true,
-            buttons: ['OK']
+          var snapshotResult = this.afstore.collection('o_users', ref => ref.where('license', '==', this.License).where('reserved', '==', false).limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
+          var subscripton = snapshotResult.subscribe(async doc => {
+            var info = <p_spaceI>doc.payload.doc.data();
+            this.docRef = doc.payload.doc.ref;
+
+            subscripton.unsubscribe();
+            console.log(info.parkID);
+            // this.freeSpace.parkID = this.freeSpaceID;
+            // console.log(this.freeSpaceID);
+            const alert = await this.alertController.create({
+              header: 'On Screen Ticket',
+              subHeader: 'SCIT Parking Lot',
+              message: 'License Plate #:' + this.License + ' \nParking Space: '+info.parkID, //'+this.encodedData,
+              translucent: true,
+              buttons: ['OK']
+            });
+            await alert.present();
           });
-          await alert.present();
         }
 
         this.vibration.vibrate(0.1);
 
-      }
+     // }
     }
     await this.stall(3000);
     this.License = '';

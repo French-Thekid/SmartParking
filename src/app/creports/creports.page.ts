@@ -69,7 +69,6 @@ export class CreportsPage implements OnInit {
           console.log('RChk 1: '+JSON.parse(localStorage.getItem('RChk')))
           await this.stall(2000);
           localStorage.setItem('RChk', null);
-          
         }
       }]
 

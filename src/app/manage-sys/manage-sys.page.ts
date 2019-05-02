@@ -105,7 +105,7 @@ export class ManageSysPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Warning',
       subHeader: 'Invalid Input',
-      message: 'Please enter license plate number and/or ID to continue',
+      message: 'Please enter license plate number to continue',
       translucent: true,
       buttons: ['OK']
     });
@@ -196,7 +196,7 @@ export class ManageSysPage implements OnInit {
       const alert = await this.alertController.create({
         header: 'Warning',
         subHeader: 'Invalid Input',
-        message: 'Please enter license plate number and/or ID to continue',
+        message: 'Please enter license plate number to continue',
         translucent: true,
         buttons: ['OK']
       });
