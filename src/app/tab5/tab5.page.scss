@@ -1,7 +1,35 @@
-ion-title{
-    font-family:"monseratt";
-    color:dodgerblue;
+#back{
+    background-color: clear;
 }
-#image1{
-    border-top-color: dodgerblue;
+.Container{
+    width:100%;
+    background-color:rgba(255,255,255,0.2);
+    border:1px solid dodgerblue;
+    box-shadow: 0 0 8px 0 whitesmoke;
+    margin-left:0;
+    margin-top:0;
+}
+ion-label,#lbl{
+    color:white;
+    font-family: "monserrat";
+    font-size: 20px;
+
+}
+#top{
+    height:100%;
+    box-shadow: 0 0 3px 0 whi;
+}
+ion-icon{
+    color:#DCDCDC;
+}
+#back{
+    color:black;
+}
+ion-item{
+    padding-bottom: 9px;
+    border:1px solid dodgerblue;
+    background-color: rgba(0,0,0,0.3);
+}
+#arrow{
+ color: #DCDCDC;
 }

@@ -68,14 +68,23 @@ export class Tab2Page {
       this.router.navigate(['login']);
     }
   }
-  ionViewDidLoad(){
+  // ionViewDidLoad(){
+  //   console.log("fucker");
+  //   if (JSON.parse(localStorage.getItem('userID')) == null) {
+  //     this.logged="Log In";
+  //   }
+  //   else{
+  //     this.logged="Log Out";
+  //   }   
+  // }
+  ionViewWillEnter(){
     console.log("fucker");
     if (JSON.parse(localStorage.getItem('userID')) == null) {
       this.logged="Log In";
     }
     else{
       this.logged="Log Out";
-    }   
+    } 
   }
   async openProfile() {
 

@@ -103,6 +103,35 @@ export class Tab1Page {
     //     this.ERROR();
     //   }
     //   else {
+       
+     // }
+  }
+  stall(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  async ionViewWillEnter(){
+    var IDChk = JSON.parse(localStorage.getItem('userID'));
+      if (IDChk == null) {
+        var sum =0;
+        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true)).get()//.snapshotChanges().pipe(flatMap(spaces => spaces));
+          this.stall(1000);
+          var counter = snapshotResult.subscribe(async doc => {
+            counter.unsubscribe();
+            doc.docs.forEach(doc => {
+              sum++
+            })
+            const alert = await this.alertController.create({
+              header: 'APMS Notification',
+              subHeader: 'Please Log-in to access real time view of parking lot.',
+              message: '<strong style="color:red">'+sum+'</strong> parking spaces remaining',
+              buttons: ['OK']
+            });
+            await alert.present();
+            this.stall(5000)
+            this.router.navigate(['tabs'])
+          });
+      }
+      else{
         var snapshotResult1 = this.afstore.collection('parkingSpace', ref => ref.where('parkID', '==', 'GP01').limit(1)).snapshotChanges().pipe(flatMap(spaces => spaces));
         var subscripton1 = snapshotResult1.subscribe(doc => {
           this.s_space = <p_spaceI>doc.payload.doc.data();
@@ -1256,8 +1285,7 @@ export class Tab1Page {
           console.log(this.s_space);
           subscripton1.unsubscribe();
         });
-     // }
-
+      }
 
   }
   //Check DB Here

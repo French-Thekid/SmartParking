@@ -92,12 +92,22 @@ export class Tab3Page {
     else {
       var IDChk = JSON.parse(localStorage.getItem('userID'));
       if (IDChk == null) {
-        const alert = await this.alertController.create({
-          header: 'Unknown User',
-          subHeader: 'Please Log-in to Continue.',
-          buttons: ['OK']
-        });
-        await alert.present();
+        var sum =0;
+        var snapshotResultt = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true)).get()//.snapshotChanges().pipe(flatMap(spaces => spaces));
+          this.stall(1000);
+          var counter = snapshotResultt.subscribe(async doc => {
+            counter.unsubscribe();
+            doc.docs.forEach(doc => {
+              sum++
+            })
+            const alert = await this.alertController.create({
+              header: 'APMS Notification',
+              subHeader: 'Please Log-in to make Reservation.',
+              message: '<strong style="color:red">'+sum+'</strong> parking spaces remaining',
+              buttons: ['OK']
+            });
+            await alert.present();
+          });
       }
       else {
         if ((this.check1 == true) && (this.check == true)) {
@@ -210,12 +220,22 @@ export class Tab3Page {
     this.buttonColor = "#000080";
     var IDChk = JSON.parse(localStorage.getItem('userID'));
       if (IDChk == null) {
-        const alert = await this.alertController.create({
-          header: 'Unknown User',
-          subHeader: 'Please Log-in to Continue.',
-          buttons: ['OK']
-        });
-        await alert.present();
+        var sum =0;
+        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true)).get()//.snapshotChanges().pipe(flatMap(spaces => spaces));
+          this.stall(1000);
+          var counter = snapshotResult.subscribe(async doc => {
+            counter.unsubscribe();
+            doc.docs.forEach(doc => {
+              sum++
+            })
+            const alert = await this.alertController.create({
+              header: 'APMS Notification',
+              subHeader: 'Please Log-in to make Reservation.',
+              message: '<strong style="color:red">'+sum+'</strong> parking spaces remaining',
+              buttons: ['OK']
+            });
+            await alert.present();
+          });
       }
       else{
         if (this.booked == true) {
@@ -264,12 +284,22 @@ export class Tab3Page {
     this.buttonColor1 = "#000080";
     var IDChk = JSON.parse(localStorage.getItem('userID'));
       if (IDChk == null) {
-        const alert = await this.alertController.create({
-          header: 'Unknown User',
-          subHeader: 'Please Log-in to Continue.',
-          buttons: ['OK']
-        });
-        await alert.present();
+        var sum =0;
+        var snapshotResult = this.afstore.collection('parkingSpace', ref => ref.where('status', '==', true)).get()//.snapshotChanges().pipe(flatMap(spaces => spaces));
+          this.stall(1000);
+          var counter = snapshotResult.subscribe(async doc => {
+            counter.unsubscribe();
+            doc.docs.forEach(doc => {
+              sum++
+            })
+            const alert = await this.alertController.create({
+              header: 'APMS Notification',
+              subHeader: 'Please Log-in to make Reservation.',
+              message: '<strong style="color:red">'+sum+'</strong> parking spaces remaining',
+              buttons: ['OK']
+            });
+            await alert.present();
+          });
       }
       else{
     if (this.booked == true) {
