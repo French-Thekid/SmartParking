@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tab5',
   templateUrl: 'tab5.page.html',
@@ -7,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab5Page {
 
-  constructor(public alertController: AlertController) {}
+  constructor(private router: Router,public alertController: AlertController) {}
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -18,6 +19,19 @@ export class Tab5Page {
     });
 
     await alert.present();
+  }
+
+  Darryl(){
+    this.router.navigate(['darryl'])
+  }
+  Christina(){
+    this.router.navigate(['christina'])
+  }
+  Welsh(){
+    this.router.navigate(['welsh'])
+  }
+  Odane(){
+    this.router.navigate(['odane'])
   }
 
 }

@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-button (click)="back()" routerLink="/" routerDirection="back"  color="Dark" id="back">
+          <ion-icon id="back" size="large" name="arrow-back"></ion-icon>
+        </ion-button>
+      <ion-title>Carlisle Welsh's Profile</ion-title>
+      </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-card class="Container">
+        <ion-list >
+          <ion-card id="top">
+              <ion-img id="image" src="/assets/Welsh.png"></ion-img>
+              <ion-list-header>
+                  <ion-label style="margin-left:20%;font-size:20px;text-shadow: 1px 1px grey" id="lbl1"><strong>Carlisle Welsh</strong> </ion-label>
+              </ion-list-header>
+              <ion-label style="margin-left:30%;font-size: 18px">150XXXX </ion-label>
+          </ion-card>
+          <ion-item [ngStyle]="{'background-color':select}" router-direction="forward" (click)="EntranceV()">
+              <ion-label style="color:white;font-family:monserrat"><strong>Development Team:</strong> Software Development</ion-label>
+          </ion-item>
+          <ion-item [ngStyle]="{'background-color':select}" router-direction="forward" (click)="EntranceV()">
+              <ion-label style="color:white;font-family:monserrat"><strong>Major:</strong> Computer Science</ion-label>
+          </ion-item>
+          <ion-item [ngStyle]="{'background-color':select}" router-direction="forward" (click)="EntranceV()">
+              <ion-label style="font-size:12px;color:white;font-family:monserrat"><strong>About:</strong> I am a computer science major who is <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a diligent,  conscientious and open-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minded individual which makes me<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; very good at using my critical thinking<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and problem-solving skills to deduce<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solutions for different kinds of<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; problems. Additionally, I am a sport<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fanatic who enjoys watching football<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and cricket.  Lastly,  I enjoy teamwork<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; as it provides mr with the opportunity<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to work with other team members to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; achieve a common goal.  These traits<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and skills have made me a well-rounded<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; individual can contribute to making<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; any environment I'm in a positive and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; productive one.
+              </ion-label>
+          </ion-item> 
+        </ion-list>
+    </ion-card>
+  
+  </ion-content>
+  

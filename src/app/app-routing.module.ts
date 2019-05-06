@@ -26,7 +26,11 @@ const routes: Routes = [
   { path: 'creports', loadChildren: './creports/creports.module#CreportsPageModule' },
   { path: 'manage-sys', loadChildren: './manage-sys/manage-sys.module#ManageSysPageModule' },
   { path: 'swap-vehicles', loadChildren: './swap-vehicles/swap-vehicles.module#SwapVehiclesPageModule' },
-  { path: 'sspot-r', loadChildren: './sspot-r/sspot-r.module#SspotRPageModule' }
+  { path: 'sspot-r', loadChildren: './sspot-r/sspot-r.module#SspotRPageModule' },
+  { path: 'darryl', loadChildren: './darryl/darryl.module#DarrylPageModule' },
+  { path: 'christina', loadChildren: './christina/christina.module#ChristinaPageModule' },
+  { path: 'welsh', loadChildren: './welsh/welsh.module#WelshPageModule' },
+  { path: 'odane', loadChildren: './odane/odane.module#OdanePageModule' }
 
 ];
 @NgModule({
