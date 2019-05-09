@@ -122,7 +122,10 @@ export class AllocateVehiclePage implements OnInit {
       //getting ID
 
       var x = JSON.parse(localStorage.getItem('TempID'));
-        if(x.length!=0){
+      if (x==null){
+
+      }
+      else if(x.length!=0){
           localStorage.setItem('TempID', '1234');
         }
         var snapshotResult = this.afstore.collection('users', ref => ref.where('license', '==', this.License).limit(1)).snapshotChanges().pipe(flatMap(spaces1 => spaces1));

@@ -57,7 +57,6 @@ export class CreportsPage implements OnInit {
         text: 'No',
         role: 'cancel'
       },
-
       {
         text: 'Yes',
         handler: async data => {
@@ -65,7 +64,7 @@ export class CreportsPage implements OnInit {
           this.afstore.collection('reports').doc(License).delete();
           this.removed();
           this.router.navigate(['creports']);
-          localStorage.setItem('RChk', 'false');
+          localStorage.setItem('RChk', JSON.stringify('false'));
           console.log('RChk 1: '+JSON.parse(localStorage.getItem('RChk')))
           await this.stall(2000);
           localStorage.setItem('RChk', null);
@@ -74,8 +73,6 @@ export class CreportsPage implements OnInit {
 
     });
     await alert.present();
-    
-    
   }
   async removed(){
     const alert = await this.alertController.create({
